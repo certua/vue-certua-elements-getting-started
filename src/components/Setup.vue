@@ -47,6 +47,8 @@ function loadScript(url: string) {
 }
 function getAccessToken() {
   const authUrl = 'https://iqdevauth.certua.io/oauth/token?grant_type=client_credentials'
+  //STAGING URL
+  //const authUrl = 'https://iqstgauth.certua.io/oauth/token?grant_type=client_credentials'
 
   axios
     .post(
@@ -63,7 +65,8 @@ function getAccessToken() {
 }
 function getContextToken() {
   const tokenUrl = 'https://iqdevdaas.certua.io/app/token'
-
+  //STAGING URL
+  //const tokenUrl = 'https://iqstgdaas.certua.io/app/token'
   const body = {
     'client.integration.datasource.preference': ['OpenBanking', 'Yodlee'],
     'client.integration.user.reference': userReference // this is your reference for your client

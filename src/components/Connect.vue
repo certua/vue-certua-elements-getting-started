@@ -18,7 +18,8 @@ let contentOverrides = {
       implicationOfRevocation: '<p>[Custom text about implications of revoke]</p>',
       whatHappens: '<p>[Custom text about what happens to data if they revoke] </p>',
       relink: '<p>[Custom text about ability to relink]</p>',
-      confirm: '<p>[Custom text asking user to confirm]</p>'
+      confirm: '<p>[Custom text asking user to confirm]</p>',
+      termsOfServiceLink: `<a href='#'>[Custom Link to Terms of service here]</a>`
     },
     disconnectSuccess: {
       implicationOfRevocation: '<p>[Custom text about implications of revoke]</p>',

@@ -39,6 +39,10 @@ onMounted(() => {
 
 <template>
   <div class="row" v-if="!showError">
+    <h2>Connect Accounts</h2>
+    <p>
+      This component can be used to facilitate a user connecting their bank account via Open Banking
+    </p>
     <certua-ob-connect
       :contentOverrides="contentOverrides"
       :daasContextToken="contextTokenOptions"

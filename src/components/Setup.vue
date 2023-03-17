@@ -22,7 +22,7 @@ let apiConfig = {}
 
 const step = ref(Step.AccessToken)
 
-let primaryColor = ref('')
+let primaryColor = ref('#007fc6')
 let secondaryColor = ref('')
 
 let username = ''
@@ -62,6 +62,9 @@ function getAccessToken() {
       accessToken = response.data.access_token
       step.value = Step.ContextToken
     })
+}
+function goToComponents() {
+  router.push('/components')
 }
 function getContextToken() {
   const tokenUrl = 'https://iqdevdaas.certua.io/app/token'
@@ -118,8 +121,8 @@ onMounted(() => {
 
 <template>
   <div class="row">
-    <div class="col-md-6">
-      <div class="d-flex flex-start mt-4">
+    <div class="col-md-6 offset-md-3 text-center">
+      <div class="mt-4">
         <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
         <div class="ms-2">
@@ -127,47 +130,59 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 offset-md-3 text-center">
       <div class="row" v-if="step == Step.AccessToken">
         <div class="col">
           <h3>Firstly, we need an access token</h3>
-          <label for="username" class="form-label">Username</label>
-          <input id="username" type="text" class="form-control" v-model="username" />
-          <label for="password" class="label">Password</label>
-          <input id="password" type="password" v-model="password" class="form-control" />
+          <div class="text-start">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="text" class="form-control" v-model="username" />
+            <label for="password" class="label">Password</label>
+            <input id="password" type="password" v-model="password" class="form-control" />
 
-          <button class="btn btn-primary mt-2" @click="getAccessToken()">Get Token</button>
+            <button class="btn btn-primary mt-2" @click="getAccessToken()">Get Token</button>
+          </div>
         </div>
       </div>
 
       <div class="row" v-if="step == Step.ContextToken">
         <div class="col">
           <h3>Now we can get a context token using that access token</h3>
-          <label for="contextToken" class="form-label">Access Token</label>
-          <input id="contextToken" type="text" class="form-control" v-model="accessToken" />
-          <label for="userReference" class="form-label">User Reference</label>
-          <input id="userReference" type="text" class="form-control" v-model="userReference" />
-          <button class="btn btn-link" @click="back(Step.AccessToken)">Back</button>
-          <button class="btn btn-primary mt-3" @click="getContextToken()">Get Context Token</button>
+          <div class="text-start">
+            <label for="contextToken" class="form-label">Access Token</label>
+            <input id="contextToken" type="text" class="form-control" v-model="accessToken" />
+            <label for="userReference" class="form-label">User Reference</label>
+            <input id="userReference" type="text" class="form-control" v-model="userReference" />
+            <button class="btn btn-outline-primary mt-3" @click="back(Step.AccessToken)">
+              Back
+            </button>
+            <button class="btn btn-primary mt-3 ms-2" @click="getContextToken()">
+              Get Context Token
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="row" v-if="step == Step.Styles">
         <div class="col">
           <h3>Now, choose some colours</h3>
-          <label for="primary" class="form-label">Primary</label>
-          <input id="primary" type="text" class="form-control" v-model="primaryColor" />
-          <label for="secondary" class="label">Secondary</label>
-          <input id="secondary" type="text" v-model="secondaryColor" class="form-control" />
-          <button class="btn btn-link" @click="back(Step.ContextToken)">Back</button>
-          <button class="btn btn-primary mt-2" @click="setStyles()">Set styles</button>
+          <div class="text-start">
+            <label for="primary" class="form-label">Primary</label>
+            <input id="primary" type="text" class="form-control" v-model="primaryColor" />
+            <label for="secondary" class="label">Secondary</label>
+            <input id="secondary" type="text" v-model="secondaryColor" class="form-control" />
+            <button class="btn btn-outline-primary mt-2" @click="back(Step.ContextToken)">
+              Back
+            </button>
+            <button class="btn btn-primary mt-2 ms-2" @click="setStyles()">Set styles</button>
+          </div>
         </div>
       </div>
 
       <div class="row" v-if="step == Step.Success">
         <div class="col">
           <h3>Success you can now using Open banking elements</h3>
-          <button class="btn btn-link" @click="reset()">Start again</button>
+          <button class="btn btn-link" @click="goToComponents()">Go to components</button>
         </div>
       </div>
       <div class="row" v-if="step == Step.Error">

@@ -7,31 +7,43 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      alias: '/home',
       component: HomeView
     },
     {
-      path: '/connect',
-      name: 'connect',
+      path: '/components',
+      children: [
+        {
+          path: '',
+          redirect: (to) => {
+            return '/components/connect'
+          }
+        },
+        {
+          path: 'connect',
+          name: 'connect',
 
-      component: () => import('../views/ConnectView.vue')
-    },
-    {
-      path: '/manage-connections',
-      name: 'manage-connections',
+          component: () => import('../views/ConnectView.vue')
+        },
+        {
+          path: 'manage-connections',
+          name: 'manage-connections',
 
-      component: () => import('../views/ManageConnectionsView.vue')
-    },
-    {
-      path: '/transactions',
-      name: 'transactions',
+          component: () => import('../views/ManageConnectionsView.vue')
+        },
+        {
+          path: 'transactions',
+          name: 'transactions',
 
-      component: () => import('../views/TransactionsView.vue')
-    },
-    {
-      path: '/cashflow',
-      name: 'cashflow',
+          component: () => import('../views/TransactionsView.vue')
+        },
+        {
+          path: 'cashflow',
+          name: 'cashflow',
 
-      component: () => import('../views/CashflowView.vue')
+          component: () => import('../views/CashflowView.vue')
+        }
+      ]
     }
   ]
 })

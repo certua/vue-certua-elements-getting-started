@@ -1,0 +1,27 @@
+.btn-primary {
+  color: white !important;
+  background-color: #007fc6 !important;
+}
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #2692cf !important;
+  border-color: #2692cf !important;
+}
+.btn-outline-primary {
+  color: #007fc6 !important;
+  border-color: #007fc6 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007fc6 !important;
+  color: #fff !important;
+}
+
+body {
+  font-family: 'Nunito Sans' !important;
+  font-weight: 400;
+  font-size: 16px;
+}
+h2 {
+  font-size: 24px;
+}

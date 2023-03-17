@@ -1,8 +1,22 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
 import Setup from './components/Setup.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+
+let showNavigation = ref(false)
+
+const route = useRoute()
+
+// do a `console.log(route)` to see route attributes (fullPath, hash, params, path...)
+watch(
+  () => route.fullPath,
+  async () => {
+    console.log('route fullPath updated', route.fullPath)
+    const home = route.fullPath.includes('home')
+    showNavigation.value = !home
+  }
+)
 
 onMounted(() => {
   let root = document.documentElement
@@ -17,73 +31,77 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/connect">Connect</RouterLink>
-      <RouterLink to="/manage-connections">Manage Connections</RouterLink>
-      <RouterLink to="/transactions">Transactions</RouterLink>
-      <RouterLink to="/cashflow">Cashflow</RouterLink>
-    </nav>
-
-    <RouterView />
+  <div class="container-fluid">
+    <div class="row bg-grey border-bottom" id="header">
+      <div class="col">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <a class="navbar-brand" href="/">
+            <div class="d-flex justify-items-center">
+              <img src="./assets/certua.png" /></div
+          ></a>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="row" id="sidebar">
+      <div class="col-md-3 border-end" v-if="showNavigation">
+        <div class="list-group mt-4">
+          <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
+          <RouterLink to="/components/manage-connections" class="list-group-item"
+            >Manage Connections</RouterLink
+          >
+          <RouterLink to="/components/transactions" class="list-group-item"
+            >Transactions</RouterLink
+          >
+          <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink>
+        </div>
+        <nav></nav>
+      </div>
+      <div class="col mt-4"><RouterView /></div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+#header {
+  height: 5vh;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#header .router-link-active {
+  color: #007fc6 !important;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+#sidebar {
+  height: 95vh;
+  font-size: 14px;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+#sidebar .list-group-item {
+  border: none !important;
+  border-radius: 2px !important;
+  font-weight: 700 !important;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+#sidebar .list-group-item:hover {
+  color: #007fc6 !important;
+}
+#sidebar .router-link-active {
+  background: #007fc626 !important;
+  color: #007fc6;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.bg-grey {
+  background-color: #f4f5f7;
 }
 </style>

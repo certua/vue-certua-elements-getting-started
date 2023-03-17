@@ -20,6 +20,8 @@ onMounted(() => {
 
 <template>
   <div class="row" v-if="!showError">
+    <h2>Cashflow</h2>
+    <p>This component can be used to display a graph of a users income vs expenditure</p>
     <certua-ob-cashflow :daasContextToken="contextTokenOptions" :showAddButton="false">
     </certua-ob-cashflow>
   </div>

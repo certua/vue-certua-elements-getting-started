@@ -39,6 +39,8 @@ onMounted(() => {
 
 <template>
   <div class="row" v-if="!showError">
+    <h2>Manage connections</h2>
+    <p>This component can be used to view connected accounts, refresh consent or disconnect</p>
     <certua-ob-manage-connections
       :contentOverrides="contentOverrides"
       :daasContextToken="contextTokenOptions"

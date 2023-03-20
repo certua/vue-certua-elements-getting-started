@@ -63,6 +63,7 @@ onMounted(() => {
     <certua-ob-manage-connections
       :contentOverrides="contentOverrides"
       :daasContextToken="contextTokenOptions"
+      :showTitle="false"
       :showAddButton="false"
     >
     </certua-ob-manage-connections>

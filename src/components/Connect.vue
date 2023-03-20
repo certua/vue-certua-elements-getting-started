@@ -68,8 +68,68 @@ onMounted(() => {
       :contextData="contextTokenOptions"
       :redirectionConfig="redirectionConfig"
     >
-      <span slot="button" class="ml-auto"></span>
     </certua-ob-connect>
+  </div>
+  <div>
+    <h4>Example code</h4>
+    <pre><code>
+      &lt;certua-ob-connect 
+        :contentOverrides="contentOverrides"
+        :redirectionConfig="redirectionConfig"
+        :contextData="contextData"&gt;
+      &lt;/certua-ob-connect&gt;
+      </code>
+    </pre>
+    <table class="table">
+      <thead>
+        <th>Property Name</th>
+        <th>Mandatory</th>
+        <th>Description</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>contextData</td>
+          <td>Yes</td>
+          <td>
+            This is a JSON string which contains your context token and user reference. <br /><code>
+              {"contextToken":"FF5D16AAE1ED74E4C8F0E8B6D9E2EB06","ownerId":"1","dateCreated":"2023-03-20T11:17:24.121Z"}
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>redirectionConfig</td>
+          <td>Yes</td>
+          <td>
+            This is a JSON string which contains the success or failure redirection Urls, which are
+            used after the connection to the bank.<br /><code
+              >{ successUrl: 'http://localhost:5713/components/connect?accountConnection=success',
+              failureUrl: 'http://localhost:5713/components/connect?accountConnection=failure'
+              }</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>contentOverrides</td>
+          <td>No</td>
+          <td>
+            This is a JSON string which contains any text overrides that you want to pass to the
+            information screens/modals<br /><code>
+              { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text about
+              how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': { confirmDisconnect: {
+              implicationOfRevocation: ' &lt;p&gt;[Custom text about implications of
+              revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what happens to data
+              if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about ability to
+              relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
+              confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms of
+              service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
+              &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
+              &lt;p&gt;[Custom text about what happens to data now account are
+              disconnected]&lt;/p&gt; ' } } }
+            </code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="row" v-if="showError">

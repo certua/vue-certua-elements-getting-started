@@ -6,8 +6,8 @@ import { parseISO, add } from 'date-fns'
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let redirectionConfig = {
-  successUrl: window.location.origin + '/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/connect?accountConnection=failure'
+  successUrl: window.location.origin + '/components/connect?accountConnection=success',
+  failureUrl: window.location.origin + '/components/connect?accountConnection=failure'
 }
 
 let contentOverrides = {

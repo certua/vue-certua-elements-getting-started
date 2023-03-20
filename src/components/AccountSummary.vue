@@ -39,7 +39,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Account Summary list</h2>
     <p>This component can be used to show an overview of all connected accounts</p>
-    <certua-ob-account-summary-list :daasContextToken="contextTokenOptions">
+    <certua-ob-account-summary-list :contextData="contextTokenOptions">
     </certua-ob-account-summary-list>
   </div>
 

@@ -43,6 +43,13 @@ onMounted(() => {
     </certua-ob-account-summary-list>
   </div>
 
+  <div>
+    <h4>Example code</h4>
+    <code>
+      <certua-ob-account-summary-list :daasContextToken="contextTokenOptions">
+      </certua-ob-account-summary-list>
+    </code>
+  </div>
   <div class="row" v-if="showError">
     <div class="col">
       <h3>You do not have a context token</h3>

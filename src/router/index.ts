@@ -32,6 +32,12 @@ const router = createRouter({
           component: () => import('../views/ManageConnectionsView.vue')
         },
         {
+          path: 'account-summary',
+          name: 'account-summary',
+
+          component: () => import('../views/AccountSummaryView.vue')
+        },
+        {
           path: 'transactions',
           name: 'transactions',
 

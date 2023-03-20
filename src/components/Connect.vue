@@ -65,7 +65,7 @@ onMounted(() => {
     </p>
     <certua-ob-connect
       :contentOverrides="contentOverrides"
-      :daasContextToken="contextTokenOptions"
+      :contextData="contextTokenOptions"
       :redirectionConfig="redirectionConfig"
     >
       <span slot="button" class="ml-auto"></span>

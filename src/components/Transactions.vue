@@ -42,7 +42,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Transactions</h2>
     <p>This component can be used to list and search a users transactions</p>
-    <certua-ob-transactions :daasContextToken="contextTokenOptions" :showAddButton="false">
+    <certua-ob-transactions :contextData="contextTokenOptions" :showAddButton="false">
     </certua-ob-transactions>
   </div>
 

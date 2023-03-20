@@ -91,7 +91,7 @@ function getContextToken() {
           })
         )
       ),
-      tap(() => (apiConfig = <string>localStorage.getItem('contextTokenOptions'))),
+      tap(() => (apiConfig = <string>localStorage.getItem('apiConfig'))),
 
       tap(() => (step.value = Step.Styles)),
       catchError(() => {

@@ -5,10 +5,6 @@ import { parseISO, add } from 'date-fns'
 import axios from 'axios'
 let showError = ref(false)
 let contextTokenOptions = ref('')
-let redirectionConfig = {
-  successUrl: window.location.origin + '/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/connect?accountConnection=failure'
-}
 
 function checkExpiry() {
   let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
@@ -42,10 +38,35 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Cashflow</h2>
     <p>This component can be used to display a graph of a users income vs expenditure</p>
-    <certua-ob-cashflow :daasContextToken="contextTokenOptions" :showAddButton="false">
-    </certua-ob-cashflow>
+    <certua-ob-cashflow :daasContextToken="contextTokenOptions"> </certua-ob-cashflow>
   </div>
-
+  <div>
+    <h4>Example code</h4>
+    <pre><code>
+      &lt;certua-ob-cashflow 
+        :contextData="contextData"&gt;
+      &lt;/certua-ob-cashflow&gt;
+      </code>
+    </pre>
+    <table class="table">
+      <thead>
+        <th>Property Name</th>
+        <th>Mandatory</th>
+        <th>Description</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>contextData</td>
+          <td>Yes</td>
+          <td>
+            This is a JSON string which contains your context token and user reference. <br /><code>
+              {"contextToken":"FF5D16AAE1ED74E4C8F0E8B6D9E2EB06","ownerId":"1","dateCreated":"2023-03-20T11:17:24.121Z"}
+            </code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="row" v-if="showError">
     <div class="col">
       <h3>You do not have a context token</h3>

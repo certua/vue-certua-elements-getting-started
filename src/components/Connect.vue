@@ -102,8 +102,9 @@ onMounted(() => {
           <td>
             This is a JSON string which contains the success or failure redirection Urls, which are
             used after the connection to the bank.<br /><code
-              >{ successUrl: 'http://localhost:5713/connect?accountConnection=success', failureUrl:
-              'http://localhost:5713/connect?accountConnection=failure' }</code
+              >{ successUrl: 'http://localhost:5713/components/connect?accountConnection=success',
+              failureUrl: 'http://localhost:5713/components/connect?accountConnection=failure'
+              }</code
             >
           </td>
         </tr>

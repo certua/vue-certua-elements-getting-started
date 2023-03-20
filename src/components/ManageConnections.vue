@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { from, map, tap, catchError } from 'rxjs'
+import { parseISO, add } from 'date-fns'
 import axios from 'axios'
 let showError = ref(false)
 let contextTokenOptions = ref('')
@@ -26,13 +27,31 @@ let contentOverrides = {
     }
   }
 }
+function checkExpiry() {
+  let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
+  let tokenCreation = parseISO(token.dateCreated)
+  if (add(tokenCreation, { minutes: 30 }) <= new Date()) {
+    showError.value = true
+    localStorage.removeItem('apiConfig')
+  }
+
+  let root = document.documentElement
+  if (!root.style.getPropertyValue('--primary')) {
+    let primary = localStorage.getItem('--primary')
+    root.style.setProperty('--primary', primary)
+
+    let secondary = localStorage.getItem('--secondary')
+    root.style.setProperty('--secondary', secondary)
+  }
+}
 
 // lifecycle hooks
 onMounted(() => {
-  if (!localStorage.getItem('contextTokenOptions')) {
+  if (!localStorage.getItem('apiConfig')) {
     showError.value = true
   } else {
-    contextTokenOptions.value = JSON.parse(localStorage.getItem('contextTokenOptions') ?? '')
+    checkExpiry()
+    contextTokenOptions.value = JSON.parse(localStorage.getItem('apiConfig') ?? '')
   }
 })
 </script>

@@ -59,6 +59,9 @@ onMounted(() => {
           <RouterLink to="/components/manage-connections" class="list-group-item"
             >Manage Connections</RouterLink
           >
+          <RouterLink to="/components/account-summary" class="list-group-item"
+            >Account Summary</RouterLink
+          >
           <RouterLink to="/components/transactions" class="list-group-item"
             >Transactions</RouterLink
           >

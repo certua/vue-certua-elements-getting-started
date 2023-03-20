@@ -5,7 +5,7 @@ import axios, { formToJSON } from 'axios'
 import Welcome from './Welcome.vue'
 import { environment } from '@/environments/environment'
 import router from '@/router'
-
+import { parseISO, add } from 'date-fns'
 enum Step {
   AccessToken,
   ContextToken,
@@ -83,10 +83,11 @@ function getContextToken() {
       map((response: any) => (contextToken = response.data.context_token)),
       tap((token: string) =>
         localStorage.setItem(
-          'contextTokenOptions',
+          'apiConfig',
           JSON.stringify({
             contextToken: token,
-            ownerId: userReference
+            ownerId: userReference,
+            dateCreated: new Date()
           })
         )
       ),
@@ -110,11 +111,21 @@ function setStyles() {
   localStorage.setItem('--secondary', secondaryColor.value)
   step.value = Step.Success
 }
+function checkExpiry() {
+  let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
+  let tokenCreation = parseISO(token.dateCreated)
+  if (add(tokenCreation, { minutes: 30 }) <= new Date()) {
+    step.value = Step.AccessToken
+    localStorage.removeItem('apiConfig')
+  } else {
+    step.value = Step.Success
+  }
+}
 
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('contextTokenOptions')) {
-    step.value = Step.Success
+  if (localStorage.getItem('apiConfig')) {
+    checkExpiry()
   }
 })
 </script>

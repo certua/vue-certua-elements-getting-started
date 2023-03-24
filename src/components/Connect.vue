@@ -67,6 +67,7 @@ onMounted(() => {
       :contentOverrides="contentOverrides"
       :contextData="contextTokenOptions"
       :redirectionConfig="redirectionConfig"
+      :startingPhase="'InstitutionSelection'"
     >
     </certua-ob-connect>
   </div>
@@ -76,7 +77,8 @@ onMounted(() => {
       &lt;certua-ob-connect 
         :contentOverrides="contentOverrides"
         :redirectionConfig="redirectionConfig"
-        :contextData="contextData"&gt;
+        :contextData="contextData"
+        :startingPhase="'InstitutionSelection'"&gt;
       &lt;/certua-ob-connect&gt;
       </code>
     </pre>
@@ -126,6 +128,14 @@ onMounted(() => {
               &lt;p&gt;[Custom text about what happens to data now account are
               disconnected]&lt;/p&gt; ' } } }
             </code>
+          </td>
+        </tr>
+        <tr>
+          <td>startingPhase</td>
+          <td>No</td>
+          <td>
+            This is a string which controls the starting screen when connecting accounts, this can
+            be <code>AccountList</code> or <code>InstitutionSelection</code>.
           </td>
         </tr>
       </tbody>

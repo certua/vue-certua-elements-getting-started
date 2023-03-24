@@ -1,6 +1,6 @@
 {
   "name": "open-banking-elements-getting-started-vue",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "vite",

@@ -5,6 +5,8 @@ import { parseISO, add } from 'date-fns'
 import axios from 'axios'
 let showError = ref(false)
 let contextTokenOptions = ref('')
+let daasUrl = ref('')
+let loaded = ref(false)
 let redirectionConfig = {
   successUrl: window.location.origin + '/connect?accountConnection=success',
   failureUrl: window.location.origin + '/connect?accountConnection=failure'
@@ -53,6 +55,10 @@ onMounted(() => {
     checkExpiry()
     contextTokenOptions.value = JSON.parse(localStorage.getItem('apiConfig') ?? '')
   }
+  if (localStorage.getItem('daasUrl')) {
+    daasUrl.value = localStorage.getItem('daasUrl') ?? ''
+  }
+  loaded.value = true
 })
 </script>
 
@@ -65,6 +71,7 @@ onMounted(() => {
       :daasContextToken="contextTokenOptions"
       :showTitle="false"
       :showAddButton="false"
+      :daasUrl="daasUrl"
     >
     </certua-ob-manage-connections>
   </div>
@@ -75,6 +82,7 @@ onMounted(() => {
         :contentOverrides="contentOverrides"
         :contextData="contextData"
         :showTitle="false"
+        :daasUrl="daasUrl"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
       </code>
@@ -125,6 +133,14 @@ onMounted(() => {
           <td>No</td>
           <td>
             This controls if the Add Account button is shown above the currently connected accounts.
+          </td>
+        </tr>
+        <tr>
+          <td>daasUrl</td>
+          <td>No</td>
+          <td>
+            This only needs to be passed in if you wish to load the Daas Elements from your own CDN
+            rather than Certua's. Must be an absolute URL.
           </td>
         </tr>
       </tbody>

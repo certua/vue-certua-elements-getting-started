@@ -10,6 +10,7 @@ enum Step {
   AccessToken,
   ContextToken,
   Styles,
+  DaasUrl,
   Success,
   Error
 }
@@ -25,6 +26,7 @@ const step = ref(Step.AccessToken)
 let primaryColor = ref('#007fc6')
 let secondaryColor = ref('')
 
+let daasUrl = ref('')
 let username = ''
 let password = ''
 // functions that mutate state and trigger updates##
@@ -101,6 +103,24 @@ function getContextToken() {
     .subscribe()
 }
 
+function setUrl() {
+  if (!daasUrl.value) {
+    useDefaultUrl()
+  } else {
+    localStorage.setItem('daasUrl', daasUrl.value)
+    step.value = Step.Success
+  }
+}
+function useDefaultUrl() {
+  localStorage.removeItem('daasUrl')
+  step.value = Step.Success
+}
+
+function startAgain() {
+  localStorage.clear()
+  step.value = Step.AccessToken
+}
+
 function setStyles() {
   let root = document.documentElement
 
@@ -109,7 +129,7 @@ function setStyles() {
 
   localStorage.setItem('--primary', primaryColor.value)
   localStorage.setItem('--secondary', secondaryColor.value)
-  step.value = Step.Success
+  step.value = Step.DaasUrl
 }
 function checkExpiry() {
   let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
@@ -190,10 +210,32 @@ onMounted(() => {
         </div>
       </div>
 
+      <div class="row" v-if="step == Step.DaasUrl">
+        <div class="col">
+          <h3>Do you need to use a custom Daas URL?</h3>
+          <p>
+            Some consumers need to load their own version of our DaaS components from their own CDN,
+            to do this enter the absolute URL to the script file in the box below, otherwise choose
+            'Use Certua Defaults'
+          </p>
+          <button class="btn btn-secondary mt-2 ms-2" @click="useDefaultUrl()">
+            No, use Certua Defaults
+          </button>
+          <div class="text-start">
+            <label for="daasUrl" class="form-label">Daas URL</label>
+            <input id="daasUrl" type="text" class="form-control" v-model="daasUrl" />
+
+            <button class="btn btn-outline-primary mt-2" @click="back(Step.Styles)">Back</button>
+            <button class="btn btn-primary mt-2 ms-2" @click="setUrl()">Set URL</button>
+          </div>
+        </div>
+      </div>
+
       <div class="row" v-if="step == Step.Success">
         <div class="col">
           <h3>Success you can now using Open banking elements</h3>
           <button class="btn btn-link" @click="goToComponents()">Go to components</button>
+          <button class="btn btn-secondary mt-2 ms-2" @click="startAgain()">Start again</button>
         </div>
       </div>
       <div class="row" v-if="step == Step.Error">

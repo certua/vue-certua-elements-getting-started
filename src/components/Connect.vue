@@ -11,6 +11,9 @@ let redirectionConfig = {
   popup: false
 }
 
+let daasUrl = ref('')
+let loaded = ref(false)
+
 let contentOverrides = {
   'certua-ob-provider-permissions': {
     howWeAreUsingData: '<p>[Custom text about how you use data]</p>'
@@ -58,6 +61,10 @@ onMounted(() => {
       targetOrigin: '*'
     })
   }
+  if (localStorage.getItem('daasUrl')) {
+    daasUrl.value = localStorage.getItem('daasUrl') ?? ''
+  }
+  loaded.value = true
 })
 </script>
 
@@ -68,8 +75,10 @@ onMounted(() => {
       This component can be used to facilitate a user connecting their bank account via Open Banking
     </p>
     <certua-ob-connect
+      v-if="loaded"
       :contentOverrides="contentOverrides"
       :contextData="contextTokenOptions"
+      :daasUrl="daasUrl"
       :redirectionConfig="redirectionConfig"
       :startingPhase="'InstitutionSelection'"
     >
@@ -82,6 +91,7 @@ onMounted(() => {
         :contentOverrides="contentOverrides"
         :redirectionConfig="redirectionConfig"
         :contextData="contextData"
+        :daasUrl="daasUrl"
         :startingPhase="'InstitutionSelection'"&gt;
       &lt;/certua-ob-connect&gt;
       </code>
@@ -141,6 +151,14 @@ onMounted(() => {
           <td>
             This is a string which controls the starting screen when connecting accounts, this can
             be <code>AccountList</code> or <code>InstitutionSelection</code>.
+          </td>
+        </tr>
+        <tr>
+          <td>daasUrl</td>
+          <td>No</td>
+          <td>
+            This only needs to be passed in if you wish to load the Daas Elements from your own CDN
+            rather than Certua's. Must be an absolute URL.
           </td>
         </tr>
       </tbody>

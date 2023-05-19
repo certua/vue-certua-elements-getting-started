@@ -11,6 +11,12 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/financial/connection/success',
+      redirect: (to) => {
+        return '/components/connect'
+      }
+    },
+    {
       path: '/components',
       children: [
         {

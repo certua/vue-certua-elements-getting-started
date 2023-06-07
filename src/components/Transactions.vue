@@ -11,6 +11,10 @@ let redirectionConfig = {
   successUrl: window.location.origin + '/connect?accountConnection=success',
   failureUrl: window.location.origin + '/connect?accountConnection=failure'
 }
+let notificationSettings = {
+  manualNotifications: false,
+  useHostToastrStyles: false
+}
 function checkExpiry() {
   let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
   let tokenCreation = parseISO(token.dateCreated)
@@ -51,6 +55,7 @@ onMounted(() => {
     <certua-ob-transactions
       :daasContextToken="contextTokenOptions"
       :daasUrl="daasUrl"
+      :notificationSettings="notificationSettings"
       v-if="loaded"
     >
     </certua-ob-transactions>
@@ -61,6 +66,7 @@ onMounted(() => {
       &lt;certua-ob-transactions 
         :contextData="contextData"&gt;
         :daasUrl="daasUrl"
+        :notificationSettings="notificationSettings"
       &lt;/certua-ob-transactions&gt;
       </code>
     </pre>
@@ -87,6 +93,23 @@ onMounted(() => {
             This only needs to be passed in if you wish to load the Daas Elements from your own CDN
             rather than Certua's. Must be an absolute URL.
           </td>
+          <tr>
+          <td>notificationSettings</td>
+          <td>No</td>
+          <td>
+            This is JSON which contains any custom notification settings required for your
+            implementation. By default this property is not required if you simply wish to use the
+            default style toastrs.<br />
+            Manual Notifications: if this is set to true then toastrs are disabled entirely and the
+            host will be required to listen to 'certua-ob-notifications' channel on the eventbus.
+            <br />Use External Toastr Styles: Intended for Internal Certua use, this leaves toastrs
+            outside of the shadow dom and the host app has to manage ngx-toastr stylesheet
+            <br />
+            <code>
+              { "manualNotifications": "boolean" , "useHostToastrStyles": "boolean" }
+            </code>
+          </td>
+        </tr>
         </tr>
       </tbody>
     </table>

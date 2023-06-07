@@ -7,9 +7,10 @@ let showError = ref(false)
 let contextTokenOptions = ref('')
 let daasUrl = ref('')
 let loaded = ref(false)
-let redirectionConfig = {
-  successUrl: window.location.origin + '/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/connect?accountConnection=failure'
+
+let notificationSettings = {
+  manualNotifications: false,
+  useHostToastrStyles: false
 }
 let contentOverrides = {
   'certua-ob-provider-permissions': {
@@ -72,6 +73,7 @@ onMounted(() => {
       :showTitle="false"
       :showAddButton="false"
       :daasUrl="daasUrl"
+      :notificationSettings="notificationSettings"
     >
     </certua-ob-manage-connections>
   </div>
@@ -83,6 +85,7 @@ onMounted(() => {
         :contextData="contextData"
         :showTitle="false"
         :daasUrl="daasUrl"
+        :notificationSettings="notificationSettings"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
       </code>
@@ -107,8 +110,8 @@ onMounted(() => {
           <td>contentOverrides</td>
           <td>No</td>
           <td>
-            This is a JSON string which contains any text overrides that you want to pass to the
-            information screens/modals<br /><code>
+            This is JSON which contains any text overrides that you want to pass to the information
+            screens/modals<br /><code>
               { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text about
               how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': { confirmDisconnect: {
               implicationOfRevocation: ' &lt;p&gt;[Custom text about implications of
@@ -123,6 +126,7 @@ onMounted(() => {
             </code>
           </td>
         </tr>
+
         <tr>
           <td>showTitle</td>
           <td>No</td>
@@ -141,6 +145,21 @@ onMounted(() => {
           <td>
             This only needs to be passed in if you wish to load the Daas Elements from your own CDN
             rather than Certua's. Must be an absolute URL.
+          </td>
+        </tr>
+        <tr>
+          <td>notificationSettings</td>
+          <td>No</td>
+          <td>
+            This is JSON which contains any custom notification settings required for your
+            implementation. By default this property is not required if you simply wish to use the
+            default style toastrs.<br />
+            Manual Notifications: if this is set to true then toastrs are disabled entirely and the
+            host will be required to listen to 'certua-ob-notifications' channel on the eventbus.
+            <br />Use External Toastr Styles: Intended for Internal Certua use, this leaves toastrs
+            outside of the shadow dom and the host app has to manage ngx-toastr stylesheet
+            <br />
+            <code> { "manualNotifications": "boolean" , "useHostToastrStyles": "boolean" } </code>
           </td>
         </tr>
       </tbody>

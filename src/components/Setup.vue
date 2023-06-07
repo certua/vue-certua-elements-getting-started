@@ -18,7 +18,10 @@ enum Step {
 let userReference = ''
 let accessToken = ref('')
 let contextToken = ref({})
-
+let notificationSettings = {
+  manualNotifications: false,
+  useHostToastrStyles: false
+}
 let apiConfig = {}
 
 const step = ref(Step.AccessToken)
@@ -73,7 +76,7 @@ function getContextToken() {
   //STAGING URL
   const tokenUrl = 'https://iqstgdaas.certua.io/app/token'
   const body = {
-    'client.integration.datasource.preference': ['OpenBanking', 'Yodlee'],
+    'client.integration.datasource.preference': ['OpenBanking', 'Yodlee', 'Yapily'],
     'client.integration.user.reference': userReference // this is your reference for your client
   }
   from(

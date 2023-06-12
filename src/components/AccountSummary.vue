@@ -7,6 +7,10 @@ let showError = ref(false)
 let contextTokenOptions = ref('')
 let daasUrl = ref('')
 let loaded = ref(false)
+let sortOptions = ref({
+  sortOrder: 'asc',
+  sortFieldName: 'balance'
+})
 let notificationSettings = {
   manualNotifications: false,
   useHostToastrStyles: false
@@ -52,6 +56,7 @@ onMounted(() => {
       :contextData="contextTokenOptions"
       :daasUrl="daasUrl"
       :notificationSettings="notificationSettings"
+      :sortOptions="sortOptions"
       v-if="loaded"
     >
     </certua-ob-account-summary-list>
@@ -102,6 +107,17 @@ onMounted(() => {
             outside of the shadow dom and the host app has to manage ngx-toastr stylesheet
             <br />
             <code> { "manualNotifications": "boolean" , "useHostToastrStyles": "boolean" } </code>
+          </td>
+        </tr>
+        <tr>
+          <td>sortOptions</td>
+          <td>No</td>
+          <td>
+            This is JSON which allows you to set the sortFieldName and sortOrder. Currently limited
+            to sortFieldName must be 'balance' and sortOrder 'asc' or 'desc'. If this is not passed
+            then they are ordered by Provider name
+            <br />
+            <code> { "sortFieldName": "balance" , "sortOrder": "asc" } </code>
           </td>
         </tr>
       </tbody>

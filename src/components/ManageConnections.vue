@@ -3,14 +3,24 @@ import { ref, onMounted } from 'vue'
 import { from, map, tap, catchError } from 'rxjs'
 import { parseISO, add } from 'date-fns'
 import axios from 'axios'
+
+enum ViewMode {
+  Current,
+  History
+}
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let daasUrl = ref('')
 let loaded = ref(false)
-
+let viewMode = ref(ViewMode.Current)
 let notificationSettings = {
   manualNotifications: false,
   useHostToastrStyles: false
+}
+let redirectionConfig = {
+  successUrl: window.location.origin + '/components/manage-connections?accountConnection=success',
+  failureUrl: window.location.origin + '/components/manage-connections?accountConnection=failure',
+  popup: false
 }
 let contentOverrides = {
   'certua-ob-provider-permissions': {
@@ -73,6 +83,9 @@ onMounted(() => {
       :showTitle="false"
       :showAddButton="false"
       :daasUrl="daasUrl"
+      :redirectionConfig="redirectionConfig"
+      :manualViewMode="true"
+      :viewMode="viewMode"
       :notificationSettings="notificationSettings"
     >
     </certua-ob-manage-connections>
@@ -83,9 +96,12 @@ onMounted(() => {
       &lt;certua-ob-manage-connections 
         :contentOverrides="contentOverrides"
         :contextData="contextData"
+        :redirectionConfig="redirectionConfig"
         :showTitle="false"
         :daasUrl="daasUrl"
         :notificationSettings="notificationSettings"
+        :manualViewMode="true"
+        :viewMode="viewMode"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
       </code>
@@ -104,6 +120,19 @@ onMounted(() => {
             This is a JSON string which contains your context token and user reference. <br /><code>
               {"contextToken":"FF5D16AAE1ED74E4C8F0E8B6D9E2EB06","ownerId":"1","dateCreated":"2023-03-20T11:17:24.121Z"}
             </code>
+          </td>
+        </tr>
+        <tr>
+          <td>redirectionConfig</td>
+          <td>Yes</td>
+          <td>
+            This is a JSON string which contains the success or failure redirection Urls, which are
+            used after the connection to the bank. Popup controls whether or not the bank url is
+            shown in the same tab or in a new tab, this defaults to false if not present<br /><code
+              >{ successUrl: 'http://localhost:5713/components/connect?accountConnection=success',
+              failureUrl: 'http://localhost:5713/components/connect?accountConnection=failure',
+              popup: false }</code
+            >
           </td>
         </tr>
         <tr>
@@ -137,6 +166,30 @@ onMounted(() => {
           <td>No</td>
           <td>
             This controls if the Add Account button is shown above the currently connected accounts.
+          </td>
+        </tr>
+        <tr>
+          <td>daasUrl</td>
+          <td>No</td>
+          <td>
+            This only needs to be passed in if you wish to load the Daas Elements from your own CDN
+            rather than Certua's. Must be an absolute URL.
+          </td>
+        </tr>
+        <tr>
+          <td>manualViewMode</td>
+          <td>No</td>
+          <td>
+            This only needs to be passed in if you are in the UK region and wish to hide the
+            Current/History tabs. Note in AU this is automatically set to false and cannot be
+            overridden.
+          </td>
+        </tr>
+        <tr>
+          <td>viewMode</td>
+          <td>No</td>
+          <td>
+            Only for use when 'manualViewMode' is set to true, this toggles which view mode is shown
           </td>
         </tr>
         <tr>

@@ -32,6 +32,7 @@ let secondaryColor = ref('')
 let daasUrl = ref('')
 let username = ''
 let password = ''
+let countryCode = ref('')
 // functions that mutate state and trigger updates##
 
 function reset() {
@@ -51,10 +52,13 @@ function loadScript(url: string) {
   document.head.appendChild(componentJS)
 }
 function getAccessToken() {
-  //const authUrl = 'https://iqdevauth.certua.io/oauth/token?grant_type=client_credentials'
+  const authUKUrl = 'https://identitydev.certua.io/realms/Certua/protocol/openid-connect/token'
+  const authAUUrl = 'https://identitydev-au.certua.io/realms/Certua/protocol/openid-connect/token'
+  // UK 'https://identitydev.certua.io/oauth/token?grant_type=client_credentials';
   //STAGING URL
-  const authUrl = 'https://iqstgauth.certua.io/oauth/token?grant_type=client_credentials'
-
+  //const authUrl =
+  //  'https://iqstgauth.certua.io/oauth/token?grant_type=client_credentials';
+  const authUrl = countryCode.value === 'UK' ? authUKUrl : authAUUrl
   axios
     .post(
       authUrl,
@@ -72,12 +76,20 @@ function goToComponents() {
   router.push('/components/connect')
 }
 function getContextToken() {
-  //const tokenUrl = 'https://iqdevdaas.certua.io/app/token'
-  //STAGING URL
-  const tokenUrl = 'https://iqstgdaas.certua.io/app/token'
-  const body = {
+  const tokenAUUrl = 'https://apidev-au.certua.io/daas/app/token'
+  const tokenUKUrl = 'https://apidev.certua.io/daas/app/token'
+
+  //STG
+  //const tokenUrl = 'https://apistg.certua.io/daas/app/token';
+
+  const tokenUrl = countryCode.value === 'UK' ? tokenUKUrl : tokenAUUrl
+  let body = {
     'client.integration.datasource.preference': ['OpenBanking', 'Yodlee', 'Yapily'],
     'client.integration.user.reference': userReference // this is your reference for your client
+  } as any
+  if (countryCode.value == 'AU') {
+    body['client.integration.sub-tenant.reference'] = '12499'
+    body['client.integration.adviser.reference'] = '9163'
   }
   from(
     axios.post(tokenUrl, body, {
@@ -169,6 +181,8 @@ onMounted(() => {
         <div class="col">
           <h3>Firstly, we need an access token</h3>
           <div class="text-start">
+            <label for="countryCode" class="form-label">Country</label>
+            <input id="countryCpde" type="text" class="form-control" v-model="countryCode" />
             <label for="username" class="form-label">Username</label>
             <input id="username" type="text" class="form-control" v-model="username" />
             <label for="password" class="label">Password</label>

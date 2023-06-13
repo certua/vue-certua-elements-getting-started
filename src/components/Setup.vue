@@ -59,12 +59,16 @@ function getAccessToken() {
   //const authUrl =
   //  'https://iqstgauth.certua.io/oauth/token?grant_type=client_credentials';
   const authUrl = countryCode.value === 'UK' ? authUKUrl : authAUUrl
+  //const body = new HttpParams().set('grant_type', 'client_credentials');
   axios
     .post(
       authUrl,
-      {},
+      { grant_type: 'client_credentials' },
       {
-        auth: { username: username, password: password }
+        auth: { username: username, password: password },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       }
     )
     .then((response) => {
@@ -104,7 +108,8 @@ function getContextToken() {
           JSON.stringify({
             contextToken: token,
             ownerId: userReference,
-            dateCreated: new Date()
+            dateCreated: new Date(),
+            countryCode: this.countryCode
           })
         )
       ),

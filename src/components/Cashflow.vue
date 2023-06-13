@@ -59,7 +59,7 @@ onMounted(() => {
     <h4>Example code</h4>
     <pre><code>
       &lt;certua-ob-cashflow 
-        :contextData="contextData"&gt;
+        :contextData="contextData"
         :daasUrl="daasUrl"
         :notificationSettings="notificationSettings"
       &lt;/certua-ob-cashflow&gt;

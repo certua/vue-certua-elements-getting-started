@@ -11,6 +11,7 @@ let sortOptions = ref({
   sortOrder: 'asc',
   sortFieldName: 'balance'
 })
+let limitTo = ref(undefined)
 let notificationSettings = {
   manualNotifications: false,
   useHostToastrStyles: false
@@ -55,6 +56,7 @@ onMounted(() => {
     <certua-ob-account-summary-list
       :contextData="contextTokenOptions"
       :daasUrl="daasUrl"
+      :limitTo="limitTo"
       :notificationSettings="notificationSettings"
       :sortOptions="sortOptions"
       v-if="loaded"
@@ -66,7 +68,11 @@ onMounted(() => {
     <h4>Example code</h4>
     <pre><code>
       &lt;certua-ob-account-summary-list 
-        :contextData="contextData"&gt;   :daasUrl="daasUrl"   :notificationSettings="notificationSettings"
+        :contextData="contextData"&gt; 
+          :daasUrl="daasUrl" 
+            :limitTo="limitTo" 
+            :sortOptions="sortOptions" 
+            :notificationSettings="notificationSettings"
       &lt;/certua-ob-account-summary-list&gt;
       </code>
     </pre>
@@ -118,6 +124,14 @@ onMounted(() => {
             then they are ordered by Provider name
             <br />
             <code> { "sortFieldName": "balance" , "sortOrder": "asc" } </code>
+          </td>
+        </tr>
+        <tr>
+          <td>limitTo</td>
+          <td>No</td>
+          <td>
+            This is an integer that controls how many accounts are shown.
+            <br />
           </td>
         </tr>
       </tbody>

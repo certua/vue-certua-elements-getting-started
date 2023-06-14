@@ -74,6 +74,12 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="row" v-if="showError">
+    <div class="col">
+      <h3>You do not have a context token</h3>
+      <RouterLink to="/">Home</RouterLink>
+    </div>
+  </div>
   <div class="row" v-if="!showError">
     <h2>Manage connections</h2>
     <p>This component can be used to view connected accounts, refresh consent or disconnect</p>
@@ -106,38 +112,19 @@ onMounted(() => {
       &lt;/certua-ob-manage-connections&gt;
       </code>
     </pre>
+    <h4>Component specific inputs</h4>
     <table class="table">
       <thead>
         <th>Property Name</th>
         <th>Mandatory</th>
+        <th>Region</th>
         <th>Description</th>
       </thead>
       <tbody>
         <tr>
-          <td>contextData</td>
-          <td>Yes</td>
-          <td>
-            This is a JSON string which contains your context token and user reference. <br /><code>
-              {"contextToken":"FF5D16AAE1ED74E4C8F0E8B6D9E2EB06","ownerId":"1","dateCreated":"2023-03-20T11:17:24.121Z"}
-            </code>
-          </td>
-        </tr>
-        <tr>
-          <td>redirectionConfig</td>
-          <td>Yes</td>
-          <td>
-            This is a JSON string which contains the success or failure redirection Urls, which are
-            used after the connection to the bank. Popup controls whether or not the bank url is
-            shown in the same tab or in a new tab, this defaults to false if not present<br /><code
-              >{ successUrl: 'http://localhost:5713/components/connect?accountConnection=success',
-              failureUrl: 'http://localhost:5713/components/connect?accountConnection=failure',
-              popup: false }</code
-            >
-          </td>
-        </tr>
-        <tr>
           <td>contentOverrides</td>
           <td>No</td>
+          <td>UK Only</td>
           <td>
             This is JSON which contains any text overrides that you want to pass to the information
             screens/modals<br /><code>
@@ -159,26 +146,22 @@ onMounted(() => {
         <tr>
           <td>showTitle</td>
           <td>No</td>
+          <td>All</td>
           <td>This will show or hide the web components title (Open Banking Connected Accounts)</td>
         </tr>
         <tr>
           <td>showAddButton</td>
           <td>No</td>
+          <td>All</td>
           <td>
             This controls if the Add Account button is shown above the currently connected accounts.
           </td>
         </tr>
-        <tr>
-          <td>daasUrl</td>
-          <td>No</td>
-          <td>
-            This only needs to be passed in if you wish to load the Daas Elements from your own CDN
-            rather than Certua's. Must be an absolute URL.
-          </td>
-        </tr>
+
         <tr>
           <td>manualViewMode</td>
           <td>No</td>
+          <td>UK Only</td>
           <td>
             This only needs to be passed in if you are in the UK region and wish to hide the
             Current/History tabs. Note in AU this is automatically set to false and cannot be
@@ -188,40 +171,12 @@ onMounted(() => {
         <tr>
           <td>viewMode</td>
           <td>No</td>
+          <td>UK Only</td>
           <td>
             Only for use when 'manualViewMode' is set to true, this toggles which view mode is shown
           </td>
         </tr>
-        <tr>
-          <td>daasUrl</td>
-          <td>No</td>
-          <td>
-            This only needs to be passed in if you wish to load the Daas Elements from your own CDN
-            rather than Certua's. Must be an absolute URL.
-          </td>
-        </tr>
-        <tr>
-          <td>notificationSettings</td>
-          <td>No</td>
-          <td>
-            This is JSON which contains any custom notification settings required for your
-            implementation. By default this property is not required if you simply wish to use the
-            default style toastrs.<br />
-            Manual Notifications: if this is set to true then toastrs are disabled entirely and the
-            host will be required to listen to 'certua-ob-notifications' channel on the eventbus.
-            <br />Use External Toastr Styles: Intended for Internal Certua use, this leaves toastrs
-            outside of the shadow dom and the host app has to manage ngx-toastr stylesheet
-            <br />
-            <code> { "manualNotifications": "boolean" , "useHostToastrStyles": "boolean" } </code>
-          </td>
-        </tr>
       </tbody>
     </table>
-  </div>
-  <div class="row" v-if="showError">
-    <div class="col">
-      <h3>You do not have a context token</h3>
-      <RouterLink to="/">Home</RouterLink>
-    </div>
   </div>
 </template>

@@ -54,6 +54,12 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/CashflowView.vue')
+        },
+        {
+          path: 'spend',
+          name: 'spend',
+
+          component: () => import('../views/SpendView.vue')
         }
       ]
     }

@@ -66,6 +66,7 @@ onMounted(() => {
             >Transactions</RouterLink
           >
           <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink>
+          <RouterLink to="/components/spend" class="list-group-item">Spend</RouterLink>
         </div>
         <nav></nav>
       </div>

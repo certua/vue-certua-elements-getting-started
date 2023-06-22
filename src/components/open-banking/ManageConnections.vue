@@ -18,8 +18,12 @@ let notificationSettings = {
   useHostToastrStyles: false
 }
 let redirectionConfig = {
-  successUrl: window.location.origin + '/components/manage-connections?accountConnection=success',
-  failureUrl: window.location.origin + '/components/manage-connections?accountConnection=failure',
+  successUrl:
+    window.location.origin +
+    '/components/open-banking/manage-connections?accountConnection=success',
+  failureUrl:
+    window.location.origin +
+    '/components/open-banking/manage-connections?accountConnection=failure',
   popup: false
 }
 let contentOverrides = {

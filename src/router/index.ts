@@ -29,31 +29,31 @@ const router = createRouter({
           path: 'connect',
           name: 'connect',
 
-          component: () => import('../views/ConnectView.vue')
+          component: () => import('../views/open-banking/ConnectView.vue')
         },
         {
           path: 'manage-connections',
           name: 'manage-connections',
 
-          component: () => import('../views/ManageConnectionsView.vue')
+          component: () => import('../views/open-banking/ManageConnectionsView.vue')
         },
         {
           path: 'account-summary',
           name: 'account-summary',
 
-          component: () => import('../views/AccountSummaryView.vue')
+          component: () => import('../views/open-banking/AccountSummaryView.vue')
         },
         {
           path: 'transactions',
           name: 'transactions',
 
-          component: () => import('../views/TransactionsView.vue')
+          component: () => import('../views/open-banking/TransactionsView.vue')
         },
         {
           path: 'cashflow',
           name: 'cashflow',
 
-          component: () => import('../views/CashflowView.vue')
+          component: () => import('../views/open-banking/CashflowView.vue')
         }
       ]
     }

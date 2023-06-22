@@ -5,7 +5,7 @@ import Setup from './components/Setup.vue'
 import { onMounted, ref, watch } from 'vue'
 
 let showNavigation = ref(false)
-
+let elementType = ref()
 const route = useRoute()
 
 // do a `console.log(route)` to see route attributes (fullPath, hash, params, path...)
@@ -15,6 +15,9 @@ watch(
     console.log('route fullPath updated', route.fullPath)
     const home = route.fullPath.includes('home')
     showNavigation.value = !home
+
+    let type: string = localStorage.getItem('elementType') ?? ''
+    elementType.value = type
   }
 )
 
@@ -28,6 +31,12 @@ onMounted(() => {
     root.style.setProperty('--secondary', localStorage.getItem('--secondary'))
   }
 })
+
+function setType(type: string) {
+  elementType.value = type
+  localStorage.setItem('elementType', type)
+  router.push('/home')
+}
 </script>
 
 <template>
@@ -44,7 +53,7 @@ onMounted(() => {
               <li class="nav-item">
                 <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="!!elementType">
                 <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
               </li>
             </ul>
@@ -54,7 +63,8 @@ onMounted(() => {
     </div>
     <div class="row" id="sidebar">
       <div class="col-md-3 border-end" v-if="showNavigation">
-        <div class="list-group mt-4">
+        <div class="list-group mt-4" v-if="elementType == 'open-banking'">
+          <p>Open Banking Components</p>
           <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
           <RouterLink to="/components/manage-connections" class="list-group-item"
             >Manage Connections</RouterLink
@@ -66,6 +76,24 @@ onMounted(() => {
             >Transactions</RouterLink
           >
           <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink>
+          <div class="btn btn-link" @click="setType('insurance')">Switch to Insurance elements</div>
+        </div>
+        <div class="list-group mt-4" v-if="elementType == 'insurance'">
+          <p>Insurance Components</p>
+          <!-- <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
+          <RouterLink to="/components/manage-connections" class="list-group-item"
+            >Manage Connections</RouterLink
+          >
+          <RouterLink to="/components/account-summary" class="list-group-item"
+            >Account Summary</RouterLink
+          >
+          <RouterLink to="/components/transactions" class="list-group-item"
+            >Transactions</RouterLink
+          >
+          <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink> -->
+          <div class="btn btn-link" @click="setType('open-banking')">
+            Switch to Open banking elements
+          </div>
         </div>
         <nav></nav>
       </div>

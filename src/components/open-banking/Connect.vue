@@ -6,8 +6,8 @@ import { parseISO, add } from 'date-fns'
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let redirectionConfig = {
-  successUrl: window.location.origin + '/components/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/components/connect?accountConnection=failure',
+  successUrl: window.location.origin + '/components/open-banking/connect?accountConnection=success',
+  failureUrl: window.location.origin + '/components/open-banking/connect?accountConnection=failure',
   popup: false
 }
 let notificationSettings = {
@@ -124,8 +124,10 @@ onMounted(() => {
             This is a JSON string which contains the success or failure redirection Urls, which are
             used after the connection to the bank. Popup controls whether or not the bank url is
             shown in the same tab or in a new tab, this defaults to false if not present<br /><code
-              >{ successUrl: 'http://localhost:5713/components/connect?accountConnection=success',
-              failureUrl: 'http://localhost:5713/components/connect?accountConnection=failure',
+              >{ successUrl:
+              'http://localhost:5713/components/open-banking/connect?accountConnection=success',
+              failureUrl:
+              'http://localhost:5713/components/open-banking/connect?accountConnection=failure',
               popup: false }</code
             >
           </td>

@@ -10,7 +10,7 @@ export default defineConfig({
       template: {
         compilerOptions: {
           isCustomElement: (tag) => {
-            return tag.startsWith('certua-') // (return true)
+            return tag.startsWith('certua-') || tag.startsWith('mf-') || tag.startsWith('ae-') // (return true)
           }
         }
       }

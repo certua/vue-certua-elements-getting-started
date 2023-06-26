@@ -8,6 +8,7 @@
     "qa": "vite --mode qa",
     "build": "run-p build-only",
     "build:stg": "run-p build-only --mode staging",
+    "build:dev": "run-p build-only --mode dev",
     "build:qa": "run-p build-only --mode qa",
     "preview": "vite preview",
     "build-only": "vite build",

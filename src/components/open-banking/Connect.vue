@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue'
 import { from, map, tap, catchError } from 'rxjs'
 import axios from 'axios'
 import { parseISO, add } from 'date-fns'
+
+import router from '@/router'
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let redirectionConfig = {
@@ -55,6 +57,9 @@ function checkExpiry() {
 }
 // lifecycle hooks
 onMounted(() => {
+  if (localStorage.getItem('elementType') !== 'open-banking') {
+    router.replace('/components/quote-and-buy')
+  }
   if (!localStorage.getItem('apiConfig')) {
     showError.value = true
   } else {

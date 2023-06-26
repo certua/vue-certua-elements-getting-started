@@ -80,6 +80,9 @@ function setType(type: string) {
         </div>
         <div class="list-group mt-4" v-if="elementType == 'insurance'">
           <p>Insurance Components</p>
+          <RouterLink to="/components/quote-and-buy" class="list-group-item"
+            >Quote and buy</RouterLink
+          >
           <!-- <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
           <RouterLink to="/components/manage-connections" class="list-group-item"
             >Manage Connections</RouterLink

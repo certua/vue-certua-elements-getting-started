@@ -54,6 +54,20 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/open-banking/CashflowView.vue')
+        },
+        {
+          path: 'quote-and-buy',
+          name: 'quote-and-buy',
+          component: () => import('../views/insurance/QuoteAndBuyView.vue'),
+          children: [
+            {
+              path: '/:pathMatch(.*)*',
+              redirect(to) {
+                return '/components/quote-and-buy'
+              }
+              //component: () => import('../views/insurance/QuoteAndBuyView.vue')
+            }
+          ]
         }
       ]
     }

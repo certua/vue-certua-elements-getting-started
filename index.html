@@ -15,28 +15,16 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
 
-    <!-- START LOCAL SCRIPTS -->
-    <script type="text/javascript" src="%VITE_OB_ELEMENTS_URL%/polyfills.js"></script>
-    <script type="text/javascript" src="%VITE_OB_ELEMENTS_URL%/main.js"></script>
+    <!-- Open banking URLS (not required if only using Insurance) -->
+    <script type="module" src="%VITE_OB_ELEMENTS_URL%/polyfills.js"></script>
+    <script type="module" src="%VITE_OB_ELEMENTS_URL%/main.js"></script>
 
-    <!-- START DEV SCRIPTS -->
-    <!-- <script
-      type="text/javascript"
-      src="https://cdn.certua.io/ux-micro-frontends/open-banking-elements/dev/current/polyfills.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.certua.io/ux-micro-frontends/open-banking-elements/dev/current/main.js"
-    ></script> -->
+    <!-- Insurance URLS (not required if only using Open Banking) -->
 
-    <!-- START STAGING SCRIPTS -->
-    <!-- <script
-      type="text/javascript"
-      src="https://cdn.certua.io/ux-micro-frontends/open-banking-elements/stg/v1.0.5-pre/polyfills.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.certua.io/ux-micro-frontends/open-banking-elements/stg/v1.0.3-pre/main.js"
-    ></script> -->
+    <script type="module" src="%VITE_QUOTE_AND_BUY_URL%/polyfills.js"></script>
+    <script type="module" src="%VITE_QUOTE_AND_BUY_URL%/main.js"></script>
+
+    <script type="module" src="%VITE_INSURANCE_ELEMENTS_URL%/polyfills.js"></script>
+    <script type="module" src="%VITE_INSURANCE_ELEMENTS_URL%/main.js"></script>
   </body>
 </html>

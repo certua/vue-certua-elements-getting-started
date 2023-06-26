@@ -50,29 +50,25 @@ jobs:
           command: |
             if [[ "${CIRCLE_BRANCH}" == "dev" ]]; then
               echo 'getting DEV vairables'
-              echo 'export BUCKET="${DEV_GS_VUE_S3_BUCKET}"' >> $BASH_ENV
-              echo 'export DISTRIBUTION_ID="${DEV_GS_VUE_DISTRIBUTION_ID}"' >> $BASH_ENV
+              echo 'export BUCKET="${DEV_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${DEV_DISTRIBUTION_ID}"' >> $BASH_ENV
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo 'export BUCKET="${PROD_GS_VUE_S3_BUCKET}"' >> $BASH_ENV
-              echo 'export DISTRIBUTION_ID="${PROD_GS_VUE_DISTRIBUTION_ID}"' >> $BASH_ENV
+              echo 'export BUCKET="${PROD_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${PROD_DISTRIBUTION_ID}"' >> $BASH_ENV
             elif [ "${CIRCLE_BRANCH}" == "qa" ]; then
-              echo 'export BUCKET="${QA_GS_VUE_S3_BUCKET}"' >> $BASH_ENV
-              echo 'export DISTRIBUTION_ID="${QA_GS_VUE_DISTRIBUTION_ID}"' >> $BASH_ENV
+              echo 'export BUCKET="${QA_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${QA_DISTRIBUTION_ID}"' >> $BASH_ENV
             elif [ "${CIRCLE_BRANCH}" == "Staging" ]; then
-              echo 'export BUCKET="${STAGING_GS_VUE_S3_BUCKET}"' >> $BASH_ENV
-              echo 'export DISTRIBUTION_ID="${STAGING_GS_VUE_DISTRIBUTION_ID}"' >> $BASH_ENV
+              echo 'export BUCKET="${STAGING_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${STAGING_DISTRIBUTION_ID}"' >> $BASH_ENV
             fi
           name: Configure Variables
       - run:
           command: |
             echo "clearing ${BUCKET}"
-            aws s3 rm s3://${BUCKET} --recursive
-            echo "> gzip js files and remove .gz extension"
-            for file in ./dist/wonderland/main*.js; do gzip "$file" && mv "$file.gz" "$file"; done
-            echo "S3 copy up gzipped js files"
-            aws s3 cp dist/wonderland/main*.js s3://${BUCKET} --content-encoding 'gzip' --acl public-read
+            aws s3 rm s3://${BUCKET}/vue --recursive
             echo "S3 copy up all other files to getting started vue folder"
-            aws s3 cp dist/wonderland s3://${BUCKET} --recursive --exclude "main*.js" --acl public-read
+            aws s3 cp dist s3://${BUCKET}/vue --recursive --acl public-read
             echo "CloudFront update cache - getting started vue - ${BUCKET}"
             aws configure set preview.cloudfront true
             aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'

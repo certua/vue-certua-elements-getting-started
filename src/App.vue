@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
-import Setup from './components/Setup.vue'
+import ProdWarning from './views/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
 
 let showNavigation = ref(false)
@@ -100,7 +100,7 @@ function setType(type: string) {
         </div>
         <nav></nav>
       </div>
-      <div class="col mt-4"><RouterView /></div>
+      <div class="col mt-4"><ProdWarning /><RouterView /></div>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 let isProd = ref(false)
 
 onMounted(() => {
-  if (import.meta.env.PROD) {
+  if (import.meta.env.VUE_ENVIRONMENT == 'prod') {
     isProd.value = true
   }
 })

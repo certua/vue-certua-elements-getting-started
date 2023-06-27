@@ -27,7 +27,7 @@ function back(chosenStep: Step) {
 }
 
 function goToComponents() {
-  router.push('/components/quote-and-buy')
+  router.replace('/components/quote-and-buy')
 }
 
 function setReferrer(value?: string) {
@@ -40,14 +40,14 @@ function setReferrer(value?: string) {
     'insuranceConfig',
     JSON.stringify({
       referrerId: referrerCode.value,
-      basePath: 'components/quote-and-buy'
+      basePath: 'vue/components/quote-and-buy'
     })
   )
 }
 
 function startAgain() {
   localStorage.clear()
-  router.push('/components/connect')
+  router.replace('/components/connect')
 }
 
 // lifecycle hooks

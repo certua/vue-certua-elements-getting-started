@@ -45,7 +45,10 @@ onMounted(() => {
             <div class="col-md-3 offset-md-3 pointer card p-3" @click="setType('open-banking')">
               Open banking elements
             </div>
-            <div class="col-md-3 pointer card p-3 ms-2" @click="setType('insurance')">
+            <div
+              class="col-md-3 pointer card p-3 ms-md-2 mt-2 mt-md-0"
+              @click="setType('insurance')"
+            >
               Insurance elements
             </div>
           </div>

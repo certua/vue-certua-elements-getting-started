@@ -7,7 +7,7 @@
       <thead>
         <th>Property Name</th>
         <th>Mandatory</th>
-        <th>Region</th>
+
         <th>Description</th>
       </thead>
       <tbody>

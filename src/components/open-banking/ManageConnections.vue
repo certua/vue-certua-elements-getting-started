@@ -19,11 +19,9 @@ let notificationSettings = {
 }
 let redirectionConfig = {
   successUrl:
-    window.location.origin +
-    '/components/open-banking/manage-connections?accountConnection=success',
+    window.location.origin + '/vue/components/manage-connections?accountConnection=success',
   failureUrl:
-    window.location.origin +
-    '/components/open-banking/manage-connections?accountConnection=failure',
+    window.location.origin + '/vue/components/manage-connections?accountConnection=failure',
   popup: false
 }
 let contentOverrides = {
@@ -44,32 +42,9 @@ let contentOverrides = {
     }
   }
 }
-function checkExpiry() {
-  let token = JSON.parse(localStorage.getItem('apiConfig') ?? '')
-  let tokenCreation = parseISO(token.dateCreated)
-  if (add(tokenCreation, { minutes: 30 }) <= new Date()) {
-    showError.value = true
-    localStorage.removeItem('apiConfig')
-  }
-
-  let root = document.documentElement
-  if (!root.style.getPropertyValue('--primary')) {
-    let primary = localStorage.getItem('--primary')
-    root.style.setProperty('--primary', primary)
-
-    let secondary = localStorage.getItem('--secondary')
-    root.style.setProperty('--secondary', secondary)
-  }
-}
 
 // lifecycle hooks
 onMounted(() => {
-  if (!localStorage.getItem('apiConfig')) {
-    showError.value = true
-  } else {
-    checkExpiry()
-    contextTokenOptions.value = JSON.parse(localStorage.getItem('apiConfig') ?? '')
-  }
   if (localStorage.getItem('daasUrl')) {
     daasUrl.value = localStorage.getItem('daasUrl') ?? ''
   }
@@ -78,12 +53,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="row" v-if="showError">
-    <div class="col">
-      <h3>You do not have a context token</h3>
-      <RouterLink to="/">Home</RouterLink>
-    </div>
-  </div>
+  <NoTokenError
+    @error="(value: any) => showError = value"
+    @contextTokenOptions="(value: any) => contextTokenOptions = value"
+  />
   <div class="row" v-if="!showError">
     <h2>Manage connections</h2>
     <p>This component can be used to view connected accounts, refresh consent or disconnect</p>

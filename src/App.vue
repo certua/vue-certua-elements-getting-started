@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
-import ProdWarning from './views/ProdWarning.vue'
+import ProdWarning from './components/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
 
 let showNavigation = ref(false)
@@ -32,9 +32,9 @@ onMounted(() => {
   }
 })
 
-function setType(type: string) {
-  elementType.value = type
-  localStorage.setItem('elementType', type)
+function clearType() {
+  elementType.value = undefined
+  localStorage.removeItem('elementType')
   router.push('/home')
 }
 </script>
@@ -46,7 +46,7 @@ function setType(type: string) {
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <a class="navbar-brand" href="/">
             <div class="d-flex justify-items-center">
-              <img src="./assets/certua.png" /></div
+              <img @click="clearType()" src="./assets/certua.png" /></div
           ></a>
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
@@ -76,27 +76,12 @@ function setType(type: string) {
             >Transactions</RouterLink
           >
           <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink>
-          <div class="btn btn-link" @click="setType('insurance')">Switch to Insurance elements</div>
         </div>
         <div class="list-group mt-4" v-if="elementType == 'insurance'">
           <p>Insurance Components</p>
           <RouterLink to="/components/quote-and-buy" class="list-group-item"
             >Quote and buy</RouterLink
           >
-          <!-- <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
-          <RouterLink to="/components/manage-connections" class="list-group-item"
-            >Manage Connections</RouterLink
-          >
-          <RouterLink to="/components/account-summary" class="list-group-item"
-            >Account Summary</RouterLink
-          >
-          <RouterLink to="/components/transactions" class="list-group-item"
-            >Transactions</RouterLink
-          >
-          <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink> -->
-          <div class="btn btn-link" @click="setType('open-banking')">
-            Switch to Open banking elements
-          </div>
         </div>
         <nav></nav>
       </div>

@@ -54,12 +54,5 @@ onMounted(() => {
     </div>
     <ObSetup v-if="elementType == 'open-banking'" />
     <InsuranceSetup v-if="elementType == 'insurance'" />
-
-    <div class="btn btn-link" v-if="elementType == 'insurance'" @click="setType('open-banking')">
-      Switch to Open Banking Elements
-    </div>
-    <div class="btn btn-link" v-if="elementType == 'open-banking'" @click="setType('insurance')">
-      Switch to Insurance Elements
-    </div>
   </div>
 </template>

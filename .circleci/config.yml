@@ -87,7 +87,7 @@ workflows:
               only:
                 - dev
                 - qa
-                - Staging
+                - staging
                 - master
       - deploy:
           filters:
@@ -95,7 +95,7 @@ workflows:
               only:
                 - dev
                 - qa
-                - Staging
+                - staging
                 - master
           requires:
             - build

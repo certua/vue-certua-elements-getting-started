@@ -181,8 +181,11 @@ onMounted(() => {
         <div class="col">
           <h3>Firstly, we need an access token</h3>
           <div class="text-start">
-            <label for="countryCode" class="form-label">Country</label>
-            <input id="countryCpde" type="text" class="form-control" v-model="countryCode" />
+            <label for="username" class="form-label">Country</label>
+            <select id="country" class="form-select" v-model="countryCode">
+              <option value="UK">United Kingdom</option>
+              <option value="AU">Australia</option>
+            </select>
             <label for="username" class="form-label">Username</label>
             <input id="username" type="text" class="form-control" v-model="username" />
             <label for="password" class="label">Password</label>

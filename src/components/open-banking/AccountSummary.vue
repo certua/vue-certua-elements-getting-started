@@ -57,37 +57,54 @@ onMounted(() => {
       &lt;/certua-ob-account-summary-list&gt;
       </code>
     </pre>
+
+    <h4>Event bus messages</h4>
+    <p>
+      This component emits the total value of the account balances grouped by currency with the
+      event type of <code>account-summary-balances</code>
+    </p>
+    <pre><code>
+    {
+  "balances": {
+    "GBP": 123966.06,
+    "EUR": 0
+  }
+}
+    </code></pre>
+
     <h4>Component specific inputs</h4>
-    <table class="table">
-      <thead>
-        <th>Property Name</th>
-        <th>Mandatory</th>
-        <th>Region</th>
-        <th>Description</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>sortOptions</td>
-          <td>No</td>
-          <td>All</td>
-          <td>
-            This is JSON which allows you to set the sortFieldName and sortOrder. Currently limited
-            to sortFieldName must be 'balance' and sortOrder 'asc' or 'desc'. If this is not passed
-            then they are ordered by Provider name
-            <br />
-            <code> { "sortFieldName": "balance" , "sortOrder": "asc" } </code>
-          </td>
-        </tr>
-        <tr>
-          <td>limitTo</td>
-          <td>No</td>
-          <td>All</td>
-          <td>
-            This is an integer that controls how many accounts are shown.
-            <br />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Property Name</th>
+          <th>Mandatory</th>
+          <th>Region</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sortOptions</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This is JSON which allows you to set the sortFieldName and sortOrder. Currently
+              limited to sortFieldName must be 'balance' and sortOrder 'asc' or 'desc'. If this is
+              not passed then they are ordered by Provider name
+              <br />
+              <code> { "sortFieldName": "balance" , "sortOrder": "asc" } </code>
+            </td>
+          </tr>
+          <tr>
+            <td>limitTo</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This is an integer that controls how many accounts are shown.
+              <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

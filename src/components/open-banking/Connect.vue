@@ -90,61 +90,63 @@ onMounted(() => {
       </code>
     </pre>
     <h4>Component specific inputs</h4>
-    <table class="table">
-      <thead>
-        <th>Property Name</th>
-        <th>Mandatory</th>
-        <th>Region</th>
-        <th>Description</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>redirectionConfig</td>
-          <td>Yes</td>
-          <td>All</td>
-          <td>
-            This is a JSON string which contains the success or failure redirection Urls, which are
-            used after the connection to the bank. Popup controls whether or not the bank url is
-            shown in the same tab or in a new tab, this defaults to false if not present<br /><code
-              >{ successUrl:
-              'http://localhost:5713/components/open-banking/connect?accountConnection=success',
-              failureUrl:
-              'http://localhost:5713/components/open-banking/connect?accountConnection=failure',
-              popup: false }</code
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>contentOverrides</td>
-          <td>No</td>
-          <td>UK only</td>
-          <td>
-            This is a JSON string which contains any text overrides that you want to pass to the
-            information screens/modals<br /><code>
-              { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text about
-              how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': { confirmDisconnect: {
-              implicationOfRevocation: ' &lt;p&gt;[Custom text about implications of
-              revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what happens to data
-              if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about ability to
-              relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
-              confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms of
-              service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
-              &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
-              &lt;p&gt;[Custom text about what happens to data now account are
-              disconnected]&lt;/p&gt; ' } } }
-            </code>
-          </td>
-        </tr>
-        <tr>
-          <td>startingPhase</td>
-          <td>No</td>
-          <td>All</td>
-          <td>
-            This is a string which controls the starting screen when connecting accounts, this can
-            be <code>AccountList</code> or <code>InstitutionSelection</code>.
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Property Name</th>
+          <th>Mandatory</th>
+          <th>Region</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>redirectionConfig</td>
+            <td>Yes</td>
+            <td>All</td>
+            <td>
+              This is a JSON string which contains the success or failure redirection Urls, which
+              are used after the connection to the bank. Popup controls whether or not the bank url
+              is shown in the same tab or in a new tab, this defaults to false if not present<br /><code
+                >{ successUrl:
+                'http://localhost:5713/components/open-banking/connect?accountConnection=success',
+                failureUrl:
+                'http://localhost:5713/components/open-banking/connect?accountConnection=failure',
+                popup: false }</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>contentOverrides</td>
+            <td>No</td>
+            <td>UK only</td>
+            <td>
+              This is a JSON string which contains any text overrides that you want to pass to the
+              information screens/modals<br /><code>
+                { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text
+                about how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': {
+                confirmDisconnect: { implicationOfRevocation: ' &lt;p&gt;[Custom text about
+                implications of revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what
+                happens to data if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about
+                ability to relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
+                confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms
+                of service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
+                &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
+                &lt;p&gt;[Custom text about what happens to data now account are
+                disconnected]&lt;/p&gt; ' } } }
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>startingPhase</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This is a string which controls the starting screen when connecting accounts, this can
+              be <code>AccountList</code> or <code>InstitutionSelection</code>.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

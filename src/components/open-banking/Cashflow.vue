@@ -48,14 +48,16 @@ onMounted(() => {
       </code>
     </pre>
     <h4>Component specific inputs</h4>
-    <table class="table">
-      <thead>
-        <th>Property Name</th>
-        <th>Mandatory</th>
-        <th>Region</th>
-        <th>Description</th>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Property Name</th>
+          <th>Mandatory</th>
+          <th>Region</th>
+          <th>Description</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 </template>

@@ -90,70 +90,76 @@ onMounted(() => {
       </code>
     </pre>
     <h4>Component specific inputs</h4>
-    <table class="table">
-      <thead>
-        <th>Property Name</th>
-        <th>Mandatory</th>
-        <th>Region</th>
-        <th>Description</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>contentOverrides</td>
-          <td>No</td>
-          <td>UK Only</td>
-          <td>
-            This is JSON which contains any text overrides that you want to pass to the information
-            screens/modals<br /><code>
-              { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text about
-              how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': { confirmDisconnect: {
-              implicationOfRevocation: ' &lt;p&gt;[Custom text about implications of
-              revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what happens to data
-              if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about ability to
-              relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
-              confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms of
-              service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
-              &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
-              &lt;p&gt;[Custom text about what happens to data now account are
-              disconnected]&lt;/p&gt; ' } } }
-            </code>
-          </td>
-        </tr>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Property Name</th>
+          <th>Mandatory</th>
+          <th>Region</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>contentOverrides</td>
+            <td>No</td>
+            <td>UK Only</td>
+            <td>
+              This is JSON which contains any text overrides that you want to pass to the
+              information screens/modals<br /><code>
+                { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text
+                about how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': {
+                confirmDisconnect: { implicationOfRevocation: ' &lt;p&gt;[Custom text about
+                implications of revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what
+                happens to data if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about
+                ability to relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
+                confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms
+                of service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
+                &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
+                &lt;p&gt;[Custom text about what happens to data now account are
+                disconnected]&lt;/p&gt; ' } } }
+              </code>
+            </td>
+          </tr>
 
-        <tr>
-          <td>showTitle</td>
-          <td>No</td>
-          <td>All</td>
-          <td>This will show or hide the web components title (Open Banking Connected Accounts)</td>
-        </tr>
-        <tr>
-          <td>showAddButton</td>
-          <td>No</td>
-          <td>All</td>
-          <td>
-            This controls if the Add Account button is shown above the currently connected accounts.
-          </td>
-        </tr>
+          <tr>
+            <td>showTitle</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This will show or hide the web components title (Open Banking Connected Accounts)
+            </td>
+          </tr>
+          <tr>
+            <td>showAddButton</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This controls if the Add Account button is shown above the currently connected
+              accounts.
+            </td>
+          </tr>
 
-        <tr>
-          <td>manualViewMode</td>
-          <td>No</td>
-          <td>UK Only</td>
-          <td>
-            This only needs to be passed in if you are in the UK region and wish to hide the
-            Current/History tabs. Note in AU this is automatically set to false and cannot be
-            overridden.
-          </td>
-        </tr>
-        <tr>
-          <td>viewMode</td>
-          <td>No</td>
-          <td>UK Only</td>
-          <td>
-            Only for use when 'manualViewMode' is set to true, this toggles which view mode is shown
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <td>manualViewMode</td>
+            <td>No</td>
+            <td>UK Only</td>
+            <td>
+              This only needs to be passed in if you are in the UK region and wish to hide the
+              Current/History tabs. Note in AU this is automatically set to false and cannot be
+              overridden.
+            </td>
+          </tr>
+          <tr>
+            <td>viewMode</td>
+            <td>No</td>
+            <td>UK Only</td>
+            <td>
+              Only for use when 'manualViewMode' is set to true, this toggles which view mode is
+              shown
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

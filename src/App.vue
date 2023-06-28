@@ -42,21 +42,34 @@ function clearType() {
 <template>
   <div class="container-fluid">
     <div class="row bg-grey border-bottom" id="header">
-      <div class="col">
+      <div class="col px-0">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <a class="navbar-brand" href="/">
-            <div class="d-flex justify-items-center">
-              <img @click="clearType()" src="./assets/certua.png" /></div
-          ></a>
-          <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
-              </li>
-              <li class="nav-item" v-if="!!elementType">
-                <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
-              </li>
-            </ul>
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+              <div class="d-flex justify-items-center">
+                <img @click="clearType()" src="./assets/certua.png" /></div
+            ></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
+                </li>
+                <li class="nav-item" v-if="!!elementType">
+                  <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
       </div>
@@ -92,7 +105,6 @@ function clearType() {
 
 <style scoped>
 #header {
-  height: 5vh;
   font-size: 15px;
   font-weight: 700;
 }

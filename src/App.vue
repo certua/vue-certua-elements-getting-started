@@ -86,7 +86,7 @@ function selectItem(i: number, route: string) {
     </div>
     <div class="row" id="sidebar">
       <div class="col-md-3 border-end" v-if="showNavigation">
-        <TabArrows class="mt-4" ref="tabArrows" />
+        <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
 
         <div
           class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"

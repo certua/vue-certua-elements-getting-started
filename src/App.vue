@@ -3,11 +3,14 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
 import ProdWarning from './components/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
-
+import TabArrows from './components/TabArrows.vue'
 let showNavigation = ref(false)
 let elementType = ref()
 const route = useRoute()
 
+let tabArrows = ref()
+
+let selectedIndex = ref(0)
 // do a `console.log(route)` to see route attributes (fullPath, hash, params, path...)
 watch(
   () => route.fullPath,
@@ -36,6 +39,13 @@ function clearType() {
   elementType.value = undefined
   localStorage.removeItem('elementType')
   router.push('/home')
+}
+
+function selectItem(i: number, route: string) {
+  router.replace(route)
+  tabArrows.value.selectItem(i)
+  selectedIndex.value = i
+  // select.emit(item);
 }
 </script>
 
@@ -76,24 +86,66 @@ function clearType() {
     </div>
     <div class="row" id="sidebar">
       <div class="col-md-3 border-end" v-if="showNavigation">
-        <div class="list-group mt-4" v-if="elementType == 'open-banking'">
-          <p>Open Banking Components</p>
-          <RouterLink to="/components/connect" class="list-group-item">Connect</RouterLink>
-          <RouterLink to="/components/manage-connections" class="list-group-item"
-            >Manage Connections</RouterLink
+        <TabArrows class="mt-4" ref="tabArrows" />
+
+        <div
+          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+          v-if="elementType == 'open-banking'"
+          id="items"
+        >
+          <span
+            :class="{ active: selectedIndex == 0 }"
+            @click="selectItem(0, '/components/connect')"
+            class="list-group-item pointer"
+            >Connect</span
           >
-          <RouterLink to="/components/account-summary" class="list-group-item"
-            >Account Summary</RouterLink
+          <span
+            :class="{ active: selectedIndex == 1 }"
+            @click="selectItem(1, '/components/manage-connections')"
+            class="list-group-item pointer"
+            >Manage Connections</span
           >
-          <RouterLink to="/components/transactions" class="list-group-item"
-            >Transactions</RouterLink
+          <span
+            :class="{ active: selectedIndex == 2 }"
+            @click="selectItem(2, '/components/account-summary')"
+            class="list-group-item pointer"
+            >Account Summary</span
           >
-          <RouterLink to="/components/cashflow" class="list-group-item">Cashflow</RouterLink>
+          <span
+            :class="{ active: selectedIndex == 3 }"
+            @click="selectItem(3, '/components/transactions')"
+            class="list-group-item pointer"
+            >Transactions</span
+          >
+          <span
+            :class="{ active: selectedIndex == 4 }"
+            @click="selectItem(4, '/components/cashflow')"
+            class="list-group-item pointer"
+            >Cashflow</span
+          >
         </div>
-        <div class="list-group mt-4" v-if="elementType == 'insurance'">
-          <p>Insurance Components</p>
-          <RouterLink to="/components/quote-and-buy" class="list-group-item"
-            >Quote and buy</RouterLink
+        <div
+          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+          id="items"
+          v-if="elementType == 'insurance'"
+        >
+          <span
+            :class="{ active: selectedIndex == 0 }"
+            @click="selectItem(0, '/components/quote-and-buy')"
+            class="list-group-item pointer"
+            >Quote and buy</span
+          >
+          <span
+            :class="{ active: selectedIndex == 1 }"
+            @click="selectItem(1, '/components/claims')"
+            class="list-group-item pointer"
+            >Claims</span
+          >
+          <span
+            :class="{ active: selectedIndex == 2 }"
+            @click="selectItem(2, '/components/fnol')"
+            class="list-group-item pointer"
+            >Fnol</span
           >
         </div>
         <nav></nav>
@@ -122,12 +174,13 @@ function clearType() {
   border: none !important;
   border-radius: 2px !important;
   font-weight: 700 !important;
+  white-space: nowrap;
 }
 
 #sidebar .list-group-item:hover {
   color: #007fc6 !important;
 }
-#sidebar .router-link-active {
+#sidebar .active {
   background: #007fc626 !important;
   color: #007fc6;
 }

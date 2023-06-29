@@ -5,19 +5,19 @@ import axios from 'axios'
 import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
-let config = ref('')
+let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') == 'open-banking') {
-    router.replace('/components/connect')
+  if (localStorage.getItem('elementType') !== 'insurance') {
+    router.replace('/components/quote-and-buy')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
 
   if (!!configJson) {
-    config.value = configJson
+    config.value = JSON.parse(configJson)
   }
 
   accessToken.value = localStorage.getItem('certua-accessToken')
@@ -34,21 +34,18 @@ onMounted(() => {
     </div>
   </div>
   <div class="row" v-if="!showError">
-    <h2>Quote and buy</h2>
-    <p>This component displays a Quote and buy Journey</p>
-    <mf-insurance-journey
-      :config="config"
-      :accesstoken="accessToken"
-      v-if="!!loaded"
-    ></mf-insurance-journey>
+    <h2>Claims</h2>
+    <p>This component displays Claims Information</p>
+    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId">
+    </certua-insurance-claims-information>
   </div>
   <div>
     <h4>Example code</h4>
     <pre><code>
-      &lt;mf-insurance-journey 
-        :config="config"
-        :accesstoken="accessToken"
-      &lt;/mf-insurance-journey &gt;
+      &lt;certua-insurance-claims-information
+      :referrerSiteCode:="config.referrerId"
+
+      &lt;/certua-insurance-claims-information &gt;
       </code>
     </pre>
     <h4>Component specific inputs</h4>
@@ -60,26 +57,7 @@ onMounted(() => {
 
           <th>Description</th>
         </thead>
-        <tbody>
-          <tr>
-            <td>config</td>
-            <td>Yes</td>
-
-            <td>
-              This contains information on the site you are integrating the quote and buy journey
-              integration<br /><code
-                >{ referrerId: 'xxxx-xxxx-xxxx-xxxx', basePath: 'components/quote-and-buy', popup:
-                false }</code
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>accesstoken</td>
-            <td>Yes</td>
-
-            <td>Pass null if no access token available or for anonymous journey</td>
-          </tr>
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
   </div>

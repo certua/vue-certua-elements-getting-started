@@ -68,6 +68,16 @@ const router = createRouter({
               //component: () => import('../views/insurance/QuoteAndBuyView.vue')
             }
           ]
+        },
+        {
+          path: 'claims',
+          name: 'claims',
+          component: () => import('../views/insurance/ClaimsView.vue')
+        },
+        {
+          path: 'fnol',
+          name: 'fnol',
+          component: () => import('../views/insurance/FnolView.vue')
         }
       ]
     }

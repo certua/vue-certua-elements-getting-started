@@ -37,7 +37,7 @@ let contentOverrides = {
 
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') !== 'open-banking') {
+  if (localStorage.getItem('elementType') == 'insurance') {
     router.replace('/components/quote-and-buy')
   }
 

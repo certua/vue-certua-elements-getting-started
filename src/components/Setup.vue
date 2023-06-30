@@ -9,12 +9,38 @@ import InsuranceSetup from './InsuranceSetup.vue'
 // reactive state
 
 const elementType = ref('')
-
+const openBankingUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/main.js'
+const openBankingPolyfillUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/polyfills.js'
+const quoteAndBuyUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/main.js'
+const quoteAndBuyPolyfillUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/polyfills.js'
+const insuranceElementsUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/main.js'
+const insuranceElementsPolyfillUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/polyfills.js'
 // functions that mutate state and trigger updates##
 
 function setType(type: string) {
   localStorage.setItem('elementType', type)
   elementType.value = type
+  if (type == 'open-banking') {
+    loadScript(openBankingUrl, null)
+    loadScript(openBankingPolyfillUrl, null)
+  } else {
+    loadScript(quoteAndBuyUrl, null)
+    loadScript(quoteAndBuyPolyfillUrl, null)
+
+    loadScript(insuranceElementsUrl, null)
+    loadScript(insuranceElementsPolyfillUrl, null)
+  }
+}
+
+function loadScript(url: string, onload: any) {
+  const componentJS = document.createElement('script')
+  componentJS.async = true
+  componentJS.defer = true
+  componentJS.src = url
+  componentJS.type = 'module'
+  //componentJS.src = url + `?v=${this._initialCacheDate.toString()}`;
+  componentJS.onload = onload
+  document.head.appendChild(componentJS)
 }
 
 // lifecycle hooks

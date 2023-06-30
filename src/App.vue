@@ -9,8 +9,14 @@ let elementType = ref()
 const route = useRoute()
 
 let tabArrows = ref()
-
+const openBankingUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/main.js'
+const openBankingPolyfillUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/polyfills.js'
+const quoteAndBuyUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/main.js'
+const quoteAndBuyPolyfillUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/polyfills.js'
+const insuranceElementsUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/main.js'
+const insuranceElementsPolyfillUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/polyfills.js'
 let selectedIndex = ref(0)
+let loaded = ref(false)
 // do a `console.log(route)` to see route attributes (fullPath, hash, params, path...)
 watch(
   () => route.fullPath,
@@ -19,6 +25,32 @@ watch(
     const home = route.fullPath.includes('home')
     showNavigation.value = !home
 
+    let page = route.fullPath.replace('/components/', '')
+    switch (page) {
+      case 'connect':
+      case 'quote-and-buy': {
+        selectedIndex.value = 0
+        break
+      }
+      case 'manage-connections':
+      case 'claims': {
+        selectedIndex.value = 1
+        break
+      }
+      case 'account-summary':
+      case 'fnol': {
+        selectedIndex.value = 2
+        break
+      }
+      case 'transactions': {
+        selectedIndex.value = 3
+        break
+      }
+      case 'cashflow': {
+        selectedIndex.value = 4
+        break
+      }
+    }
     let type: string = localStorage.getItem('elementType') ?? ''
     elementType.value = type
   }
@@ -33,6 +65,21 @@ onMounted(() => {
   if (!!localStorage.getItem('--secondary')) {
     root.style.setProperty('--secondary', localStorage.getItem('--secondary'))
   }
+
+  let type = localStorage.getItem('elementType')
+  if (!!type) {
+    elementType.value = type
+    if (type == 'open-banking') {
+      loadScript(openBankingUrl, null)
+      loadScript(openBankingPolyfillUrl, setLoaded)
+    } else {
+      loadScript(quoteAndBuyUrl, null)
+      loadScript(quoteAndBuyPolyfillUrl, null)
+
+      loadScript(insuranceElementsUrl, null)
+      loadScript(insuranceElementsPolyfillUrl, setLoaded)
+    }
+  }
 })
 
 function clearType() {
@@ -46,6 +93,19 @@ function selectItem(i: number, route: string) {
   tabArrows.value.selectItem(i)
   selectedIndex.value = i
   // select.emit(item);
+}
+
+function setLoaded() {
+  loaded.value = true
+}
+function loadScript(url: string, onload: any) {
+  const componentJS = document.createElement('script')
+
+  componentJS.src = url
+  componentJS.type = 'module'
+  //componentJS.src = url + `?v=${this._initialCacheDate.toString()}`;
+  componentJS.onload = onload
+  document.head.appendChild(componentJS)
 }
 </script>
 
@@ -150,7 +210,7 @@ function selectItem(i: number, route: string) {
         </div>
         <nav></nav>
       </div>
-      <div class="col mt-4"><ProdWarning /><RouterView /></div>
+      <div class="col mt-4" v-if="loaded"><ProdWarning /><RouterView /></div>
     </div>
   </div>
 </template>

@@ -79,6 +79,8 @@ onMounted(() => {
       loadScript(insuranceElementsUrl, null)
       loadScript(insuranceElementsPolyfillUrl, setLoaded)
     }
+  } else {
+    loaded.value = true
   }
 })
 

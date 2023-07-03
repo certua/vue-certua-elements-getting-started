@@ -11,7 +11,7 @@ let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/quote-and-buy')
+    router.replace('/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')

@@ -8,6 +8,8 @@ let showError = ref(false)
 let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
+
+let quickQuoteJson = ref('')
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
@@ -24,6 +26,11 @@ onMounted(() => {
 
   loaded.value = true
 })
+
+function updateQuote(quote: any) {
+  console.log('quote emitted', quote)
+  quickQuoteJson.value = quote.detail
+}
 </script>
 
 <template>
@@ -34,20 +41,26 @@ onMounted(() => {
     </div>
   </div>
   <div class="row" v-if="!showError">
-    <h2>Claims</h2>
-    <p>This component displays Claims Information</p>
-    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId">
-    </certua-insurance-claims-information>
+    <h2>Quick Quote</h2>
+    <p>This component displays questions to generate a Quick Quote</p>
+    <certua-insurance-quick-quote
+      :referrerSiteCode="config?.referrerId"
+      @quickQuote="(value: any) => updateQuote(value)"
+    >
+    </certua-insurance-quick-quote>
   </div>
   <div>
     <h4>Example code</h4>
     <pre><code>
-      &lt;certua-insurance-claims-information
+      &lt;certua-insurance-quick-quote
       :referrerSiteCode:="config.referrerId"
+      @quickQuote="(value: any) => updateQuote(value)"
 
-      &lt;/certua-insurance-claims-information &gt;
+      &lt;/certua-insurance-quick-quote &gt;
       </code>
     </pre>
+    <h4>Output event - Quick quote</h4>
+    <pre> <code>{{ JSON.stringify(quickQuoteJson) }}</code></pre>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">
@@ -62,3 +75,9 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+code {
+  white-space: pre-line;
+}
+</style>

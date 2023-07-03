@@ -78,6 +78,11 @@ const router = createRouter({
           path: 'fnol',
           name: 'fnol',
           component: () => import('../views/insurance/FnolView.vue')
+        },
+        {
+          path: 'quick-quote',
+          name: 'quick-quote',
+          component: () => import('../views/insurance/QuickQuoteView.vue')
         }
       ]
     }

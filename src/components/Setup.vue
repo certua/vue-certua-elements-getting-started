@@ -66,16 +66,21 @@ onMounted(() => {
     <div class="col-md-6 offset-md-3 text-center">
       <div class="row" v-if="!elementType">
         <div class="col">
-          <h3>Which elements would you like to integrate?</h3>
-          <div class="row mt-2">
-            <div class="col-md-3 offset-md-3 pointer card p-3" @click="setType('open-banking')">
-              Open banking elements
+          <h3 class="subtitle">Which elements would you like to integrate?</h3>
+          <div class="row mt-4">
+            <div
+              class="col-md-3 offset-md-3 pointer shadow p-3 element-box"
+              @click="setType('open-banking')"
+            >
+              <i class="fa-solid fa-building-columns fa-2xl circle-icon"></i>
+              <p class="text-uppercase font-weight-bold mt-4">Open banking</p>
             </div>
             <div
-              class="col-md-3 pointer card p-3 ms-md-2 mt-2 mt-md-0"
+              class="col-md-3 pointer shadow p-3 ms-md-2 mt-2 mt-md-0 element-box"
               @click="setType('insurance')"
             >
-              Insurance elements
+              <i class="fa -solid fa-shield-halved fa-2xl circle-icon"></i>
+              <p class="text-uppercase font-weight-bold mt-4">Insurance</p>
             </div>
           </div>
         </div>
@@ -85,3 +90,37 @@ onMounted(() => {
     <InsuranceSetup v-if="elementType == 'insurance'" />
   </div>
 </template>
+<style scoped>
+.element-box {
+  height: 150px;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+  color: #000;
+}
+
+i {
+  color: #007fc6 !important;
+}
+
+.subtitle {
+  font-size: 24px;
+}
+
+.circle-icon {
+  background: #e5f6ff;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  text-align: center;
+  margin: 5px 0 0 0;
+  display: flex;
+  padding: 3px;
+  height: 60px;
+  width: 60px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

@@ -42,7 +42,8 @@ watch(
         selectedIndex.value = 2
         break
       }
-      case 'transactions': {
+      case 'transactions':
+      case 'quick-quote': {
         selectedIndex.value = 3
         break
       }
@@ -208,6 +209,12 @@ function loadScript(url: string, onload: any) {
             @click="selectItem(2, '/components/fnol')"
             class="list-group-item pointer"
             >Fnol</span
+          >
+          <span
+            :class="{ active: selectedIndex == 3 }"
+            @click="selectItem(3, '/components/quick-quote')"
+            class="list-group-item pointer"
+            >Quick Quote</span
           >
         </div>
         <nav></nav>

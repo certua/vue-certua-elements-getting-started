@@ -91,11 +91,13 @@ function getContextToken() {
   const tokenUrl = countryCode.value === 'UK' ? tokenUKUrl : tokenAUUrl
   let body = {
     'client.integration.datasource.preference': ['OpenBanking', 'Yodlee', 'Yapily'],
+    'client.integration.sub-tenant.reference': '12499',
+    'client.integration.adviser.reference': '9163',
     'client.integration.user.reference': userReference // this is your reference for your client
   } as any
   if (countryCode.value == 'AU') {
     body['client.integration.sub-tenant.reference'] = '12499'
-    body['client.integration.adviser.reference'] = '9163'
+    body['client.integration.adviser.reference'] = '9089'
   }
   from(
     axios.post(tokenUrl, body, {

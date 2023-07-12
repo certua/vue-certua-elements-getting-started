@@ -15,6 +15,9 @@ const quoteAndBuyUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/main.js'
 const quoteAndBuyPolyfillUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/polyfills.js'
 const insuranceElementsUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/main.js'
 const insuranceElementsPolyfillUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/polyfills.js'
+const onboardingUrl = import.meta.env.VITE_ONBOARDING_URL + '/main.js'
+const onboardingPolyfillUrl = import.meta.env.VITE_ONBOARDING_URL + '/polyfills.js'
+
 let selectedIndex = ref(0)
 let loaded = ref(false)
 // do a `console.log(route)` to see route attributes (fullPath, hash, params, path...)
@@ -47,10 +50,33 @@ watch(
         selectedIndex.value = 3
         break
       }
-      case 'cashflow': {
+      case 'cashflow':
+      case 'login': {
         selectedIndex.value = 4
         break
       }
+      case 'quotes-list': {
+        selectedIndex.value = 5
+        break
+      }
+
+      case 'policies-list': {
+        selectedIndex.value = 6
+        break
+      }
+
+      case 'view-policy': {
+        selectedIndex.value = 7
+        break
+      }
+
+      case 'manage-policy': {
+        selectedIndex.value = 8
+        break
+      }
+    }
+    if (page.includes('view-policy')) {
+      selectedIndex.value = 7
     }
     let type: string = localStorage.getItem('elementType') ?? ''
     elementType.value = type
@@ -78,7 +104,10 @@ onMounted(() => {
       loadScript(quoteAndBuyPolyfillUrl, null)
 
       loadScript(insuranceElementsUrl, null)
-      loadScript(insuranceElementsPolyfillUrl, setLoaded)
+      loadScript(insuranceElementsPolyfillUrl, null)
+
+      loadScript(onboardingUrl, null)
+      loadScript(onboardingPolyfillUrl, setLoaded)
     }
   } else {
     loaded.value = true
@@ -215,6 +244,38 @@ function loadScript(url: string, onload: any) {
             @click="selectItem(3, '/components/quick-quote')"
             class="list-group-item pointer"
             >Quick Quote</span
+          >
+
+          <span
+            :class="{ active: selectedIndex == 4 }"
+            @click="selectItem(4, '/components/login')"
+            class="list-group-item pointer"
+            >Login</span
+          >
+
+          <span
+            :class="{ active: selectedIndex == 5 }"
+            @click="selectItem(5, '/components/quotes-list')"
+            class="list-group-item pointer"
+            >Quotes List</span
+          >
+          <span
+            :class="{ active: selectedIndex == 6 }"
+            @click="selectItem(6, '/components/policies-list')"
+            class="list-group-item pointer"
+            >Policies List</span
+          >
+          <span
+            :class="{ active: selectedIndex == 7 }"
+            @click="selectItem(7, '/components/view-policy')"
+            class="list-group-item pointer"
+            >View Policy</span
+          >
+          <span
+            :class="{ active: selectedIndex == 8 }"
+            @click="selectItem(8, '/components/manage-policy')"
+            class="list-group-item pointer"
+            >View Policy (v2)</span
           >
         </div>
         <nav></nav>

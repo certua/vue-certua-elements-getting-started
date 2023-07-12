@@ -83,6 +83,41 @@ const router = createRouter({
           path: 'quick-quote',
           name: 'quick-quote',
           component: () => import('../views/insurance/QuickQuoteView.vue')
+        },
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import('../views/onboarding/LoginView.vue')
+        },
+        {
+          path: 'quotes-list',
+          name: 'quotes-list',
+          component: () => import('../views/insurance/QuotesListView.vue')
+        },
+        {
+          path: 'policies-list',
+          name: 'policies-list',
+          component: () => import('../views/insurance/PolicyListView.vue')
+        },
+        {
+          path: 'view-policy',
+          name: 'view-policy',
+          children: [
+            {
+              path: '',
+              component: () => import('../views/insurance/ViewPolicyView.vue')
+            },
+            {
+              path: ':id',
+              name: 'view-policy',
+              component: () => import('../views/insurance/ViewPolicyView.vue')
+            }
+          ]
+        },
+        {
+          path: 'manage-policy',
+          name: 'manage-policy',
+          component: () => import('../views/insurance/NewViewPolicyView.vue')
         }
       ]
     }

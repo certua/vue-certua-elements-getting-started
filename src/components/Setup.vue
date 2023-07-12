@@ -15,6 +15,8 @@ const quoteAndBuyUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/main.js'
 const quoteAndBuyPolyfillUrl = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/polyfills.js'
 const insuranceElementsUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/main.js'
 const insuranceElementsPolyfillUrl = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/polyfills.js'
+const onboardingUrl = import.meta.env.VITE_ONBOARDING_URL + '/main.js'
+const onboardingPolyfillUrl = import.meta.env.VITE_ONBOARDING_URL + '/polyfills.js'
 // functions that mutate state and trigger updates##
 
 function setType(type: string) {
@@ -29,6 +31,9 @@ function setType(type: string) {
 
     loadScript(insuranceElementsUrl, null)
     loadScript(insuranceElementsPolyfillUrl, null)
+
+    loadScript(onboardingUrl, null)
+    loadScript(onboardingPolyfillUrl, null)
   }
 }
 
@@ -76,6 +81,7 @@ onMounted(() => {
               <p class="text-uppercase font-weight-bold mt-4">Open banking</p>
             </div>
             <div
+              v-if="false"
               class="col-md-3 pointer shadow p-3 ms-md-2 mt-2 mt-md-0 element-box"
               @click="setType('insurance')"
             >

@@ -114,7 +114,7 @@ function getContextToken() {
             contextToken: token,
             ownerId: userReference,
             dateCreated: new Date(),
-            countryCode: this.countryCode
+            countryCode: countryCode.value
           })
         )
       ),

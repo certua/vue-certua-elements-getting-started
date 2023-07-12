@@ -5,12 +5,13 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/vue/',
   plugins: [
     vue({
       template: {
         compilerOptions: {
           isCustomElement: (tag) => {
-            return tag.startsWith('certua-') // (return true)
+            return tag.startsWith('certua-') || tag.startsWith('mf-') || tag.startsWith('ae-') // (return true)
           }
         }
       }

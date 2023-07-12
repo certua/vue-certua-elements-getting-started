@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "stg": "vite --mode staging",
+    "qa": "vite --mode qa",
     "build": "run-p build-only",
+    "build:stg": "vite build --mode staging",
+    "build:dev": "vite build --mode dev",
+    "build:qa": "vite build --mode qa",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",

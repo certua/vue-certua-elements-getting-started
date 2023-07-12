@@ -105,15 +105,16 @@ function getContextToken() {
     })
   )
     .pipe(
-      map((response: any) => (contextToken = response.data.context_token)),
-      tap((token: string) =>
+      map((response: any) => response.data),
+      tap((data: any) =>
         localStorage.setItem(
           'apiConfig',
           JSON.stringify({
-            contextToken: token,
+            contextToken: data.context_token,
             ownerId: userReference,
             dateCreated: new Date(),
-            countryCode: this.countryCode
+            countryCode: countryCode.value,
+            link_metada: data.link_metadata
           })
         )
       ),

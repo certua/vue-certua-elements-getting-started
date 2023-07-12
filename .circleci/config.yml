@@ -1,0 +1,103 @@
+jobs:
+  build:
+    docker:
+      - image: cimg/node:16.15.0
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1.2-dependencies-{{ checksum "package.json" }}
+            - v1.2-dependencies-
+      - run:
+          command: npm install
+          name: Install packages using npm
+      - save_cache:
+          key: v1.2-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "building production"
+              npm run build 
+            elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              echo "building dev"
+              npm run build:dev 
+            elif [ "${CIRCLE_BRANCH}" == "qa" ]; then
+              echo "building qa"
+              npm run build:qa 
+            elif [ "${CIRCLE_BRANCH}" == "Staging" ]; then
+              echo "building staging"
+              npm run build:stg 
+            else
+              echo "building dev"
+              npm run build:dev 
+            fi
+          name: Building
+      - persist_to_workspace:
+          paths:
+            - dist
+          root: .
+    working_directory: ~/repo
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - aws-cli/setup
+      - run:
+          command: |
+            if [[ "${CIRCLE_BRANCH}" == "dev" ]]; then
+              echo 'getting DEV vairables'
+              echo 'export BUCKET="${DEV_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${DEV_DISTRIBUTION_ID}"' >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo 'export BUCKET="${PROD_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${PROD_DISTRIBUTION_ID}"' >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "qa" ]; then
+              echo 'export BUCKET="${QA_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${QA_DISTRIBUTION_ID}"' >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "Staging" ]; then
+              echo 'export BUCKET="${STAGING_S3_BUCKET}"' >> $BASH_ENV
+              echo 'export DISTRIBUTION_ID="${STAGING_DISTRIBUTION_ID}"' >> $BASH_ENV
+            fi
+          name: Configure Variables
+      - run:
+          command: |
+            echo "clearing ${BUCKET}"
+            aws s3 rm s3://${BUCKET}/vue --recursive 
+            echo "S3 copy up all other files to getting started vue folder"
+            aws s3 cp dist s3://${BUCKET}/vue --recursive --acl public-read
+            echo "CloudFront update cache - getting started vue - ${BUCKET}"
+            aws configure set preview.cloudfront true
+            aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'
+          name: Upload getting started vue to S3
+    working_directory: ~/repo
+orbs:
+  aws-cli: circleci/aws-cli@2.0.2
+  node: circleci/node@5.1.0
+version: 2.1
+workflows:
+  getting-started-vue:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - dev
+                - qa
+                - staging
+                - master
+      - deploy:
+          context:
+            - Gettingstarted
+          filters:
+            branches:
+              only:
+                - dev
+                - qa
+                - staging
+                - master
+          requires:
+            - build

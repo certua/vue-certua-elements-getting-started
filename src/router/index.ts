@@ -29,31 +29,95 @@ const router = createRouter({
           path: 'connect',
           name: 'connect',
 
-          component: () => import('../views/ConnectView.vue')
+          component: () => import('../views/open-banking/ConnectView.vue')
         },
         {
           path: 'manage-connections',
           name: 'manage-connections',
 
-          component: () => import('../views/ManageConnectionsView.vue')
+          component: () => import('../views/open-banking/ManageConnectionsView.vue')
         },
         {
           path: 'account-summary',
           name: 'account-summary',
 
-          component: () => import('../views/AccountSummaryView.vue')
+          component: () => import('../views/open-banking/AccountSummaryView.vue')
         },
         {
           path: 'transactions',
           name: 'transactions',
 
-          component: () => import('../views/TransactionsView.vue')
+          component: () => import('../views/open-banking/TransactionsView.vue')
         },
         {
           path: 'cashflow',
           name: 'cashflow',
 
-          component: () => import('../views/CashflowView.vue')
+          component: () => import('../views/open-banking/CashflowView.vue')
+        },
+        {
+          path: 'quote-and-buy',
+          name: 'quote-and-buy',
+          component: () => import('../views/insurance/QuoteAndBuyView.vue'),
+          children: [
+            {
+              path: '/:pathMatch(.*)*',
+              redirect(to) {
+                return '/components/quote-and-buy'
+              }
+              //component: () => import('../views/insurance/QuoteAndBuyView.vue')
+            }
+          ]
+        },
+        {
+          path: 'claims',
+          name: 'claims',
+          component: () => import('../views/insurance/ClaimsView.vue')
+        },
+        {
+          path: 'fnol',
+          name: 'fnol',
+          component: () => import('../views/insurance/FnolView.vue')
+        },
+        {
+          path: 'quick-quote',
+          name: 'quick-quote',
+          component: () => import('../views/insurance/QuickQuoteView.vue')
+        },
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import('../views/onboarding/LoginView.vue')
+        },
+        {
+          path: 'quotes-list',
+          name: 'quotes-list',
+          component: () => import('../views/insurance/QuotesListView.vue')
+        },
+        {
+          path: 'policies-list',
+          name: 'policies-list',
+          component: () => import('../views/insurance/PolicyListView.vue')
+        },
+        {
+          path: 'view-policy',
+          name: 'view-policy',
+          children: [
+            {
+              path: '',
+              component: () => import('../views/insurance/ViewPolicyView.vue')
+            },
+            {
+              path: ':id',
+              name: 'view-policy',
+              component: () => import('../views/insurance/ViewPolicyView.vue')
+            }
+          ]
+        },
+        {
+          path: 'manage-policy',
+          name: 'manage-policy',
+          component: () => import('../views/insurance/NewViewPolicyView.vue')
         }
       ]
     }

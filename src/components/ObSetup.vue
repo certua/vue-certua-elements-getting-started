@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { from, map, tap, catchError } from 'rxjs'
+import { from, map, tap, catchError, of } from 'rxjs'
 import axios, { formToJSON } from 'axios'
 
 import router from '@/router'
@@ -74,7 +74,7 @@ function getAccessToken() {
       }
     )
     .then((response) => {
-      accessToken = response.data.access_token
+      accessToken.value = response.data.access_token
       step.value = Step.ContextToken
     })
 }
@@ -102,7 +102,7 @@ function getContextToken() {
   }
   from(
     axios.post(tokenUrl, body, {
-      headers: { authorization: `Bearer ${accessToken}` }
+      headers: { authorization: `Bearer ${accessToken.value}` }
     })
   )
     .pipe(
@@ -119,11 +119,12 @@ function getContextToken() {
           })
         )
       ),
-      tap(() => (apiConfig = <string>localStorage.getItem('apiConfig'))),
-
-      tap(() => (step.value = Step.Styles)),
-      catchError(() => {
+      tap(() => {
+        step.value = Step.Styles
+      }),
+      catchError((err) => {
         step.value = Step.Error
+        return of(err)
       })
     )
     .subscribe()

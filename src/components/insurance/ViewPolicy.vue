@@ -58,7 +58,7 @@ onMounted(() => {
 })
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { value } })
+  router.replace({ name: '/components/quote-and-buy', state: { data: value.detail } })
 }
 function goToMyPolicies() {
   router.replace('/components/policies-list')

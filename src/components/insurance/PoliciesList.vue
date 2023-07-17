@@ -6,7 +6,7 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref()
-let accessToken = ref('')
+let accessToken = ref()
 let loaded = ref(false)
 
 let clientId = ref('')
@@ -23,7 +23,7 @@ onMounted(() => {
     config.value = JSON.parse(configJson)
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
+  accessToken.value = localStorage.getItem('certua-accessToken')
 
   let loggedInUser = localStorage.getItem('certua-loggedInUser') ?? ''
   if (!!loggedInUser) {

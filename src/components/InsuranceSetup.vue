@@ -14,6 +14,9 @@ enum Step {
 
 let referrerCode = ref('')
 
+let demoSiteCode = import.meta.env.VITE_DEMO_SITE_CODE
+let demoSidebarSiteCode = import.meta.env.VITE_DEMO_SIDEBAR_CODE
+
 const step = ref(Step.ReferrerCode)
 
 // functions that mutate state and trigger updates##
@@ -72,8 +75,11 @@ onMounted(() => {
             <input id="referrerId" type="text" class="form-control" v-model="referrerCode" />
 
             <button class="btn btn-primary mt-2" @click="setReferrer()">Set site code</button>
-            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer('')">
+            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer(demoSiteCode)">
               Use demo site
+            </button>
+            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer(demoSidebarSiteCode)">
+              Use sidebar demo site
             </button>
           </div>
         </div>

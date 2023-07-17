@@ -6,7 +6,7 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref('')
-let accessToken = ref('')
+let accessToken = ref()
 let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
@@ -20,7 +20,7 @@ onMounted(() => {
     config.value = configJson
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
+  accessToken.value = localStorage.getItem('certua-accessToken')
 
   loaded.value = true
 

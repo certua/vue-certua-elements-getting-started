@@ -15,6 +15,8 @@ enum Step {
 }
 // reactive state
 let userReference = ''
+let subtenantReference = ''
+let adviserReference = ''
 let accessToken = ref('')
 let contextToken = ref({})
 let notificationSettings = {
@@ -91,8 +93,8 @@ function getContextToken() {
   const tokenUrl = countryCode.value === 'UK' ? tokenUKUrl : tokenAUUrl
   let body = {
     'client.integration.datasource.preference': ['OpenBanking', 'Yodlee', 'Yapily'],
-    'client.integration.sub-tenant.reference': import.meta.env.VITE_OB_UK_SUBTENANT_REFERENCE,
-    'client.integration.adviser.reference': import.meta.env.VITE_OB_UK_ADVISOR_REFERENCE,
+    'client.integration.sub-tenant.reference': subtenantReference,
+    'client.integration.adviser.reference': adviserReference,
     'client.integration.user.reference': userReference // this is your reference for your client
   } as any
   if (countryCode.value == 'AU') {
@@ -207,7 +209,21 @@ onMounted(() => {
           <div class="text-start">
             <label for="contextToken" class="form-label">Access Token</label>
             <input id="contextToken" type="text" class="form-control" v-model="accessToken" />
-            <label for="userReference" class="form-label">User Reference</label>
+            <label for="subtenantReference" class="form-label mt-2">Subtenant Reference</label>
+            <input
+              id="subtenantReference"
+              type="text"
+              class="form-control"
+              v-model="subtenantReference"
+            />
+            <label for="adviserReference" class="form-label mt-2">Adviser Reference</label>
+            <input
+              id="adviserReference"
+              type="text"
+              class="form-control"
+              v-model="adviserReference"
+            />
+            <label for="userReference" class="form-label mt-2">User Reference</label>
             <input id="userReference" type="text" class="form-control" v-model="userReference" />
             <button class="btn btn-outline-primary mt-3" @click="back(Step.AccessToken)">
               Back

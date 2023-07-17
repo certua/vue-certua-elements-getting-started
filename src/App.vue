@@ -280,7 +280,7 @@ function loadScript(url: string, onload: any) {
         </div>
         <nav></nav>
       </div>
-      <div class="col mt-4" v-if="loaded"><ProdWarning /><RouterView /></div>
+      <div class="col mt-4" v-if="loaded"><ProdWarning /><RouterView :key="$route.fullPath" /></div>
     </div>
   </div>
 </template>

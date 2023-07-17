@@ -10,6 +10,27 @@ let config = ref()
 let accessToken = ref()
 let loaded = ref(false)
 
+let makeAClaimJson = ref({
+  address: {
+    addressLine1: '9 Anchor House',
+    addressLine2: 'Anchor Quay',
+    addressLine3: '',
+    city: 'Norwich',
+    country: 'UK',
+    county: 'Norfolk',
+    postCode: 'NR3 3XP',
+    type: 'Correspondence'
+  },
+  insuredFullName: 'Chuck Allen',
+  policyNumber: 'CER_TestPolicy-600-P005258'
+})
+
+let goToQuoteAndBuyJson = ref({
+  quote: 'e.quote',
+  policyId: 'e.policyId',
+  restartJourney: 'e.restartJourney'
+})
+
 let policyId = ref('')
 // lifecycle hooks
 onMounted(() => {
@@ -20,12 +41,12 @@ onMounted(() => {
 
   let configJson = localStorage.getItem('insuranceConfig')
 
-  if (!!configJson) {
+  if (configJson) {
     config.value = configJson
   }
 
   let accessTokenJson = localStorage.getItem('certua-accessToken')
-  if (!!accessTokenJson) {
+  if (accessTokenJson) {
     accessToken.value = accessTokenJson
   }
 
@@ -35,9 +56,17 @@ onMounted(() => {
     loaded.value = true
   }, 500)
 })
-
+function goToQuoteAndBuy(value: any) {
+  console.log('goToQuoteAndBuy event', value)
+  router.replace({ name: '/components/quote-and-buy', state: { value } })
+}
 function goToMyPolicies() {
   router.replace('/components/policies-list')
+}
+
+function goToMakeAClaim(value: any) {
+  console.log('makeAClaim event', value)
+  router.replace({ name: 'fnol', state: { data: value.detail } })
 }
 </script>
 
@@ -64,10 +93,10 @@ function goToMyPolicies() {
       :config="config"
       :accesstoken="accessToken"
       :policyId="policyId"
-      :allowCancel="true"
-      :allowModifyDDetails="true"
       :standalone="true"
-      :distributor="'MRSLEnterprise'"
+      @backToCovers="(value: any) => goToMyPolicies()"
+      @makeAClaim="(value: any) => goToMakeAClaim(value)"
+      @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
     </ae-insurance-confirmation>
   </div>
@@ -75,14 +104,51 @@ function goToMyPolicies() {
     <h4>Example code</h4>
     <pre><code>
       &lt;ae-insurance-confirmation
-      :referrerSiteCode:="config.referrerId"
+      :config="config"
       :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
-
+      :policyId="policyId"
+      :standalone="true"
+      @backToCovers="(value: any) => goToMyPolicies()"
+      @makeAClaim="(value: any) => goToMyPolicies()"
+      @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
       &lt;/ae-insurance-confirmation  &gt;
       </code>
     </pre>
+
+    <h4>Output events</h4>
+    <table class="table">
+      <thead>
+        <th>Event Name</th>
+        <th>Data</th>
+        <th>Description</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>backToCovers</td>
+          <td>None</td>
+          <td>User has clicked back to covers link</td>
+        </tr>
+        <tr>
+          <td>makeAClaim</td>
+          <td>
+            <code>{{ JSON.stringify(makeAClaimJson) }}</code>
+          </td>
+          <td>
+            User has clicked make a claim button (if present- this is a product config setting),
+            this emits the prefill info which can be used to prepopulate the FNOL claim form
+          </td>
+        </tr>
+        <tr>
+          <td>goToQuoteAndBuy</td>
+          <td>
+            <code>{{ JSON.stringify(goToQuoteAndBuyJson) }}</code>
+          </td>
+          <td>xxxxxxxx</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <pre> <code>{{ JSON.stringify(quickQuoteJson) }}</code></pre> -->
+
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">
@@ -92,7 +158,18 @@ function goToMyPolicies() {
 
           <th>Description</th>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr>
+            <td>policyId</td>
+            <td>Yes</td>
+            <td>The policyId of the policy you are viewing</td>
+          </tr>
+          <tr>
+            <td>standalone</td>
+            <td>Yes</td>
+            <td>This needs to be set to true</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

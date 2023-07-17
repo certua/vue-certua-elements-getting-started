@@ -74,7 +74,19 @@ onMounted(() => {
 
           <th>Description</th>
         </thead>
-        <tbody></tbody>
+
+        <tbody>
+          <tr>
+            <td>clientId</td>
+            <td>If entity type is Individual</td>
+            <td>Pass clientId if entity type is Individual</td>
+          </tr>
+          <tr>
+            <td>organisationId</td>
+            <td>If entity type is Organisation</td>
+            <td>Pass organisationId if entity type is Organisation</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

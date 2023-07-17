@@ -16,13 +16,15 @@ onMounted(() => {
 
   let configJson = localStorage.getItem('insuranceConfig')
 
-  if (!!configJson) {
+  if (configJson) {
     config.value = configJson
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken')
+  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
 
   loaded.value = true
+
+  console.log('state', window.history.state)
 })
 </script>
 
@@ -60,26 +62,6 @@ onMounted(() => {
 
           <th>Description</th>
         </thead>
-        <tbody>
-          <tr>
-            <td>config</td>
-            <td>Yes</td>
-
-            <td>
-              This contains information on the site you are integrating the quote and buy journey
-              integration<br /><code
-                >{ referrerId: 'xxxx-xxxx-xxxx-xxxx', basePath: 'components/quote-and-buy', popup:
-                false }</code
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>accesstoken</td>
-            <td>Yes</td>
-
-            <td>Pass null if no access token available or for anonymous journey</td>
-          </tr>
-        </tbody>
       </table>
     </div>
   </div>

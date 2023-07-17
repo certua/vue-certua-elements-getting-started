@@ -8,6 +8,23 @@ let showError = ref(false)
 let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
+
+let prefill = ref()
+
+let makeAClaimJson = ref({
+  address: {
+    addressLine1: '9 Anchor House',
+    addressLine2: 'Anchor Quay',
+    addressLine3: '',
+    city: 'Norwich',
+    country: 'UK',
+    county: 'Norfolk',
+    postCode: 'NR3 3XP',
+    type: 'Correspondence'
+  },
+  insuredFullName: 'Chuck Allen',
+  policyNumber: 'CER_TestPolicy-600-P005258'
+})
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
@@ -16,13 +33,16 @@ onMounted(() => {
 
   let configJson = localStorage.getItem('insuranceConfig')
 
-  if (!!configJson) {
+  if (configJson) {
     config.value = JSON.parse(configJson)
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken')
+  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
 
   loaded.value = true
+
+  console.log('state', window.history.state)
+  prefill.value = window.history.state.data
 })
 </script>
 
@@ -36,14 +56,15 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>FNOL (First Notification of Loss)</h2>
     <p>This component displays an FNOL form</p>
-    <certua-insurance-fnol :referrerSiteCode="config?.referrerId"> </certua-insurance-fnol>
+    <certua-insurance-fnol :referrerSiteCode="config?.referrerId" :prefill="prefill">
+    </certua-insurance-fnol>
   </div>
   <div>
     <h4>Example code</h4>
     <pre><code>
       &lt;certua-insurance-fnol
       :referrerSiteCode:="config.referrerId"
-
+        :prefill="prefill"
       &lt;/certua-insurance-fnol &gt;
       </code>
     </pre>
@@ -56,7 +77,17 @@ onMounted(() => {
 
           <th>Description</th>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr>
+            <td>prefill</td>
+            <td>No</td>
+            <td>
+              Data to prefill claims form. Emitted from View policy when user clicks 'Make a claim'
+              Example:
+              <code>{{ JSON.stringify(makeAClaimJson) }}</code>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

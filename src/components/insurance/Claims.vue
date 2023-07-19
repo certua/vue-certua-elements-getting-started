@@ -16,7 +16,7 @@ onMounted(() => {
 
   let configJson = localStorage.getItem('insuranceConfig')
 
-  if (!!configJson) {
+  if (configJson) {
     config.value = JSON.parse(configJson)
   }
 
@@ -36,7 +36,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Claims</h2>
     <p>This component displays Claims Information</p>
-    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId">
+    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId" v-if="loaded">
     </certua-insurance-claims-information>
   </div>
   <div>

@@ -30,7 +30,7 @@ function back(chosenStep: Step) {
 }
 
 function goToComponents() {
-  router.replace('/components/quote-and-buy')
+  router.replace('/components/claims')
 }
 
 function setReferrer(value?: string) {
@@ -69,14 +69,16 @@ function setReferrer(value?: string) {
 
 function startAgain() {
   localStorage.clear()
-  router.replace('/components/connect')
+  sessionStorage.clear()
+
+  window.location.reload()
 }
 
 // lifecycle hooks
 onMounted(() => {
-  // if (localStorage.getItem('apiConfig')) {
-  //   checkExpiry()
-  // }
+  if (localStorage.getItem('insuranceConfig')) {
+    step.value = Step.Success
+  }
 })
 </script>
 

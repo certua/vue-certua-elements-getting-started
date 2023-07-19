@@ -38,19 +38,19 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Quote and buy</h2>
     <p>This component displays a Quote and buy Journey</p>
-    <mf-insurance-journey
+    <certua-insurance-quote-and-buy
       :config="config"
       :accesstoken="accessToken"
       v-if="!!loaded"
-    ></mf-insurance-journey>
+    ></certua-insurance-quote-and-buy>
   </div>
   <div>
     <h4>Example code</h4>
     <pre><code>
-      &lt;mf-insurance-journey 
+      &lt;certua-insurance-quote-and-buy 
         :config="config"
         :accesstoken="accessToken"
-      &lt;/mf-insurance-journey &gt;
+      &lt;/certua-insurance-quote-and-buy &gt;
       </code>
     </pre>
     <h4>Component specific inputs</h4>

@@ -49,25 +49,25 @@ function viewPolicy(value: any) {
   <div class="row" v-if="!showError">
     <h2>Policies List</h2>
     <p>This component displays Policies for the logged in client/organisation</p>
-    <ae-quote-and-buy-policies-list
+    <certua-insurance-policies-list
       :referrerSiteCode="config?.referrerId"
       :accesstoken="accessToken"
       :clientId="clientId"
       :organisationId="organisationId"
       @viewPolicyJourney="(value: any) => viewPolicy(value)"
     >
-    </ae-quote-and-buy-policies-list>
+    </certua-insurance-policies-list>
   </div>
   <div>
     <h4>Example code</h4>
     <pre><code>
-      &lt;ae-quote-and-buy-policies-list 
+      &lt;certua-insurance-policies-list 
       :referrerSiteCode:="config.referrerId"
       :accesstoken="accessToken"
       :clientId="clientId"
       :organisationId="organisationId"
 
-      &lt;/ae-quote-and-buy-policies-list  &gt;
+      &lt;/certua-insurance-policies-list  &gt;
       </code>
     </pre>
     <h4>Component specific inputs</h4>

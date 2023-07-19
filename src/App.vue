@@ -8,6 +8,7 @@ let showNavigation = ref(false)
 let elementType = ref()
 const route = useRoute()
 
+let fullScreen = ref(false)
 let tabArrows = ref()
 const openBankingUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/main.js'
 const openBankingPolyfillUrl = import.meta.env.VITE_OB_ELEMENTS_URL + '/polyfills.js'
@@ -33,11 +34,13 @@ watch(
       case 'connect':
       case 'quote-and-buy': {
         selectedIndex.value = 0
+
         break
       }
       case 'manage-connections':
       case 'claims': {
         selectedIndex.value = 1
+
         break
       }
       case 'account-summary':
@@ -77,6 +80,12 @@ watch(
     }
     if (page.includes('view-policy')) {
       selectedIndex.value = 7
+    }
+
+    if (page.includes('quote-and-buy') && localStorage.getItem('certua-sidebar') == 'true') {
+      fullScreen.value = true
+    } else {
+      fullScreen.value = false
     }
     let type: string = localStorage.getItem('elementType') ?? ''
     elementType.value = type
@@ -127,6 +136,10 @@ function selectItem(i: number, route: string) {
   // select.emit(item);
 }
 
+function backToGettingStarted() {
+  router.replace('/components/claims')
+}
+
 function setLoaded() {
   loaded.value = true
 }
@@ -143,7 +156,7 @@ function loadScript(url: string, onload: any) {
 
 <template>
   <div class="container-fluid">
-    <div class="row bg-grey border-bottom" id="header">
+    <div class="row bg-grey border-bottom" id="header" v-if="!fullScreen">
       <div class="col px-0">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
@@ -176,7 +189,7 @@ function loadScript(url: string, onload: any) {
         </nav>
       </div>
     </div>
-    <div class="row" id="sidebar">
+    <div class="row" id="sidebar" v-if="!fullScreen">
       <div class="col-md-3 border-end" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
 
@@ -282,10 +295,29 @@ function loadScript(url: string, onload: any) {
       </div>
       <div class="col mt-4" v-if="loaded"><ProdWarning /><RouterView :key="$route.fullPath" /></div>
     </div>
+    <div v-if="fullScreen" id="full-header" class="row mx-0 nav-main bg-white dl-nav-main">
+      <div class="d-flex flex-row w-100 align-items-center">
+        <div class="col-md-2 text-start">
+          <button class="btn btn-link pointer" @click="backToGettingStarted()">
+            <i class="fal fa-long-arrow-left me-2"></i>Exit fullscreen
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="fullScreen"><ProdWarning /><RouterView :key="$route.fullPath" /></div>
   </div>
 </template>
 
 <style scoped>
+#full-header {
+  width: 100%;
+  background-color: #fff;
+  position: -webkit-sticky;
+  position: fixed;
+  top: 0;
+  z-index: 500;
+}
+
 #header {
   font-size: 15px;
   font-weight: 700;

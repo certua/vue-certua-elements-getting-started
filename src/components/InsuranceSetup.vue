@@ -34,10 +34,29 @@ function goToComponents() {
 }
 
 function setReferrer(value?: string) {
+  localStorage.clear()
+  sessionStorage.clear()
+
+  localStorage.setItem('elementType', 'insurance')
+
+  localStorage.removeItem('certua-sidebar')
   step.value = Step.Success
-  if (!!value) {
+  if (value) {
     referrerCode.value = value
   }
+  fetch(import.meta.env.VITE_UX_API_URL + '/dfp/is-sidebar/' + referrerCode.value, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (data) {
+      console.log('data', data)
+      localStorage.setItem('certua-sidebar', data)
+    })
 
   localStorage.setItem(
     'insuranceConfig',

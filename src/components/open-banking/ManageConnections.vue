@@ -69,6 +69,7 @@ onMounted(() => {
       :redirectionConfig="redirectionConfig"
       :manualViewMode="true"
       :viewMode="viewMode"
+      :editAccountName="true"
       :notificationSettings="notificationSettings"
     >
     </certua-ob-manage-connections>
@@ -85,7 +86,7 @@ onMounted(() => {
         :notificationSettings="notificationSettings"
         :manualViewMode="true"
         :viewMode="viewMode"
-        :editAccountName="false"
+        :editAccountName="true"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
       </code>
@@ -145,6 +146,7 @@ onMounted(() => {
             <td>All</td>
             <td>
               This controls if the Rename Account button is shown when managing connected accounts.
+              Defaults to true unless false specified
             </td>
           </tr>
           <tr>

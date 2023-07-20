@@ -85,6 +85,7 @@ onMounted(() => {
         :notificationSettings="notificationSettings"
         :manualViewMode="true"
         :viewMode="viewMode"
+        :editAccountName="false"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
       </code>
@@ -138,7 +139,14 @@ onMounted(() => {
               accounts.
             </td>
           </tr>
-
+          <tr>
+            <td>editAccountName</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This controls if the Rename Account button is shown when managing connected accounts.
+            </td>
+          </tr>
           <tr>
             <td>manualViewMode</td>
             <td>No</td>

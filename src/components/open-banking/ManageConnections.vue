@@ -67,7 +67,6 @@ onMounted(() => {
       :showAddButton="false"
       :daasUrl="daasUrl"
       :redirectionConfig="redirectionConfig"
-      :manualViewMode="true"
       :viewMode="viewMode"
       :editAccountName="true"
       :notificationSettings="notificationSettings"
@@ -84,7 +83,7 @@ onMounted(() => {
         :showTitle="false"
         :daasUrl="daasUrl"
         :notificationSettings="notificationSettings"
-        :manualViewMode="true"
+       
         :viewMode="viewMode"
         :editAccountName="true"
         :showAddButton="false"&gt;

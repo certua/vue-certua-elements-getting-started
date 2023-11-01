@@ -4,8 +4,15 @@ import router from './router'
 import ProdWarning from './components/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
 import TabArrows from './components/TabArrows.vue'
+
+enum SiteSection {
+  Home,
+  Overview,
+  Components
+}
 let showNavigation = ref(false)
 let elementType = ref()
+let section = ref(SiteSection.Home)
 const route = useRoute()
 
 let fullScreen = ref(false)
@@ -28,10 +35,17 @@ watch(
     console.log('route fullPath updated', route.fullPath)
     const home = route.fullPath.includes('home')
     showNavigation.value = !home
-
+    if (route.fullPath.includes('components')) {
+      section.value = SiteSection.Components
+    }
+    if (route.fullPath.includes('overview')) {
+      section.value = SiteSection.Overview
+    }
     let page = route.fullPath.replace('/components/', '')
     switch (page) {
       case 'connect':
+      case '/overview-insurance':
+      case 'overview':
       case 'quote-and-buy': {
         selectedIndex.value = 0
 
@@ -95,15 +109,15 @@ watch(
 onMounted(() => {
   let root = document.documentElement
 
-  if (!!localStorage.getItem('--primary')) {
+  if (localStorage.getItem('--primary')) {
     root.style.setProperty('--primary', localStorage.getItem('--primary'))
   }
-  if (!!localStorage.getItem('--secondary')) {
+  if (localStorage.getItem('--secondary')) {
     root.style.setProperty('--secondary', localStorage.getItem('--secondary'))
   }
 
   let type = localStorage.getItem('elementType')
-  if (!!type) {
+  if (type) {
     elementType.value = type
     if (type == 'open-banking') {
       loadScript(openBankingUrl, null)
@@ -129,10 +143,14 @@ function clearType() {
   router.push('/home')
 }
 
-function selectItem(i: number, route: string) {
-  router.replace(route)
+function selectItem(i: number, route: string, section?: string) {
   tabArrows.value.selectItem(i)
   selectedIndex.value = i
+  if (!section) {
+    router.replace(route)
+  } else {
+    router.replace({ path: route, hash: `#${section}` })
+  }
   // select.emit(item);
 }
 
@@ -177,8 +195,11 @@ function loadScript(url: string, onload: any) {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                <li class="nav-item" v-if="elementType == 'open-banking'">
                   <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
+                </li>
+                <li class="nav-item" v-if="elementType == 'insurance'">
+                  <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
                 </li>
                 <li class="nav-item" v-if="!!elementType">
                   <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
@@ -192,10 +213,57 @@ function loadScript(url: string, onload: any) {
     <div class="row" id="sidebar" v-if="!fullScreen">
       <div class="col-md-3 border-end" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
-
         <div
           class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
-          v-if="elementType == 'open-banking'"
+          v-if="elementType == 'insurance' && section == SiteSection.Overview"
+          id="items"
+        >
+          <span
+            :class="{ active: selectedIndex == 0 }"
+            @click="selectItem(0, '/overview-insurance', 'introduction')"
+            class="list-group-item pointer"
+            >Introduction</span
+          >
+          <span
+            :class="{ active: selectedIndex == 1 }"
+            @click="selectItem(1, '/overview-insurance', 'getting-started')"
+            class="list-group-item pointer"
+            >Getting started</span
+          >
+          <span
+            :class="{ active: selectedIndex == 2 }"
+            @click="selectItem(2, '/overview-insurance', 'site-code')"
+            class="list-group-item pointer"
+            >Site Code</span
+          >
+          <span
+            :class="{ active: selectedIndex == 3 }"
+            @click="selectItem(3, '/overview-insurance', 'theming')"
+            class="list-group-item pointer"
+            >Theming</span
+          >
+          <span
+            :class="{ active: selectedIndex == 4 }"
+            @click="selectItem(4, '/overview-insurance', 'security')"
+            class="list-group-item pointer"
+            >Security</span
+          >
+          <span
+            :class="{ active: selectedIndex == 5 }"
+            @click="selectItem(5, '/overview-insurance', 'client-libraries')"
+            class="list-group-item pointer"
+            >Client Libraries</span
+          >
+          <span
+            :class="{ active: selectedIndex == 6 }"
+            @click="selectItem(6, '/overview-insurance', 'using-components')"
+            class="list-group-item pointer"
+            >Using Components</span
+          >
+        </div>
+        <div
+          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+          v-if="elementType == 'open-banking' && section == SiteSection.Components"
           id="items"
         >
           <span
@@ -232,7 +300,7 @@ function loadScript(url: string, onload: any) {
         <div
           class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
           id="items"
-          v-if="elementType == 'insurance'"
+          v-if="elementType == 'insurance' && section == SiteSection.Components"
         >
           <span
             :class="{ active: selectedIndex == 0 }"

@@ -17,6 +17,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/overview-insurance',
+      children: [
+        {
+          path: '',
+          component: () => import('../views/insurance/InsuranceOverviewView.vue')
+        }
+      ]
+    },
+    {
       path: '/components',
       children: [
         {
@@ -121,7 +130,15 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      }
+    }
+  }
 })
 
 export default router

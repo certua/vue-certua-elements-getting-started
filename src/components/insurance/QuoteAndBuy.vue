@@ -46,13 +46,14 @@ onMounted(() => {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-quote-and-buy 
         :config="config"
         :accesstoken="accessToken"
-      &lt;/certua-insurance-quote-and-buy &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-quote-and-buy&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

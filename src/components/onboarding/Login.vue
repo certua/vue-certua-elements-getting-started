@@ -1,31 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { from, map, tap, catchError } from 'rxjs'
-import axios from 'axios'
-import { parseISO, add, roundToNearestMinutes } from 'date-fns'
+import { ref, onMounted, onBeforeMount } from 'vue'
 import router from '@/router'
+
 let showError = ref(false)
-let config = ref()
-let accessToken = ref('')
+let config = ref({})
 let loaded = ref(false)
 let loginSuccess = ref(false)
 
-// lifecycle hooks
+onBeforeMount(() => {
+  let configJson = localStorage.getItem('insuranceConfig')
+
+  if (configJson) {
+    config.value = JSON.parse(configJson)
+  }
+})
+
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
     router.replace('/components/connect')
-  }
-
-  let configJson = localStorage.getItem('insuranceConfig')
-
-  if (!!configJson) {
-    config.value = JSON.parse(configJson)
-  }
-
-  accessToken.value = localStorage.getItem('certua-accessToken')
-
-  if (!!accessToken.value) {
-    loginSuccess.value = true
   }
 
   loaded.value = true
@@ -33,15 +25,6 @@ onMounted(() => {
 
 function setLoginSuccess(value) {
   loginSuccess.value = value
-}
-
-function setLoginFailure(value) {
-  loginSuccess.value = !value
-}
-
-function logOut() {
-  localStorage.removeItem('certua-accessToken')
-  loginSuccess.value = false
 }
 </script>
 
@@ -55,41 +38,81 @@ function logOut() {
   <div class="row" v-if="!showError">
     <h2>Login</h2>
     <p>
-      This component allows you to login to a site so you can access a client/organisations
-      quotes/policies
+      This component allows you to login to the Certua Insurance platform and then access the other
+      components including View Policy. You will need to pass in what the component is to display
+      for the login and logout buttons.
     </p>
-    <certua-ae-login
-      v-if="!loginSuccess"
+    <certua-insurance-login
       :referrerSiteCode="config?.referrerId"
-      @loginSuccess="(value: any) => setLoginSuccess(value)"
-      @loginFailure="(value: any) => setLoginFailure(value)"
-    ></certua-ae-login>
-
-    <div class="col-md-12" v-if="loginSuccess">
-      <div class="alert alert-success">You are already logged in</div>
-      <div class="btn btn-primary mb-4" @click="logOut()">Logout</div>
-    </div>
+      :loginUrl="'http://localhost:5173/vue/components/login'"
+      :logoutUrl:="'http://localhost:5173/vue/components/login'"
+      :coversUrl:="'http://localhost:5173/vue/components/view-policy2'"
+      @loginSuccess="setLoginSuccess($event)"
+    >
+      <button class="btn btn-primary" login>Login</button>
+      <button class="btn btn-secondary btn-circle" logout>Logout</button>
+    </certua-insurance-login>
   </div>
-  <div>
-    <h4>Example code</h4>
-    <pre><code>
-      &lt;certua-ae-login  :referrerSiteCode:="config.referrerId"
-      @loginSuccess="(value: any) => setLoginSuccess(value)"
-      @loginFailure="(value: any) => setLoginFailure(value)"
-      &lt;/certua-ae-login &gt;
-      </code>
-    </pre>
-    <h4>Component specific inputs</h4>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <th>Property Name</th>
-          <th>Mandatory</th>
 
-          <th>Description</th>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  <p></p>
+  <h4>Example code</h4>
+
+  <code>
+    <pre>
+    &lt;certua-insurance-login
+    :referrerSiteCode="config.referrerId"
+    :coversUrl="'http://localhost:4200/vue/components/view-policy2'"
+    :loginUrl="'http://localhost:4200/vue/components/view-policy2'"
+    :logoutUrl="'http://localhost:4200/vue/components/login'"&gt;
+
+    &lt;button class="btn btn-primary" login&gt;Login&lt;/button&gt;
+    &lt;button class="btn btn-secondary btn-circle" logout&gt;&lt;i class="fa fa-user"&gt;&lt;/button&gt;
+
+    &lt;/certua-insurance-login&gt;
+        </pre
+    >
+  </code>
+  <h4>Input Elements</h4>
+  <p></p>
+  <h4>Component specific inputs</h4>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <th>Property Name</th>
+        <th>Mandatory</th>
+        <th>Description</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>loginUrl</code>
+          </td>
+          <td>Yes</td>
+          <td>
+            This is the url that the user will be redirected to after a successful login. This page
+            would usually host the View Policy component.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <code>logoutUrl</code>
+          </td>
+          <td>Yes</td>
+          <td>This is the url that the user will be redirected to after a successful logout.</td>
+        </tr>
+
+        <tr>
+          <td>
+            <code>coversUrl</code>
+          </td>
+          <td>Yes</td>
+          <td>
+            This is the url that the user will be taken to when they choose the My Covers option
+            from the logged in menu. This page would usually host the View Policy component.
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>

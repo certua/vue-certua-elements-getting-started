@@ -61,13 +61,15 @@ onMounted(() => {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-fnol
       :referrerSiteCode:="config.referrerId"
         :prefill="prefill"
       &lt;/certua-insurance-fnol &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
+
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

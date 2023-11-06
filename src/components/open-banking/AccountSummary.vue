@@ -48,16 +48,18 @@ onMounted(() => {
 
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;certua-ob-account-summary-list 
-        :contextData="contextData"&gt; 
+    <code>
+      <pre>
+      &lt;certua-ob-account-summary-list
+        :contextData="contextData" 
           :daasUrl="daasUrl" 
             :limitTo="limitTo" 
             :sortOptions="sortOptions" 
-            :notificationSettings="notificationSettings"
+            :notificationSettings="notificationSettings"&gt;
       &lt;/certua-ob-account-summary-list&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
 
     <h4>Event bus messages</h4>
     <p>

@@ -55,6 +55,9 @@ onMounted(() => {
   let type = localStorage.getItem('elementType')
   if (type) {
     elementType.value = type
+    if (type === 'insurance') {
+      router.replace('/overview-insurance')
+    }
   }
 })
 </script>
@@ -94,7 +97,6 @@ onMounted(() => {
       </div>
     </div>
     <ObSetup v-if="elementType == 'open-banking'" />
-    <InsuranceSetup v-if="elementType == 'insurance'" />
   </div>
 </template>
 <style scoped>

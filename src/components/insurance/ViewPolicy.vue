@@ -102,7 +102,8 @@ function goToMakeAClaim(value: any) {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-policy-confirmation
       :config="config"
       :accesstoken="accessToken"
@@ -112,8 +113,8 @@ function goToMakeAClaim(value: any) {
       @makeAClaim="(value: any) => goToMyPolicies()"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
       &lt;/certua-insurance-policy-confirmation  &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
 
     <h4>Output events</h4>
     <table class="table">

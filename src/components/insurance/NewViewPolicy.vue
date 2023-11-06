@@ -100,7 +100,8 @@ function goToQuoteAndBuy(value: any) {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-view-policy
       :config="config"
       :accesstoken="accessToken"
@@ -109,9 +110,9 @@ function goToQuoteAndBuy(value: any) {
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
 
-      &lt;/certua-insurance-view-policy  &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-view-policy&gt;
+      </pre>
+    </code>
 
     <h4>Output events</h4>
     <table class="table">

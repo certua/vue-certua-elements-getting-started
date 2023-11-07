@@ -17,6 +17,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/overview-insurance',
+      children: [
+        {
+          path: '',
+          component: () => import('../views/insurance/InsuranceOverviewView.vue')
+        }
+      ]
+    },
+    {
       path: '/components',
       children: [
         {
@@ -54,6 +63,11 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/open-banking/CashflowView.vue')
+        },
+        {
+          path: 'introduction',
+          name: 'introduction',
+          component: () => import('../views/insurance/ComponentsOverviewView.vue')
         },
         {
           path: 'quote-and-buy',
@@ -121,7 +135,15 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      }
+    }
+  }
 })
 
 export default router

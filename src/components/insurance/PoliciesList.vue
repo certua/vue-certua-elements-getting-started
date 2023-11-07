@@ -60,16 +60,17 @@ function viewPolicy(value: any) {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-policies-list 
       :referrerSiteCode:="config.referrerId"
       :accesstoken="accessToken"
       :clientId="clientId"
       :organisationId="organisationId"
 
-      &lt;/certua-insurance-policies-list  &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-policies-list&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

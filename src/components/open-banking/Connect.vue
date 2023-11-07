@@ -86,17 +86,18 @@ onMounted(() => {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-connect 
         :contentOverrides="contentOverrides"
         :redirectionConfig="redirectionConfig"
         :contextData="contextData"
         :daasUrl="daasUrl"
-        :startingPhase="'InstitutionSelection'"&gt;
-        :notificationSettings="notificationSettings"
-      &lt;/certua-ob-connect&gt;
-      </code>
-    </pre>
+        :startingPhase="'InstitutionSelection'"
+        :notificationSettings="notificationSettings"&gt;
+        &lt;/certua-ob-connect&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

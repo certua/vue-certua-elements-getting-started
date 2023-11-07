@@ -51,14 +51,15 @@ function updateQuote(quote: any) {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-quick-quote
       :referrerSiteCode:="config.referrerId"
       @quickQuote="(value: any) => updateQuote(value)"
 
       &lt;/certua-insurance-quick-quote &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
     <h4>Output event - Quick quote</h4>
     <pre> <code>{{ JSON.stringify(quickQuoteJson) }}</code></pre>
     <h4>Component specific inputs</h4>

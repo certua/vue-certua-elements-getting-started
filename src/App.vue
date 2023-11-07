@@ -4,8 +4,16 @@ import router from './router'
 import ProdWarning from './components/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
 import TabArrows from './components/TabArrows.vue'
+
+enum SiteSection {
+  Home,
+  Overview,
+  Components
+}
 let showNavigation = ref(false)
+let showComponentMenu = ref(false)
 let elementType = ref()
+let section = ref(SiteSection.Home)
 const route = useRoute()
 
 let fullScreen = ref(false)
@@ -28,53 +36,64 @@ watch(
     console.log('route fullPath updated', route.fullPath)
     const home = route.fullPath.includes('home')
     showNavigation.value = !home
-
+    if (route.fullPath.includes('components')) {
+      section.value = SiteSection.Components
+    }
+    if (route.fullPath.includes('overview')) {
+      section.value = SiteSection.Overview
+    }
     let page = route.fullPath.replace('/components/', '')
     switch (page) {
       case 'connect':
-      case 'quote-and-buy': {
+      case '/overview-insurance':
+      case '/introduction':
+      case 'overview': {
         selectedIndex.value = 0
 
         break
       }
       case 'manage-connections':
-      case 'claims': {
+      case 'quote-and-buy': {
         selectedIndex.value = 1
 
         break
       }
       case 'account-summary':
-      case 'fnol': {
+      case 'claims': {
         selectedIndex.value = 2
         break
       }
       case 'transactions':
-      case 'quick-quote': {
+      case 'fnol': {
         selectedIndex.value = 3
         break
       }
       case 'cashflow':
-      case 'login': {
+      case 'quick-quote': {
         selectedIndex.value = 4
         break
       }
-      case 'quotes-list': {
+      case 'login': {
         selectedIndex.value = 5
         break
       }
 
-      case 'policies-list': {
+      case 'quotes-list': {
         selectedIndex.value = 6
         break
       }
 
-      case 'view-policy': {
+      case 'policies-list': {
         selectedIndex.value = 7
         break
       }
 
-      case 'manage-policy': {
+      case 'view-policy': {
         selectedIndex.value = 8
+        break
+      }
+      case 'manage-policy': {
+        selectedIndex.value = 9
         break
       }
     }
@@ -95,15 +114,15 @@ watch(
 onMounted(() => {
   let root = document.documentElement
 
-  if (!!localStorage.getItem('--primary')) {
+  if (localStorage.getItem('--primary')) {
     root.style.setProperty('--primary', localStorage.getItem('--primary'))
   }
-  if (!!localStorage.getItem('--secondary')) {
+  if (localStorage.getItem('--secondary')) {
     root.style.setProperty('--secondary', localStorage.getItem('--secondary'))
   }
 
   let type = localStorage.getItem('elementType')
-  if (!!type) {
+  if (type) {
     elementType.value = type
     if (type == 'open-banking') {
       loadScript(openBankingUrl, null)
@@ -121,6 +140,13 @@ onMounted(() => {
   } else {
     loaded.value = true
   }
+  addEventListener('show-navigation', (event: any) => {
+    showComponentMenu.value = event.detail.show
+  })
+
+  if ((type == 'insurance' && localStorage.getItem('insuranceConfig')) || type == 'open-banking') {
+    showComponentMenu.value = true
+  }
 })
 
 function clearType() {
@@ -129,10 +155,14 @@ function clearType() {
   router.push('/home')
 }
 
-function selectItem(i: number, route: string) {
-  router.replace(route)
+function selectItem(i: number, route: string, section?: string) {
   tabArrows.value.selectItem(i)
   selectedIndex.value = i
+  if (!section) {
+    router.replace(route)
+  } else {
+    router.replace({ path: route, hash: `#${section}` })
+  }
   // select.emit(item);
 }
 
@@ -177,11 +207,16 @@ function loadScript(url: string, onload: any) {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                <li class="nav-item" v-if="elementType == 'open-banking'">
                   <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
                 </li>
-                <li class="nav-item" v-if="!!elementType">
-                  <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
+                <li class="nav-item" v-if="elementType == 'insurance'">
+                  <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
+                </li>
+                <li class="nav-item" v-if="!!elementType && !!showComponentMenu">
+                  <RouterLink :to="'/components/introduction'" class="nav-link"
+                    >Components</RouterLink
+                  >
                 </li>
               </ul>
             </div>
@@ -192,10 +227,57 @@ function loadScript(url: string, onload: any) {
     <div class="row" id="sidebar" v-if="!fullScreen">
       <div class="col-md-3 border-end" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
-
         <div
           class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
-          v-if="elementType == 'open-banking'"
+          v-if="elementType == 'insurance' && section == SiteSection.Overview"
+          id="items"
+        >
+          <span
+            :class="{ active: selectedIndex == 0 }"
+            @click="selectItem(0, '/overview-insurance', 'introduction')"
+            class="list-group-item pointer"
+            >Introduction</span
+          >
+          <span
+            :class="{ active: selectedIndex == 1 }"
+            @click="selectItem(1, '/overview-insurance', 'getting-started')"
+            class="list-group-item pointer"
+            >Getting started</span
+          >
+          <span
+            :class="{ active: selectedIndex == 2 }"
+            @click="selectItem(2, '/overview-insurance', 'site-code')"
+            class="list-group-item pointer"
+            >Site Code</span
+          >
+          <span
+            :class="{ active: selectedIndex == 3 }"
+            @click="selectItem(3, '/overview-insurance', 'theming')"
+            class="list-group-item pointer"
+            >Theming</span
+          >
+          <span
+            :class="{ active: selectedIndex == 4 }"
+            @click="selectItem(4, '/overview-insurance', 'security')"
+            class="list-group-item pointer"
+            >Security</span
+          >
+          <span
+            :class="{ active: selectedIndex == 5 }"
+            @click="selectItem(5, '/overview-insurance', 'client-libraries')"
+            class="list-group-item pointer"
+            >Client Libraries</span
+          >
+          <span
+            :class="{ active: selectedIndex == 6 }"
+            @click="selectItem(6, '/overview-insurance', 'using-components')"
+            class="list-group-item pointer"
+            >Using Components</span
+          >
+        </div>
+        <div
+          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+          v-if="elementType == 'open-banking' && section == SiteSection.Components"
           id="items"
         >
           <span
@@ -232,61 +314,67 @@ function loadScript(url: string, onload: any) {
         <div
           class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
           id="items"
-          v-if="elementType == 'insurance'"
+          v-if="elementType == 'insurance' && section == SiteSection.Components"
         >
           <span
             :class="{ active: selectedIndex == 0 }"
-            @click="selectItem(0, '/components/quote-and-buy')"
+            @click="selectItem(0, '/components/introduction')"
+            class="list-group-item pointer"
+            >Introduction</span
+          >
+          <span
+            :class="{ active: selectedIndex == 1 }"
+            @click="selectItem(1, '/components/quote-and-buy')"
             class="list-group-item pointer"
             >Quote and buy</span
           >
           <span
-            :class="{ active: selectedIndex == 1 }"
-            @click="selectItem(1, '/components/claims')"
+            :class="{ active: selectedIndex == 2 }"
+            @click="selectItem(2, '/components/claims')"
             class="list-group-item pointer"
             >Claims</span
           >
           <span
-            :class="{ active: selectedIndex == 2 }"
-            @click="selectItem(2, '/components/fnol')"
+            :class="{ active: selectedIndex == 3 }"
+            @click="selectItem(3, '/components/fnol')"
             class="list-group-item pointer"
             >Fnol</span
           >
           <span
-            :class="{ active: selectedIndex == 3 }"
-            @click="selectItem(3, '/components/quick-quote')"
+            :class="{ active: selectedIndex == 4 }"
+            @click="selectItem(4, '/components/quick-quote')"
             class="list-group-item pointer"
             >Quick Quote</span
           >
 
           <span
-            :class="{ active: selectedIndex == 4 }"
-            @click="selectItem(4, '/components/login')"
+            :class="{ active: selectedIndex == 5 }"
+            @click="selectItem(5, '/components/login')"
             class="list-group-item pointer"
             >Login</span
           >
 
           <span
-            :class="{ active: selectedIndex == 5 }"
-            @click="selectItem(5, '/components/quotes-list')"
+            :class="{ active: selectedIndex == 6 }"
+            @click="selectItem(6, '/components/quotes-list')"
             class="list-group-item pointer"
             >Quotes List</span
           >
           <span
-            :class="{ active: selectedIndex == 6 }"
-            @click="selectItem(6, '/components/policies-list')"
+            :class="{ active: selectedIndex == 7 }"
+            @click="selectItem(7, '/components/policies-list')"
             class="list-group-item pointer"
             >Policies List</span
           >
           <span
-            :class="{ active: selectedIndex == 7 }"
-            @click="selectItem(7, '/components/view-policy')"
+            :class="{ active: selectedIndex == 8 }"
+            @click="selectItem(8, '/components/view-policy')"
             class="list-group-item pointer"
             >View Policy</span
           >
           <span
-            :class="{ active: selectedIndex == 8 }"
-            @click="selectItem(8, '/components/manage-policy')"
+            :class="{ active: selectedIndex == 9 }"
+            @click="selectItem(9, '/components/manage-policy')"
             class="list-group-item pointer"
             >View Policy (v2)</span
           >

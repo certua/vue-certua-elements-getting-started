@@ -6,7 +6,7 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref('')
-let accessToken = ref('')
+let accessToken = ref()
 let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
@@ -20,7 +20,7 @@ onMounted(() => {
     config.value = configJson
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
+  accessToken.value = localStorage.getItem('certua-accessToken')
 
   loaded.value = true
 
@@ -38,21 +38,22 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Quote and buy</h2>
     <p>This component displays a Quote and buy Journey</p>
-    <mf-insurance-journey
+    <certua-insurance-quote-and-buy
       :config="config"
       :accesstoken="accessToken"
       v-if="!!loaded"
-    ></mf-insurance-journey>
+    ></certua-insurance-quote-and-buy>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;mf-insurance-journey 
+    <code>
+      <pre>
+      &lt;certua-insurance-quote-and-buy 
         :config="config"
         :accesstoken="accessToken"
-      &lt;/mf-insurance-journey &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-quote-and-buy&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

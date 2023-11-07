@@ -14,6 +14,9 @@ enum Step {
 
 let referrerCode = ref('')
 
+let demoSiteCode = import.meta.env.VITE_DEMO_SITE_CODE
+let demoSidebarSiteCode = import.meta.env.VITE_DEMO_SIDEBAR_CODE
+
 const step = ref(Step.ReferrerCode)
 
 // functions that mutate state and trigger updates##
@@ -27,14 +30,33 @@ function back(chosenStep: Step) {
 }
 
 function goToComponents() {
-  router.replace('/components/quote-and-buy')
+  router.replace('/components/claims')
 }
 
 function setReferrer(value?: string) {
+  localStorage.clear()
+  sessionStorage.clear()
+
+  localStorage.setItem('elementType', 'insurance')
+
+  localStorage.removeItem('certua-sidebar')
   step.value = Step.Success
-  if (!!value) {
+  if (value) {
     referrerCode.value = value
   }
+  fetch(import.meta.env.VITE_UX_API_URL + '/dfp/is-sidebar/' + referrerCode.value, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (data) {
+      console.log('data', data)
+      localStorage.setItem('certua-sidebar', data)
+    })
 
   localStorage.setItem(
     'insuranceConfig',
@@ -47,14 +69,16 @@ function setReferrer(value?: string) {
 
 function startAgain() {
   localStorage.clear()
-  router.replace('/components/connect')
+  sessionStorage.clear()
+
+  window.location.reload()
 }
 
 // lifecycle hooks
 onMounted(() => {
-  // if (localStorage.getItem('apiConfig')) {
-  //   checkExpiry()
-  // }
+  if (localStorage.getItem('insuranceConfig')) {
+    step.value = Step.Success
+  }
 })
 </script>
 
@@ -72,8 +96,11 @@ onMounted(() => {
             <input id="referrerId" type="text" class="form-control" v-model="referrerCode" />
 
             <button class="btn btn-primary mt-2" @click="setReferrer()">Set site code</button>
-            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer('')">
+            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer(demoSiteCode)">
               Use demo site
+            </button>
+            <button class="btn btn-secondary mt-2 ms-2" @click="setReferrer(demoSidebarSiteCode)">
+              Use sidebar demo site
             </button>
           </div>
         </div>

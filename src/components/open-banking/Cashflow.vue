@@ -40,14 +40,16 @@ onMounted(() => {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-cashflow 
         :contextData="contextData"
         :daasUrl="daasUrl"
-        :notificationSettings="notificationSettings"
+        :notificationSettings="notificationSettings"&gt;
       &lt;/certua-ob-cashflow&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

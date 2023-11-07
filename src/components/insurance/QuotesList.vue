@@ -6,7 +6,7 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref()
-let accessToken = ref('')
+let accessToken = ref()
 let loaded = ref(false)
 
 let clientId = ref('')
@@ -23,7 +23,7 @@ onMounted(() => {
     config.value = JSON.parse(configJson)
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
+  accessToken.value = localStorage.getItem('certua-accessToken')
 
   let loggedInUser = localStorage.getItem('certua-loggedInUser') ?? ''
   if (!!loggedInUser) {
@@ -45,26 +45,28 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Quotes List</h2>
     <p>This component displays Quotes for the logged in client/organisation</p>
-    <ae-quote-and-buy-quotes-list
+    <certua-insurance-quotes-list
       :referrerSiteCode="config?.referrerId"
       :accesstoken="accessToken"
       :clientId="clientId"
       :organisationId="organisationId"
     >
-    </ae-quote-and-buy-quotes-list>
+    </certua-insurance-quotes-list>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;ae-quote-and-buy-quotes-list 
+    <code>
+      <pre>
+      &lt;certua-insurance-quotes-list 
       :referrerSiteCode:="config.referrerId"
       :accesstoken="accessToken"
       :clientId="clientId"
       :organisationId="organisationId"
 
-      &lt;/ae-quote-and-buy-quotes-list  &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-quotes-list  &gt;
+    </pre
+      >
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

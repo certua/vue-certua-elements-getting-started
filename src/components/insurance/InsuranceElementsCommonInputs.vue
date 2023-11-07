@@ -8,21 +8,14 @@
         <thead>
           <th>Property Name</th>
           <th>Mandatory</th>
-
           <th>Description</th>
         </thead>
         <tbody>
           <tr>
-            <td>referrerSiteCode</td>
+            <td><code>referrerSiteCode</code></td>
             <td>Yes</td>
 
             <td>This is the sitecode we have supplied you with</td>
-          </tr>
-          <tr>
-            <td>accesstoken</td>
-            <td>No</td>
-
-            <td>Pass null if no access token available</td>
           </tr>
         </tbody>
       </table>

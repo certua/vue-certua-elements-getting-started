@@ -62,20 +62,19 @@ onMounted(() => {
     <p>This component can be used to view connected accounts, refresh consent or disconnect</p>
     <certua-ob-manage-connections
       :contentOverrides="contentOverrides"
-      :daasContextToken="contextTokenOptions"
-      :showTitle="false"
+      :contextData="contextTokenOptions"
       :showAddButton="false"
+      :showTitle="false"
+      :redirectionConfig:="redirectionConfig"
       :daasUrl="daasUrl"
-      :redirectionConfig="redirectionConfig"
-      :manualViewMode="true"
-      :viewMode="viewMode"
-      :notificationSettings="notificationSettings"
+      :editAccountName="true"
     >
     </certua-ob-manage-connections>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-manage-connections 
         :contentOverrides="contentOverrides"
         :contextData="contextData"
@@ -85,10 +84,12 @@ onMounted(() => {
         :notificationSettings="notificationSettings"
         :manualViewMode="true"
         :viewMode="viewMode"
+        :editAccountName="false"
         :showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">
@@ -138,7 +139,14 @@ onMounted(() => {
               accounts.
             </td>
           </tr>
-
+          <tr>
+            <td>editAccountName</td>
+            <td>No</td>
+            <td>All</td>
+            <td>
+              This controls if the Rename Account button is shown when managing connected accounts.
+            </td>
+          </tr>
           <tr>
             <td>manualViewMode</td>
             <td>No</td>

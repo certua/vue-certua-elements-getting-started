@@ -17,6 +17,17 @@ let daasUrl = ref('')
 let loaded = ref(false)
 
 let contentOverrides = {
+  'certua-ob-consent': {
+    termsAndConditionsText: `Custom
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href=""
+        class="pe-auto color-inherit"
+        >Terms and Conditions</a
+      >
+      text`
+  },
   'certua-ob-provider-permissions': {
     howWeAreUsingData: '<p>[Custom text about how you use data]</p>'
   },
@@ -75,17 +86,18 @@ onMounted(() => {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-connect 
         :contentOverrides="contentOverrides"
         :redirectionConfig="redirectionConfig"
         :contextData="contextData"
         :daasUrl="daasUrl"
-        :startingPhase="'InstitutionSelection'"&gt;
-        :notificationSettings="notificationSettings"
-      &lt;/certua-ob-connect&gt;
-      </code>
-    </pre>
+        :startingPhase="'InstitutionSelection'"
+        :notificationSettings="notificationSettings"&gt;
+        &lt;/certua-ob-connect&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">
@@ -119,17 +131,19 @@ onMounted(() => {
             <td>
               This is a JSON string which contains any text overrides that you want to pass to the
               information screens/modals<br /><code>
-                { 'certua-ob-provider-permissions': { howWeAreUsingData: ' &lt;p&gt;[Custom text
-                about how you use data]&lt;/p&gt; ' }, 'certua-ob-manage-providers': {
-                confirmDisconnect: { implicationOfRevocation: ' &lt;p&gt;[Custom text about
-                implications of revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what
-                happens to data if they revoke]&lt;/p&gt; ', relink: ' &lt;p&gt;[Custom text about
-                ability to relink]&lt;/p&gt; ', confirm: ' &lt;p&gt;[Custom text asking user to
-                confirm]&lt;/p&gt; ', termsOfServiceLink: `&lt;a href="#" &gt;[Custom Link to Terms
-                of service here]&lt;/a &gt;` }, disconnectSuccess: { implicationOfRevocation: '
+                { 'certua-ob-consent': { termsAndConditionsText: `Custom &lt;a target="_blank"
+                rel="noopener noreferrer" href="" class="pe-auto color-inherit" >Terms and
+                Conditions&lt;/a &gt; text` }, 'certua-ob-provider-permissions': {
+                howWeAreUsingData: ' &lt;p&gt;[Custom text about how you use data]&lt;/p&gt; ' },
+                'certua-ob-manage-providers': { confirmDisconnect: { implicationOfRevocation: '
                 &lt;p&gt;[Custom text about implications of revoke]&lt;/p&gt; ', whatHappens: '
-                &lt;p&gt;[Custom text about what happens to data now account are
-                disconnected]&lt;/p&gt; ' } } }
+                &lt;p&gt;[Custom text about what happens to data if they revoke]&lt;/p&gt; ',
+                relink: ' &lt;p&gt;[Custom text about ability to relink]&lt;/p&gt; ', confirm: '
+                &lt;p&gt;[Custom text asking user to confirm]&lt;/p&gt; ', termsOfServiceLink:
+                `&lt;a href="#" &gt;[Custom Link to Terms of service here]&lt;/a &gt;` },
+                disconnectSuccess: { implicationOfRevocation: ' &lt;p&gt;[Custom text about
+                implications of revoke]&lt;/p&gt; ', whatHappens: ' &lt;p&gt;[Custom text about what
+                happens to data now account are disconnected]&lt;/p&gt; ' } } }
               </code>
             </td>
           </tr>

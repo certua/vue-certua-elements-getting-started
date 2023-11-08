@@ -24,10 +24,10 @@ onMounted(() => {})
 
 function setDefaultReferrer(sidebar = false) {
   if (sidebar) {
-    this.referrerCode = demoSidebarCode
+    referrerCode.value = demoSidebarCode
     checkReferrer(true)
   } else {
-    this.referrerCode = demoSiteCode
+    referrerCode.value = demoSiteCode
     checkReferrer(true)
   }
 }

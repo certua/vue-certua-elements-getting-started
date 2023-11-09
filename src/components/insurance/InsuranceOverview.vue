@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUpdated, VueElement } from 'vue'
 
 import axios from 'axios'
 export interface ReferrerCodeCheck {
@@ -7,10 +7,28 @@ export interface ReferrerCodeCheck {
   isSidebar: boolean
 }
 
+let introductionElement = ref()
+let gettingStartedElement = ref()
+let siteCodeElement = ref()
+let themingElement = ref()
+let securityElement = ref()
+let clientLibrariesElement = ref()
+let componentsElement = ref()
+
 let isSidebar = ref(false)
 let referrerSet = ref(false)
 let referrerCode = ref('')
 let referrerName = ref('')
+let offset = ref(100)
+let introductionOffset = ref(0)
+let getStartedOffset = ref(0)
+let siteCodeOffset = ref(0)
+let themingOffset = ref(0)
+
+let securityOffset = ref(0)
+let clientLibrariesOffset = ref(0)
+let componentsOffset = ref(0)
+
 const demoSidebarCode = import.meta.env.VITE_DEMO_SIDEBAR_CODE
 const demoSiteCode = import.meta.env.VITE_DEMO_SITE_CODE
 const uxAPIUrl = import.meta.env.VITE_UX_API_URL
@@ -19,8 +37,64 @@ const qnbPolyfills = import.meta.env.VITE_QUOTE_AND_BUY_URL + '/polyfills.js'
 const insuranceElementsLink = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/main.js'
 const insuranceElementsPolyfills = import.meta.env.VITE_INSURANCE_ELEMENTS_URL + '/polyfills.js'
 
+window.addEventListener('scroll', checkOffsetTop)
+
+function checkOffsetTop(event: any) {
+  setOffset()
+  console.log(event)
+  let letoffset = window.pageYOffset + offset.value
+  let currentIndex = 0
+  if (letoffset >= getStartedOffset.value && letoffset < siteCodeOffset.value) {
+    currentIndex = 1
+  } else if (letoffset >= siteCodeOffset.value && letoffset < themingOffset.value) {
+    currentIndex = 2
+  } else if (letoffset >= themingOffset.value && letoffset < securityOffset.value) {
+    currentIndex = 3
+  } else if (letoffset >= securityOffset.value && letoffset < clientLibrariesOffset.value) {
+    currentIndex = 4
+  } else if (letoffset >= clientLibrariesOffset.value && letoffset < componentsOffset.value) {
+    currentIndex = 5
+  } else if (letoffset >= componentsOffset.value) {
+    currentIndex = 6
+  } else {
+    currentIndex = 0
+  }
+
+  window.dispatchEvent(
+    new CustomEvent('selected-index', {
+      bubbles: true,
+      composed: true,
+      detail: { index: currentIndex }
+    })
+  )
+}
+
+function setOffset() {
+  if (window.innerWidth > 768) {
+    offset.value = 100
+  } else {
+    offset.value = 150
+  }
+}
+
 // lifecycle hooks
-onMounted(() => {})
+onMounted(() => {
+  let config = localStorage.getItem('insuranceConfig')
+  if (!!config) {
+    referrerSet.value = true
+    referrerName.value = localStorage.getItem('certua-referrerName') ?? ''
+  }
+})
+
+onUpdated(() => {
+  getStartedOffset.value = gettingStartedElement.value.offsetTop
+  siteCodeOffset.value = siteCodeElement.value.offsetTop
+  themingOffset.value = themingElement.value.offsetTop
+
+  securityOffset.value = securityElement.value.offsetTop
+  clientLibrariesOffset.value = clientLibrariesElement.value.offsetTop
+  componentsOffset.value = componentsElement.value.offsetTop
+})
 
 function setDefaultReferrer(sidebar = false) {
   if (sidebar) {
@@ -35,19 +109,18 @@ function setDefaultReferrer(sidebar = false) {
 function checkReferrer(set = false) {
   axios.get<ReferrerCodeCheck>(uxAPIUrl + '/dfp/check-code/' + referrerCode.value).then((data) => {
     console.log('data', data)
-
     referrerName.value = data.data.name
     isSidebar.value = data.data.isSidebar
 
     if (set) {
-      setReferrer(referrerCode)
+      setReferrer(referrerCode.value)
     }
   })
 }
 
 function setReferrer(value?: string) {
   if (value) {
-    referrerCode.value = value.value
+    referrerCode.value = value
   }
   localStorage.clear()
   sessionStorage.clear()
@@ -82,7 +155,7 @@ function reset() {
 }
 </script>
 <template>
-  <section id="introduction">
+  <section id="introduction" ref="introductionElement">
     <h1>Introduction</h1>
 
     <p>
@@ -104,7 +177,7 @@ function reset() {
       sell insurance online.
     </p>
 
-    <section id="getting-started">
+    <section id="getting-started" ref="gettingStartedElement">
       <h3>Getting started</h3>
 
       <div>
@@ -117,7 +190,7 @@ function reset() {
         </ul>
       </div>
     </section>
-    <section id="site-code">
+    <section id="site-code" ref="siteCodeElement">
       <h3>Get a site code</h3>
       The site code configure the components telling them what theme, and insurance product that
       they are using. This is a unique code that we will provide you with. If you don't have a site
@@ -212,7 +285,7 @@ function reset() {
         </div>
       </div>
     </section>
-    <section id="theming">
+    <section id="theming" ref="themingElement">
       <h3>Theming</h3>
       <p>
         We fully support the ability to theme the components to match your site. The components
@@ -221,7 +294,7 @@ function reset() {
       </p>
     </section>
 
-    <section id="security">
+    <section id="security" ref="securityElement">
       <h3>Security</h3>
       <p>
         The easiest way to get started is to use our security. This will allow you to use our
@@ -229,7 +302,7 @@ function reset() {
         security then please speak to us.
       </p>
     </section>
-    <section id="client-libraries">
+    <section id="client-libraries" ref="clientLibrariesElement">
       <h3>Client Libraries</h3>
       <p>We provide the following libraries to make your integration easier</p>
 
@@ -247,7 +320,7 @@ function reset() {
         </p>
       </div>
     </section>
-    <section id="using-components">
+    <section id="using-components" ref="componentsElement">
       <h3>Using our components</h3>
       <p>
         No matter what coding language your site is written in you can easily embed our components

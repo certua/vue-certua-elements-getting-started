@@ -41,7 +41,7 @@ window.addEventListener('scroll', checkOffsetTop)
 
 function checkOffsetTop(event: any) {
   setOffset()
-  console.log(event)
+
   let letoffset = window.pageYOffset + offset.value
   let currentIndex = 0
   if (letoffset >= getStartedOffset.value && letoffset < siteCodeOffset.value) {

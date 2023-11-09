@@ -6,6 +6,9 @@ let showError = ref(false)
 let config = ref({})
 let loaded = ref(false)
 let loginSuccess = ref(false)
+let loginUrl = ref('')
+let logoutUrl = ref('')
+let coversUrl = ref('')
 
 onBeforeMount(() => {
   let configJson = localStorage.getItem('insuranceConfig')
@@ -21,6 +24,9 @@ onMounted(() => {
   }
 
   loaded.value = true
+  loginUrl.value = window.location.origin + '/vue/components/login'
+  logoutUrl.value = window.location.origin + '/vue/components/login'
+  coversUrl.value = window.location.origin + '/vue/components/view-policy2'
 })
 
 function setLoginSuccess(value) {
@@ -44,9 +50,9 @@ function setLoginSuccess(value) {
     </p>
     <certua-insurance-login
       :referrerSiteCode="config?.referrerId"
-      :loginUrl="'http://localhost:5173/vue/components/login'"
-      :logoutUrl:="'http://localhost:5173/vue/components/login'"
-      :coversUrl:="'http://localhost:5173/vue/components/view-policy2'"
+      :loginUrl="loginUrl"
+      :logoutUrl:="logoutUrl"
+      :coversUrl:="coversUrl"
       @loginSuccess="setLoginSuccess($event)"
     >
       <button class="btn btn-primary" login>Login</button>
@@ -61,9 +67,9 @@ function setLoginSuccess(value) {
     <pre>
     &lt;certua-insurance-login
     :referrerSiteCode="config.referrerId"
-    :coversUrl="'http://localhost:4200/vue/components/view-policy2'"
-    :loginUrl="'http://localhost:4200/vue/components/view-policy2'"
-    :logoutUrl="'http://localhost:4200/vue/components/login'"&gt;
+    :coversUrl="window.location.origin + '/vue/components/view-policy2"
+    :loginUrl="window.location.origin + '/vue/components/login"
+    :logoutUrl="window.location.origin + '/vue/components/login"&gt;
 
     &lt;button class="btn btn-primary" login&gt;Login&lt;/button&gt;
     &lt;button class="btn btn-secondary btn-circle" logout&gt;&lt;i class="fa fa-user"&gt;&lt;/button&gt;

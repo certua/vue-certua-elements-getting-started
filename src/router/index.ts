@@ -31,7 +31,7 @@ const router = createRouter({
         {
           path: '',
           redirect: (to) => {
-            return '/components/connect'
+            return '/components/introduction'
           }
         },
         {

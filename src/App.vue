@@ -46,7 +46,7 @@ watch(
     switch (page) {
       case 'connect':
       case '/overview-insurance':
-      case '/introduction':
+      case 'introduction':
       case 'overview': {
         selectedIndex.value = 0
 
@@ -214,9 +214,7 @@ function loadScript(url: string, onload: any) {
                   <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
                 </li>
                 <li class="nav-item" v-if="!!elementType && !!showComponentMenu">
-                  <RouterLink :to="'/components/introduction'" class="nav-link"
-                    >Components</RouterLink
-                  >
+                  <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
                 </li>
               </ul>
             </div>

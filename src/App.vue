@@ -43,10 +43,15 @@ watch(
       section.value = SiteSection.Overview
     }
     let page = route.fullPath.replace('/components/', '')
+
+    window.addEventListener('selected-index', (event: any) => {
+      selectedIndex.value = event.detail.index
+    })
+
     switch (page) {
       case 'connect':
       case '/overview-insurance':
-      case '/introduction':
+      case 'introduction':
       case 'overview': {
         selectedIndex.value = 0
 
@@ -214,9 +219,7 @@ function loadScript(url: string, onload: any) {
                   <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
                 </li>
                 <li class="nav-item" v-if="!!elementType && !!showComponentMenu">
-                  <RouterLink :to="'/components/introduction'" class="nav-link"
-                    >Components</RouterLink
-                  >
+                  <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
                 </li>
               </ul>
             </div>
@@ -227,161 +230,165 @@ function loadScript(url: string, onload: any) {
     <div class="row" id="sidebar" v-if="!fullScreen">
       <div class="col-md-3 border-end" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
-        <div
-          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
-          v-if="elementType == 'insurance' && section == SiteSection.Overview"
-          id="items"
-        >
-          <span
-            :class="{ active: selectedIndex == 0 }"
-            @click="selectItem(0, '/overview-insurance', 'introduction')"
-            class="list-group-item pointer"
-            >Introduction</span
+        <div class="stay-put">
+          <div
+            class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+            v-if="elementType == 'insurance' && section == SiteSection.Overview"
+            id="items"
           >
-          <span
-            :class="{ active: selectedIndex == 1 }"
-            @click="selectItem(1, '/overview-insurance', 'getting-started')"
-            class="list-group-item pointer"
-            >Getting started</span
+            <span
+              :class="{ active: selectedIndex == 0 }"
+              @click="selectItem(0, '/overview-insurance', 'introduction')"
+              class="list-group-item pointer"
+              >Introduction</span
+            >
+            <span
+              :class="{ active: selectedIndex == 1 }"
+              @click="selectItem(1, '/overview-insurance', 'getting-started')"
+              class="list-group-item pointer"
+              >Getting started</span
+            >
+            <span
+              :class="{ active: selectedIndex == 2 }"
+              @click="selectItem(2, '/overview-insurance', 'site-code')"
+              class="list-group-item pointer"
+              >Site Code</span
+            >
+            <span
+              :class="{ active: selectedIndex == 3 }"
+              @click="selectItem(3, '/overview-insurance', 'theming')"
+              class="list-group-item pointer"
+              >Theming</span
+            >
+            <span
+              :class="{ active: selectedIndex == 4 }"
+              @click="selectItem(4, '/overview-insurance', 'security')"
+              class="list-group-item pointer"
+              >Security</span
+            >
+            <span
+              :class="{ active: selectedIndex == 5 }"
+              @click="selectItem(5, '/overview-insurance', 'client-libraries')"
+              class="list-group-item pointer"
+              >Client Libraries</span
+            >
+            <span
+              :class="{ active: selectedIndex == 6 }"
+              @click="selectItem(6, '/overview-insurance', 'using-components')"
+              class="list-group-item pointer"
+              >Using Components</span
+            >
+          </div>
+          <div
+            class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+            v-if="elementType == 'open-banking' && section == SiteSection.Components"
+            id="items"
           >
-          <span
-            :class="{ active: selectedIndex == 2 }"
-            @click="selectItem(2, '/overview-insurance', 'site-code')"
-            class="list-group-item pointer"
-            >Site Code</span
+            <span
+              :class="{ active: selectedIndex == 0 }"
+              @click="selectItem(0, '/components/connect')"
+              class="list-group-item pointer"
+              >Connect</span
+            >
+            <span
+              :class="{ active: selectedIndex == 1 }"
+              @click="selectItem(1, '/components/manage-connections')"
+              class="list-group-item pointer"
+              >Manage Connections</span
+            >
+            <span
+              :class="{ active: selectedIndex == 2 }"
+              @click="selectItem(2, '/components/account-summary')"
+              class="list-group-item pointer"
+              >Account Summary</span
+            >
+            <span
+              :class="{ active: selectedIndex == 3 }"
+              @click="selectItem(3, '/components/transactions')"
+              class="list-group-item pointer"
+              >Transactions</span
+            >
+            <span
+              :class="{ active: selectedIndex == 4 }"
+              @click="selectItem(4, '/components/cashflow')"
+              class="list-group-item pointer"
+              >Cashflow</span
+            >
+          </div>
+          <div
+            class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
+            id="items"
+            v-if="elementType == 'insurance' && section == SiteSection.Components"
           >
-          <span
-            :class="{ active: selectedIndex == 3 }"
-            @click="selectItem(3, '/overview-insurance', 'theming')"
-            class="list-group-item pointer"
-            >Theming</span
-          >
-          <span
-            :class="{ active: selectedIndex == 4 }"
-            @click="selectItem(4, '/overview-insurance', 'security')"
-            class="list-group-item pointer"
-            >Security</span
-          >
-          <span
-            :class="{ active: selectedIndex == 5 }"
-            @click="selectItem(5, '/overview-insurance', 'client-libraries')"
-            class="list-group-item pointer"
-            >Client Libraries</span
-          >
-          <span
-            :class="{ active: selectedIndex == 6 }"
-            @click="selectItem(6, '/overview-insurance', 'using-components')"
-            class="list-group-item pointer"
-            >Using Components</span
-          >
-        </div>
-        <div
-          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
-          v-if="elementType == 'open-banking' && section == SiteSection.Components"
-          id="items"
-        >
-          <span
-            :class="{ active: selectedIndex == 0 }"
-            @click="selectItem(0, '/components/connect')"
-            class="list-group-item pointer"
-            >Connect</span
-          >
-          <span
-            :class="{ active: selectedIndex == 1 }"
-            @click="selectItem(1, '/components/manage-connections')"
-            class="list-group-item pointer"
-            >Manage Connections</span
-          >
-          <span
-            :class="{ active: selectedIndex == 2 }"
-            @click="selectItem(2, '/components/account-summary')"
-            class="list-group-item pointer"
-            >Account Summary</span
-          >
-          <span
-            :class="{ active: selectedIndex == 3 }"
-            @click="selectItem(3, '/components/transactions')"
-            class="list-group-item pointer"
-            >Transactions</span
-          >
-          <span
-            :class="{ active: selectedIndex == 4 }"
-            @click="selectItem(4, '/components/cashflow')"
-            class="list-group-item pointer"
-            >Cashflow</span
-          >
-        </div>
-        <div
-          class="list-group mt-4 d-flex flex-md-column flex-row overflow-auto mx-1"
-          id="items"
-          v-if="elementType == 'insurance' && section == SiteSection.Components"
-        >
-          <span
-            :class="{ active: selectedIndex == 0 }"
-            @click="selectItem(0, '/components/introduction')"
-            class="list-group-item pointer"
-            >Introduction</span
-          >
-          <span
-            :class="{ active: selectedIndex == 1 }"
-            @click="selectItem(1, '/components/quote-and-buy')"
-            class="list-group-item pointer"
-            >Quote and buy</span
-          >
-          <span
-            :class="{ active: selectedIndex == 2 }"
-            @click="selectItem(2, '/components/claims')"
-            class="list-group-item pointer"
-            >Claims</span
-          >
-          <span
-            :class="{ active: selectedIndex == 3 }"
-            @click="selectItem(3, '/components/fnol')"
-            class="list-group-item pointer"
-            >Fnol</span
-          >
-          <span
-            :class="{ active: selectedIndex == 4 }"
-            @click="selectItem(4, '/components/quick-quote')"
-            class="list-group-item pointer"
-            >Quick Quote</span
-          >
+            <span
+              :class="{ active: selectedIndex == 0 }"
+              @click="selectItem(0, '/components/introduction')"
+              class="list-group-item pointer"
+              >Introduction</span
+            >
+            <span
+              :class="{ active: selectedIndex == 1 }"
+              @click="selectItem(1, '/components/quote-and-buy')"
+              class="list-group-item pointer"
+              >Quote and buy</span
+            >
+            <span
+              :class="{ active: selectedIndex == 2 }"
+              @click="selectItem(2, '/components/claims')"
+              class="list-group-item pointer"
+              >Claims</span
+            >
+            <span
+              :class="{ active: selectedIndex == 3 }"
+              @click="selectItem(3, '/components/fnol')"
+              class="list-group-item pointer"
+              >Fnol</span
+            >
+            <span
+              :class="{ active: selectedIndex == 4 }"
+              @click="selectItem(4, '/components/quick-quote')"
+              class="list-group-item pointer"
+              >Quick Quote</span
+            >
 
-          <span
-            :class="{ active: selectedIndex == 5 }"
-            @click="selectItem(5, '/components/login')"
-            class="list-group-item pointer"
-            >Login</span
-          >
+            <span
+              :class="{ active: selectedIndex == 5 }"
+              @click="selectItem(5, '/components/login')"
+              class="list-group-item pointer"
+              >Login</span
+            >
 
-          <span
-            :class="{ active: selectedIndex == 6 }"
-            @click="selectItem(6, '/components/quotes-list')"
-            class="list-group-item pointer"
-            >Quotes List</span
-          >
-          <span
-            :class="{ active: selectedIndex == 7 }"
-            @click="selectItem(7, '/components/policies-list')"
-            class="list-group-item pointer"
-            >Policies List</span
-          >
-          <span
-            :class="{ active: selectedIndex == 8 }"
-            @click="selectItem(8, '/components/view-policy')"
-            class="list-group-item pointer"
-            >View Policy</span
-          >
-          <span
-            :class="{ active: selectedIndex == 9 }"
-            @click="selectItem(9, '/components/manage-policy')"
-            class="list-group-item pointer"
-            >View Policy (v2)</span
-          >
+            <span
+              :class="{ active: selectedIndex == 6 }"
+              @click="selectItem(6, '/components/quotes-list')"
+              class="list-group-item pointer"
+              >Quotes List</span
+            >
+            <span
+              :class="{ active: selectedIndex == 7 }"
+              @click="selectItem(7, '/components/policies-list')"
+              class="list-group-item pointer"
+              >Policies List</span
+            >
+            <span
+              :class="{ active: selectedIndex == 8 }"
+              @click="selectItem(8, '/components/view-policy')"
+              class="list-group-item pointer"
+              >View Policy</span
+            >
+            <span
+              :class="{ active: selectedIndex == 9 }"
+              @click="selectItem(9, '/components/manage-policy')"
+              class="list-group-item pointer"
+              >View Policy (v2)</span
+            >
+          </div>
         </div>
         <nav></nav>
       </div>
-      <div class="col mt-4" v-if="loaded"><ProdWarning /><RouterView :key="$route.fullPath" /></div>
+      <div class="col mt-4" id="content" v-if="loaded">
+        <ProdWarning /><RouterView :key="$route.fullPath" />
+      </div>
     </div>
     <div v-if="fullScreen" id="full-header" class="row mx-0 nav-main bg-white dl-nav-main">
       <div class="d-flex flex-row w-100 align-items-center">
@@ -397,7 +404,8 @@ function loadScript(url: string, onload: any) {
 </template>
 
 <style scoped>
-#full-header {
+#full-header,
+#header {
   width: 100%;
   background-color: #fff;
   position: -webkit-sticky;
@@ -406,9 +414,18 @@ function loadScript(url: string, onload: any) {
   z-index: 500;
 }
 
-#header {
+/* #header {
   font-size: 15px;
   font-weight: 700;
+  width: 100%;
+  position: -webkit-sticky;
+  position: fixed;
+  top: 0;
+  z-index: 500;
+} */
+
+#content {
+  margin-top: 100px !important;
 }
 
 #header .router-link-active {
@@ -418,6 +435,12 @@ function loadScript(url: string, onload: any) {
 #sidebar {
   height: 95vh;
   font-size: 14px;
+}
+
+.stay-put {
+  position: sticky;
+  top: 65px;
+  z-index: 490;
 }
 
 #sidebar .list-group-item {

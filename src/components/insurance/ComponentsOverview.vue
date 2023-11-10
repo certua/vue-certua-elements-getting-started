@@ -7,7 +7,7 @@
       Angular but exposed as standard web components so can be consumed in any web based language..
     </p>
     <p>
-      They take take a common set of inputs which might usually only be the
+      They take a common set of inputs which might usually only be the
       <code>referrerSiteCode</code> which identifies the insurance product, distributor and the
       theme that is used when rendering the components.
     </p>

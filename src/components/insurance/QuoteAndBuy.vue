@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeMount } from 'vue'
 import { from, map, tap, catchError } from 'rxjs'
 import axios from 'axios'
 import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref('')
-let accessToken = ref()
 let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
@@ -19,8 +18,6 @@ onMounted(() => {
   if (configJson) {
     config.value = configJson
   }
-
-  accessToken.value = localStorage.getItem('certua-accessToken')
 
   loaded.value = true
 
@@ -40,7 +37,7 @@ onMounted(() => {
     <p>This component displays a Quote and buy Journey</p>
     <certua-insurance-quote-and-buy
       :config="config"
-      :accesstoken="accessToken"
+      :useCertuaAuth="true"
       v-if="!!loaded"
     ></certua-insurance-quote-and-buy>
   </div>

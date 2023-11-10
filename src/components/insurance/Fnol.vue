@@ -6,7 +6,6 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref()
-let accessToken = ref()
 let loaded = ref(false)
 
 let prefill = ref()
@@ -37,8 +36,6 @@ onMounted(() => {
     config.value = JSON.parse(configJson)
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken')
-
   loaded.value = true
 
   console.log('state', window.history.state)
@@ -56,7 +53,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>FNOL (First Notification of Loss)</h2>
     <p>This component displays an FNOL form</p>
-    <certua-insurance-fnol :referrerSiteCode="config?.referrerId" :prefill="prefill">
+    <certua-insurance-fnol :referrerSiteCode="config?.referrerId" :prefill="prefill" v-if="loaded">
     </certua-insurance-fnol>
   </div>
   <div>

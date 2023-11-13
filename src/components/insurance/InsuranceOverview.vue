@@ -262,7 +262,7 @@ function reset() {
             type="text"
             class="form-control"
             v-model="referrerCode"
-            @change="checkReferrer()"
+            @keyup="checkReferrer()"
           />
           <p class="mt-2 text-success font-weight-bold" v-if="!!referrerName">
             <i class="fa fa-check mr-2"></i>{{ referrerName }}

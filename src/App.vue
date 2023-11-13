@@ -216,7 +216,7 @@ function loadScript(url: string, onload: any) {
                   <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
                 </li>
                 <li class="nav-item" v-if="elementType == 'insurance'">
-                  <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
+                  <a :href="'/vue/overview-insurance'" class="nav-link">Overview</a>
                 </li>
                 <li class="nav-item" v-if="!!elementType && !!showComponentMenu">
                   <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>

@@ -197,7 +197,7 @@ function reset() {
       code then please contact us at
       <a href="mailto:luke@certua.io">luke@certua.io</a>
       <div v-if="!referrerSet">
-        <div class="alert alert-secondary w-50 my-2">
+        <div class="alert alert-secondary col-12 col-md-6 my-2">
           If you would like to see a demo of our components before you get your own site code you
           can use one of our demo site codes. We have two different styles of journey, one with
           multiple questions on one page, or one with questions displayed in a sidebar.
@@ -252,11 +252,11 @@ function reset() {
           </div>
         </div>
 
-        <div class="alert alert-secondary w-50 my-2">
+        <div class="alert alert-secondary col-12 col-md-6 my-2">
           If we have already provided you with a site code then this won't change and you can enter
           this here
         </div>
-        <div class="text-start w-50">
+        <div class="text-start col-12 col-md-6">
           <input
             id="referrerId"
             type="text"
@@ -269,14 +269,16 @@ function reset() {
           </p>
           <button class="btn btn-primary mt-2" @click="setReferrer()">Set site code</button>
         </div>
-        <div class="alert alert-secondary w-50 mt-4" role="alert">
+        <div class="alert alert-secondary col-12 col-md-6 mt-4" role="alert">
           If you would like your own site code with your own branding then we can set this up for
           you. Please email us at
           <a href="mailto:luke@certua.io">luke@certua.io</a>
         </div>
       </div>
       <div v-if="referrerSet">
-        <div class="d-flex alert alert-success w-50 justify-content-between align-items-center">
+        <div
+          class="d-flex alert alert-success col-12 col-md-6 justify-content-between align-items-center"
+        >
           <span
             >You are currently using <strong>{{ referrerName }}</strong> site code</span
           >
@@ -311,7 +313,7 @@ function reset() {
       </p>
       <p><a :href="insuranceElementsLink">Insurance Elements Library</a></p>
 
-      <div class="alert alert-secondary w-50">
+      <div class="alert alert-secondary col-12 col-md-6">
         Please note if you are integrating this using a framework other than Angular you will also
         need to load the polyfills files.
         <p class="mt-2"><a :href="qnbPolyfills">Quote and Buy Polyfills</a></p>
@@ -337,7 +339,7 @@ function reset() {
         The image shows the components that are available and the order in which they are usually
         used.
         <br />
-        <img src="@/assets/insurance-components-flow.webp" style="max-width: 600px" />
+        <img src="@/assets/insurance-components-flow.webp" class="col-12 col-md-6" />
       </p>
 
       <h5>1. Quote and buy</h5>

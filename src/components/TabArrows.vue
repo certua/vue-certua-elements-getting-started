@@ -92,9 +92,10 @@ function moveNav(byX: number) {
   height: 44px;
 
   text-align: center;
-  i {
-    line-height: 44px;
-  }
+}
+
+.circle i {
+  line-height: 44px;
 }
 
 .fa-2x {

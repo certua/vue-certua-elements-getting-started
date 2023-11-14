@@ -85,27 +85,13 @@ watch(
         break
       }
 
-      case 'quotes-list': {
-        selectedIndex.value = 6
-        break
-      }
-
-      case 'policies-list': {
-        selectedIndex.value = 7
-        break
-      }
-
-      case 'view-policy': {
-        selectedIndex.value = 8
-        break
-      }
       case 'manage-policy': {
-        selectedIndex.value = 9
+        selectedIndex.value = 6
         break
       }
     }
     if (page.includes('view-policy')) {
-      selectedIndex.value = 7
+      selectedIndex.value = 6
     }
 
     if (page.includes('quote-and-buy') && localStorage.getItem('certua-sidebar') == 'true') {
@@ -230,7 +216,7 @@ function loadScript(url: string, onload: any) {
       </div>
     </div>
     <div class="row" id="sidebar" v-if="!fullScreen">
-      <div class="col-md-3 border-end" v-if="showNavigation">
+      <div class="col-md-3 border-end" id="side" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
         <div class="stay-put">
           <div
@@ -360,7 +346,7 @@ function loadScript(url: string, onload: any) {
               >Login</span
             >
 
-            <span
+            <!-- <span
               :class="{ active: selectedIndex == 6 }"
               @click="selectItem(6, '/components/quotes-list')"
               class="list-group-item pointer"
@@ -377,10 +363,10 @@ function loadScript(url: string, onload: any) {
               @click="selectItem(8, '/components/view-policy')"
               class="list-group-item pointer"
               >View Policy</span
-            >
+            > -->
             <span
-              :class="{ active: selectedIndex == 9 }"
-              @click="selectItem(9, '/components/manage-policy')"
+              :class="{ active: selectedIndex == 6 }"
+              @click="selectItem(6, '/components/manage-policy')"
               class="list-group-item pointer"
               >View Policy (v2)</span
             >
@@ -413,7 +399,14 @@ function loadScript(url: string, onload: any) {
   position: -webkit-sticky;
   position: fixed;
   top: 0;
-  z-index: 500;
+  z-index: 1000;
+}
+
+#side {
+  margin-top: 4rem;
+  background-color: white;
+  padding-bottom: 10px;
+  z-index: 999;
 }
 
 #header {
@@ -422,7 +415,6 @@ function loadScript(url: string, onload: any) {
 }
 
 #content {
-  top: 50px;
   margin-top: 100px !important;
 }
 

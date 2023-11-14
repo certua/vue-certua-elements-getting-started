@@ -45,7 +45,9 @@ watch(
     let page = route.fullPath.replace('/components/', '')
 
     window.addEventListener('selected-index', (event: any) => {
-      selectedIndex.value = event.detail.index
+      if (route.fullPath.includes('overview')) {
+        selectedIndex.value = event.detail.index
+      }
     })
 
     switch (page) {
@@ -414,17 +416,13 @@ function loadScript(url: string, onload: any) {
   z-index: 500;
 }
 
-/* #header {
+#header {
   font-size: 15px;
   font-weight: 700;
-  width: 100%;
-  position: -webkit-sticky;
-  position: fixed;
-  top: 0;
-  z-index: 500;
-} */
+}
 
 #content {
+  top: 50px;
   margin-top: 100px !important;
 }
 
@@ -437,9 +435,14 @@ function loadScript(url: string, onload: any) {
   font-size: 14px;
 }
 
+#items {
+  margin-top: 6rem;
+  z-index: 490;
+}
+
 .stay-put {
   position: sticky;
-  top: 65px;
+  top: 100px;
   z-index: 490;
 }
 
@@ -459,6 +462,6 @@ function loadScript(url: string, onload: any) {
 }
 
 .bg-grey {
-  background-color: #f4f5f7;
+  background-color: #f4f5f7 !important;
 }
 </style>

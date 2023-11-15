@@ -46,10 +46,10 @@ onMounted(() => {
     <h2>Quotes List</h2>
     <p>This component displays Quotes for the logged in client/organisation</p>
     <certua-insurance-quotes-list
-      :referrerSiteCode="config?.referrerId"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .referrerSiteCode="config?.referrerId"
+      .accesstoken="accessToken"
+      .clientId="clientId"
+      .organisationId="organisationId"
     >
     </certua-insurance-quotes-list>
   </div>
@@ -58,10 +58,10 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-insurance-quotes-list 
-      :referrerSiteCode:="config.referrerId"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .referrerSiteCode:="config.referrerId"
+      .accesstoken="accessToken"
+      .clientId="clientId"
+      .organisationId="organisationId"
 
       &lt;/certua-insurance-quotes-list  &gt;
     </pre

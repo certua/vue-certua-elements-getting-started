@@ -51,8 +51,8 @@ function setLoginSuccess(value) {
     <certua-insurance-login
       .referrerSiteCode="config?.referrerId"
       .loginUrl="loginUrl"
-      .logoutUrl:="logoutUrl"
-      .coversUrl:="coversUrl"
+      .logoutUrl="logoutUrl"
+      .coversUrl="coversUrl"
       @loginSuccess="setLoginSuccess($event)"
     >
       <button class="btn btn-primary" login>Login</button>

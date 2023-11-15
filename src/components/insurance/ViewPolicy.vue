@@ -90,10 +90,10 @@ function goToMakeAClaim(value: any) {
 
     <certua-insurance-policy-confirmation
       v-if="loaded && !!policyId"
-      :config="config"
-      :accesstoken="accessToken"
-      :policyId="policyId"
-      :standalone="true"
+      .config="config"
+      .accesstoken="accessToken"
+      .policyId="policyId"
+      .standalone="true"
       @backToCovers="(value: any) => goToMyPolicies()"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
@@ -105,10 +105,10 @@ function goToMakeAClaim(value: any) {
     <code>
       <pre>
       &lt;certua-insurance-policy-confirmation
-      :config="config"
-      :accesstoken="accessToken"
-      :policyId="policyId"
-      :standalone="true"
+      .config="config"
+      .accesstoken="accessToken"
+      .policyId="policyId"
+      .standalone="true"
       @backToCovers="(value: any) => goToMyPolicies()"
       @makeAClaim="(value: any) => goToMyPolicies()"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"

@@ -36,7 +36,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Claims</h2>
     <p>This component displays Claims Information</p>
-    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId" v-if="loaded">
+    <certua-insurance-claims-information .referrerSiteCode="config?.referrerId" v-if="loaded">
     </certua-insurance-claims-information>
   </div>
   <div>
@@ -44,7 +44,7 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-insurance-claims-information
-      :referrerSiteCode:="config.referrerId"
+      .referrerSiteCode:="config.referrerId"
 
       &lt;/certua-insurance-claims-information &gt;
       </pre>

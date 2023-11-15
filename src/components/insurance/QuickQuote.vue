@@ -44,7 +44,8 @@ function updateQuote(quote: any) {
     <h2>Quick Quote</h2>
     <p>This component displays questions to generate a Quick Quote</p>
     <certua-insurance-quick-quote
-      :referrerSiteCode="config?.referrerId"
+      v-if="loaded"
+      .referrerSiteCode="config?.referrerId"
       @quickQuote="(value: any) => updateQuote(value)"
     >
     </certua-insurance-quick-quote>
@@ -54,7 +55,7 @@ function updateQuote(quote: any) {
     <code>
       <pre>
       &lt;certua-insurance-quick-quote
-      :referrerSiteCode:="config.referrerId"
+      .referrerSiteCode:="config.referrerId"
       @quickQuote="(value: any) => updateQuote(value)"
 
       &lt;/certua-insurance-quick-quote &gt;

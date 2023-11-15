@@ -31,9 +31,9 @@ onMounted(() => {
     <h2>Cashflow</h2>
     <p>This component can be used to display a graph of a users income vs expenditure</p>
     <certua-ob-cashflow
-      :daasContextToken="contextTokenOptions"
-      :daasUrl="daasUrl"
-      :notificationSettings="notificationSettings"
+      .daasContextToken="contextTokenOptions"
+      .daasUrl="daasUrl"
+      .notificationSettings="notificationSettings"
       v-if="loaded"
     >
     </certua-ob-cashflow>
@@ -43,9 +43,9 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-ob-cashflow 
-        :contextData="contextData"
-        :daasUrl="daasUrl"
-        :notificationSettings="notificationSettings"&gt;
+        .contextData="contextData"
+        .daasUrl="daasUrl"
+        .notificationSettings="notificationSettings"&gt;
       &lt;/certua-ob-cashflow&gt;
     </pre
       >

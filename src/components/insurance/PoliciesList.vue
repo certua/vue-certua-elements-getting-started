@@ -50,10 +50,10 @@ function viewPolicy(value: any) {
     <h2>Policies List</h2>
     <p>This component displays Policies for the logged in client/organisation</p>
     <certua-insurance-policies-list
-      :referrerSiteCode="config?.referrerId"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .referrerSiteCode="config?.referrerId"
+      .accesstoken="accessToken"
+      .clientId="clientId"
+      .organisationId="organisationId"
       @viewPolicyJourney="(value: any) => viewPolicy(value)"
     >
     </certua-insurance-policies-list>
@@ -63,10 +63,10 @@ function viewPolicy(value: any) {
     <code>
       <pre>
       &lt;certua-insurance-policies-list 
-      :referrerSiteCode:="config.referrerId"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .referrerSiteCode:="config.referrerId"
+      .accesstoken="accessToken"
+      .clientId="clientId"
+      .organisationId="organisationId"
 
       &lt;/certua-insurance-policies-list&gt;
       </pre>

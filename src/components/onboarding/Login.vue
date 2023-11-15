@@ -49,10 +49,10 @@ function setLoginSuccess(value) {
       for the login and logout buttons.
     </p>
     <certua-insurance-login
-      :referrerSiteCode="config?.referrerId"
-      :loginUrl="loginUrl"
-      :logoutUrl:="logoutUrl"
-      :coversUrl:="coversUrl"
+      .referrerSiteCode="config?.referrerId"
+      .loginUrl="loginUrl"
+      .logoutUrl:="logoutUrl"
+      .coversUrl:="coversUrl"
       @loginSuccess="setLoginSuccess($event)"
     >
       <button class="btn btn-primary" login>Login</button>
@@ -66,10 +66,10 @@ function setLoginSuccess(value) {
   <code>
     <pre>
     &lt;certua-insurance-login
-    :referrerSiteCode="config.referrerId"
-    :coversUrl="window.location.origin + '/vue/components/view-policy2"
-    :loginUrl="window.location.origin + '/vue/components/login"
-    :logoutUrl="window.location.origin + '/vue/components/login"&gt;
+    .referrerSiteCode="config.referrerId"
+    .coversUrl="window.location.origin + '/vue/components/view-policy2"
+    .loginUrl="window.location.origin + '/vue/components/login"
+    .logoutUrl="window.location.origin + '/vue/components/login"&gt;
 
     &lt;button class="btn btn-primary" login&gt;Login&lt;/button&gt;
     &lt;button class="btn btn-secondary btn-circle" logout&gt;&lt;i class="fa fa-user"&gt;&lt;/button&gt;

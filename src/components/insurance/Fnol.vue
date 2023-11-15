@@ -53,7 +53,7 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>FNOL (First Notification of Loss)</h2>
     <p>This component displays an FNOL form</p>
-    <certua-insurance-fnol :referrerSiteCode="config?.referrerId" :prefill="prefill" v-if="loaded">
+    <certua-insurance-fnol .referrerSiteCode="config?.referrerId" .prefill="prefill" v-if="loaded">
     </certua-insurance-fnol>
   </div>
   <div>
@@ -61,8 +61,8 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-insurance-fnol
-      :referrerSiteCode:="config.referrerId"
-        :prefill="prefill"
+      .referrerSiteCode:="config.referrerId"
+        .prefill="prefill"
       &lt;/certua-insurance-fnol &gt;
       </pre>
     </code>

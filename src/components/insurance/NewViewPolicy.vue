@@ -81,7 +81,7 @@ function goToQuoteAndBuy(value: any) {
     </div>
   </div>
   <div class="row" v-if="!showError">
-    <h2>View Policy (v2)</h2>
+    <h2>View Policy</h2>
     <p>
       This component displays the active policy for the supplied client/organisation as well as the
       ability to navigate to historic quotes/policies and via renewals

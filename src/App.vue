@@ -345,25 +345,6 @@ function loadScript(url: string, onload: any) {
               class="list-group-item pointer"
               >Login</span
             >
-
-            <!-- <span
-              :class="{ active: selectedIndex == 6 }"
-              @click="selectItem(6, '/components/quotes-list')"
-              class="list-group-item pointer"
-              >Quotes List</span
-            >
-            <span
-              :class="{ active: selectedIndex == 7 }"
-              @click="selectItem(7, '/components/policies-list')"
-              class="list-group-item pointer"
-              >Policies List</span
-            >
-            <span
-              :class="{ active: selectedIndex == 8 }"
-              @click="selectItem(8, '/components/view-policy')"
-              class="list-group-item pointer"
-              >View Policy</span
-            > -->
             <span
               :class="{ active: selectedIndex == 6 }"
               @click="selectItem(6, '/components/manage-policy')"

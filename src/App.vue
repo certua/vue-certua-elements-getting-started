@@ -43,9 +43,14 @@ watch(
       section.value = SiteSection.Overview
     }
     let page = route.fullPath.replace('/components/', '')
+    if (page.includes('login?')) {
+      page = page.substring(0, page.indexOf('?'))
+    }
 
     window.addEventListener('selected-index', (event: any) => {
-      selectedIndex.value = event.detail.index
+      if (route.fullPath.includes('overview')) {
+        selectedIndex.value = event.detail.index
+      }
     })
 
     switch (page) {
@@ -83,27 +88,13 @@ watch(
         break
       }
 
-      case 'quotes-list': {
-        selectedIndex.value = 6
-        break
-      }
-
-      case 'policies-list': {
-        selectedIndex.value = 7
-        break
-      }
-
-      case 'view-policy': {
-        selectedIndex.value = 8
-        break
-      }
       case 'manage-policy': {
-        selectedIndex.value = 9
+        selectedIndex.value = 6
         break
       }
     }
     if (page.includes('view-policy')) {
-      selectedIndex.value = 7
+      selectedIndex.value = 6
     }
 
     if (page.includes('quote-and-buy') && localStorage.getItem('certua-sidebar') == 'true') {
@@ -216,7 +207,7 @@ function loadScript(url: string, onload: any) {
                   <RouterLink :to="'/home'" class="nav-link">Home</RouterLink>
                 </li>
                 <li class="nav-item" v-if="elementType == 'insurance'">
-                  <RouterLink :to="'/overview-insurance'" class="nav-link">Overview</RouterLink>
+                  <a :href="'/vue/overview-insurance'" class="nav-link">Overview</a>
                 </li>
                 <li class="nav-item" v-if="!!elementType && !!showComponentMenu">
                   <RouterLink :to="'/components'" class="nav-link">Components</RouterLink>
@@ -228,7 +219,7 @@ function loadScript(url: string, onload: any) {
       </div>
     </div>
     <div class="row" id="sidebar" v-if="!fullScreen">
-      <div class="col-md-3 border-end" v-if="showNavigation">
+      <div class="col-md-3 border-end" id="side" v-if="showNavigation">
         <TabArrows class="mt-4 d-md-none" ref="tabArrows" />
         <div class="stay-put">
           <div
@@ -358,7 +349,7 @@ function loadScript(url: string, onload: any) {
               >Login</span
             >
 
-            <span
+            <!-- <span
               :class="{ active: selectedIndex == 6 }"
               @click="selectItem(6, '/components/quotes-list')"
               class="list-group-item pointer"
@@ -375,10 +366,10 @@ function loadScript(url: string, onload: any) {
               @click="selectItem(8, '/components/view-policy')"
               class="list-group-item pointer"
               >View Policy</span
-            >
+            > -->
             <span
-              :class="{ active: selectedIndex == 9 }"
-              @click="selectItem(9, '/components/manage-policy')"
+              :class="{ active: selectedIndex == 6 }"
+              @click="selectItem(6, '/components/manage-policy')"
               class="list-group-item pointer"
               >View Policy (v2)</span
             >
@@ -411,18 +402,20 @@ function loadScript(url: string, onload: any) {
   position: -webkit-sticky;
   position: fixed;
   top: 0;
-  z-index: 500;
+  z-index: 1000;
 }
 
-/* #header {
+#side {
+  margin-top: 4rem;
+  background-color: white;
+  padding-bottom: 10px;
+  z-index: 999;
+}
+
+#header {
   font-size: 15px;
   font-weight: 700;
-  width: 100%;
-  position: -webkit-sticky;
-  position: fixed;
-  top: 0;
-  z-index: 500;
-} */
+}
 
 #content {
   margin-top: 100px !important;
@@ -437,9 +430,14 @@ function loadScript(url: string, onload: any) {
   font-size: 14px;
 }
 
+#items {
+  margin-top: 6rem;
+  z-index: 490;
+}
+
 .stay-put {
   position: sticky;
-  top: 65px;
+  top: 100px;
   z-index: 490;
 }
 
@@ -459,6 +457,6 @@ function loadScript(url: string, onload: any) {
 }
 
 .bg-grey {
-  background-color: #f4f5f7;
+  background-color: #f4f5f7 !important;
 }
 </style>

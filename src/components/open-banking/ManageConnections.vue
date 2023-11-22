@@ -61,13 +61,13 @@ onMounted(() => {
     <h2>Manage connections</h2>
     <p>This component can be used to view connected accounts, refresh consent or disconnect</p>
     <certua-ob-manage-connections
-      :contentOverrides="contentOverrides"
-      :contextData="contextTokenOptions"
-      :showAddButton="false"
-      :showTitle="false"
-      :redirectionConfig:="redirectionConfig"
-      :daasUrl="daasUrl"
-      :editAccountName="true"
+      .contentOverrides="contentOverrides"
+      .contextData="contextTokenOptions"
+      .showAddButton="false"
+      .showTitle="false"
+      .redirectionConfig:="redirectionConfig"
+      .daasUrl="daasUrl"
+      .editAccountName="true"
     >
     </certua-ob-manage-connections>
   </div>
@@ -76,16 +76,16 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-ob-manage-connections 
-        :contentOverrides="contentOverrides"
-        :contextData="contextData"
-        :redirectionConfig="redirectionConfig"
-        :showTitle="false"
-        :daasUrl="daasUrl"
-        :notificationSettings="notificationSettings"
-        :manualViewMode="true"
-        :viewMode="viewMode"
-        :editAccountName="false"
-        :showAddButton="false"&gt;
+        .contentOverrides="contentOverrides"
+        .contextData="contextData"
+        .redirectionConfig="redirectionConfig"
+        .showTitle="false"
+        .daasUrl="daasUrl"
+        .notificationSettings="notificationSettings"
+        .manualViewMode="true"
+        .viewMode="viewMode"
+        .editAccountName="false"
+        .showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
     </pre
       >

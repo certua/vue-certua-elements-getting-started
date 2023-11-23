@@ -43,6 +43,9 @@ watch(
       section.value = SiteSection.Overview
     }
     let page = route.fullPath.replace('/components/', '')
+    if (page.includes('login?')) {
+      page = page.substring(0, page.indexOf('?'))
+    }
 
     window.addEventListener('selected-index', (event: any) => {
       if (route.fullPath.includes('overview')) {

@@ -75,12 +75,12 @@ onMounted(() => {
     </p>
     <certua-ob-connect
       v-if="loaded"
-      :contentOverrides="contentOverrides"
-      :contextData="contextTokenOptions"
-      :daasUrl="daasUrl"
-      :redirectionConfig="redirectionConfig"
-      :startingPhase="'InstitutionSelection'"
-      :notificationSettings="notificationSettings"
+      .contentOverrides="contentOverrides"
+      .contextData="contextTokenOptions"
+      .daasUrl="daasUrl"
+      .redirectionConfig="redirectionConfig"
+      .startingPhase="'InstitutionSelection'"
+      .notificationSettings="notificationSettings"
     >
     </certua-ob-connect>
   </div>
@@ -89,12 +89,12 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-ob-connect 
-        :contentOverrides="contentOverrides"
-        :redirectionConfig="redirectionConfig"
-        :contextData="contextData"
-        :daasUrl="daasUrl"
-        :startingPhase="'InstitutionSelection'"
-        :notificationSettings="notificationSettings"&gt;
+        .contentOverrides="contentOverrides"
+        .redirectionConfig="redirectionConfig"
+        .contextData="contextData"
+        .daasUrl="daasUrl"
+        .startingPhase="'InstitutionSelection'"
+        .notificationSettings="notificationSettings"&gt;
         &lt;/certua-ob-connect&gt;
       </pre>
     </code>

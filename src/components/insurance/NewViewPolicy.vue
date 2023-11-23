@@ -89,7 +89,7 @@ function goToQuoteAndBuy(value: any) {
 
     <certua-insurance-view-policy
       v-if="loaded"
-      :config="config"
+      .config="config"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
@@ -100,7 +100,7 @@ function goToQuoteAndBuy(value: any) {
     <code>
       <pre>
       &lt;certua-insurance-view-policy
-      :config="config"
+      .config="config"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
 

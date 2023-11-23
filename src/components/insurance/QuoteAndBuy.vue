@@ -36,8 +36,8 @@ onMounted(() => {
     <h2>Quote and buy</h2>
     <p>This component displays a Quote and buy Journey</p>
     <certua-insurance-quote-and-buy
-      :config="config"
-      :useCertuaAuth="true"
+      .config="config"
+      .useCertuaAuth="true"
       v-if="!!loaded"
     ></certua-insurance-quote-and-buy>
   </div>
@@ -46,8 +46,8 @@ onMounted(() => {
     <code>
       <pre>
       &lt;certua-insurance-quote-and-buy 
-        :config="config"
-        :accesstoken="accessToken"
+        .config="config"
+        .accesstoken="accessToken"
       &lt;/certua-insurance-quote-and-buy&gt;
       </pre>
     </code>

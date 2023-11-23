@@ -41,7 +41,7 @@ window.addEventListener('scroll', checkOffsetTop)
 
 function checkOffsetTop(event: any) {
   setOffset()
-
+  sectionOffsets()
   let letoffset = window.pageYOffset + offset.value
   let currentIndex = 0
   if (letoffset >= getStartedOffset.value && letoffset < siteCodeOffset.value) {
@@ -59,7 +59,6 @@ function checkOffsetTop(event: any) {
   } else {
     currentIndex = 0
   }
-
   window.dispatchEvent(
     new CustomEvent('selected-index', {
       bubbles: true,
@@ -86,16 +85,6 @@ onMounted(() => {
   }
 })
 
-onUpdated(() => {
-  getStartedOffset.value = gettingStartedElement.value.offsetTop
-  siteCodeOffset.value = siteCodeElement.value.offsetTop
-  themingOffset.value = themingElement.value.offsetTop
-
-  securityOffset.value = securityElement.value.offsetTop
-  clientLibrariesOffset.value = clientLibrariesElement.value.offsetTop
-  componentsOffset.value = componentsElement.value.offsetTop
-})
-
 function setDefaultReferrer(sidebar = false) {
   if (sidebar) {
     referrerCode.value = demoSidebarCode
@@ -116,6 +105,16 @@ function checkReferrer(set = false) {
       setReferrer(referrerCode.value)
     }
   })
+}
+
+function sectionOffsets() {
+  getStartedOffset.value = gettingStartedElement.value?.offsetTop
+  siteCodeOffset.value = siteCodeElement.value?.offsetTop
+  themingOffset.value = themingElement.value?.offsetTop
+
+  securityOffset.value = securityElement.value?.offsetTop
+  clientLibrariesOffset.value = clientLibrariesElement.value?.offsetTop
+  componentsOffset.value = componentsElement.value?.offsetTop
 }
 
 function setReferrer(value?: string) {

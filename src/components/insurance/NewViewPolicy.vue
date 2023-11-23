@@ -81,7 +81,7 @@ function goToQuoteAndBuy(value: any) {
     </div>
   </div>
   <div class="row" v-if="!showError">
-    <h2>View Policy (v2)</h2>
+    <h2>View Policy</h2>
     <p>
       This component displays the active policy for the supplied client/organisation as well as the
       ability to navigate to historic quotes/policies and via renewals
@@ -90,9 +90,6 @@ function goToQuoteAndBuy(value: any) {
     <certua-insurance-view-policy
       v-if="loaded"
       .config="config"
-      .accesstoken="accessToken"
-      .clientId="clientId"
-      .organisationId="organisationId"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
@@ -104,9 +101,6 @@ function goToQuoteAndBuy(value: any) {
       <pre>
       &lt;certua-insurance-view-policy
       .config="config"
-      .accesstoken="accessToken"
-      .clientId="clientId"
-      .organisationId="organisationId"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
 
@@ -147,27 +141,6 @@ function goToQuoteAndBuy(value: any) {
       </tbody>
     </table>
     <h4>Component specific inputs</h4>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <th>Property Name</th>
-          <th>Mandatory</th>
-
-          <th>Description</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>clientId</td>
-            <td>If entity type is Individual</td>
-            <td>Pass clientId if entity type is Individual</td>
-          </tr>
-          <tr>
-            <td>organisationId</td>
-            <td>If entity type is Organisation</td>
-            <td>Pass organisationId if entity type is Organisation</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <code>None</code>
   </div>
 </template>

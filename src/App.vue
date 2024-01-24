@@ -47,12 +47,6 @@ watch(
       page = page.substring(0, page.indexOf('?'))
     }
 
-    window.addEventListener('selected-index', (event: any) => {
-      if (route.fullPath.includes('overview')) {
-        selectedIndex.value = event.detail.index
-      }
-    })
-
     switch (page) {
       case 'connect':
       case '/overview-insurance':

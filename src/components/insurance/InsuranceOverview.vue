@@ -286,7 +286,7 @@ function reset() {
         </div>
       </div>
     </section>
-    <section id="theming" ref="themingElement">
+    <!-- <section id="theming" ref="themingElement">
       <h3>Theming</h3>
       <p>
         We fully support the ability to theme the components to match your site. The components
@@ -302,7 +302,7 @@ function reset() {
         components without having to worry about security. However, if you wish to use your own
         security then please speak to us.
       </p>
-    </section>
+    </section> -->
     <section id="client-libraries" ref="clientLibrariesElement">
       <h3>Client Libraries</h3>
       <p>We provide the following libraries to make your integration easier</p>

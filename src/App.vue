@@ -47,12 +47,6 @@ watch(
       page = page.substring(0, page.indexOf('?'))
     }
 
-    window.addEventListener('selected-index', (event: any) => {
-      if (route.fullPath.includes('overview')) {
-        selectedIndex.value = event.detail.index
-      }
-    })
-
     switch (page) {
       case 'connect':
       case '/overview-insurance':
@@ -247,25 +241,13 @@ function loadScript(url: string, onload: any) {
             >
             <span
               :class="{ active: selectedIndex == 3 }"
-              @click="selectItem(3, '/overview-insurance', 'theming')"
-              class="list-group-item pointer"
-              >Theming</span
-            >
-            <span
-              :class="{ active: selectedIndex == 4 }"
-              @click="selectItem(4, '/overview-insurance', 'security')"
-              class="list-group-item pointer"
-              >Security</span
-            >
-            <span
-              :class="{ active: selectedIndex == 5 }"
-              @click="selectItem(5, '/overview-insurance', 'client-libraries')"
+              @click="selectItem(3, '/overview-insurance', 'client-libraries')"
               class="list-group-item pointer"
               >Client Libraries</span
             >
             <span
-              :class="{ active: selectedIndex == 6 }"
-              @click="selectItem(6, '/overview-insurance', 'using-components')"
+              :class="{ active: selectedIndex == 4 }"
+              @click="selectItem(4, '/overview-insurance', 'using-components')"
               class="list-group-item pointer"
               >Using Components</span
             >

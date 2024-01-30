@@ -336,6 +336,12 @@ function loadScript(url: string, onload: any) {
               class="list-group-item pointer"
               >View Policy</span
             >
+            <span
+              :class="{ active: selectedIndex == 7 }"
+              @click="selectItem(7, '/components/quotes-list')"
+              class="list-group-item pointer"
+              >Quotes List</span
+            >
           </div>
         </div>
         <nav></nav>

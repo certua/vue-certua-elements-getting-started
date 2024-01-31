@@ -157,7 +157,7 @@ function selectItem(i: number, route: string, section?: string) {
 }
 
 function backToGettingStarted() {
-  router.replace('/components/claims')
+  fullScreen.value = false
 }
 
 function setLoaded() {

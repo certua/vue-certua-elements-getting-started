@@ -56,11 +56,6 @@ onMounted(() => {
 
         <tbody>
           <tr>
-            <td>productCode</td>
-            <td>Yes</td>
-            <td>the code for the insurance product you are set up with.</td>
-          </tr>
-          <tr>
             <td>trigger</td>
             <td>Yes</td>
             <td>

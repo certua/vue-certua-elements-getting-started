@@ -179,7 +179,7 @@ function selectItem(i: number, route: string, section?: string) {
 }
 
 function backToGettingStarted() {
-  router.replace('/insurance/components/claims')
+  fullScreen.value = false
 }
 
 function setLoaded() {

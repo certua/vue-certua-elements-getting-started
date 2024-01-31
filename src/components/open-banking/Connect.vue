@@ -48,10 +48,6 @@ let contentOverrides = {
 
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') == 'insurance') {
-    router.replace('/components/quote-and-buy')
-  }
-
   window.opener?.postMessage('close-window-success', {
     targetOrigin: '*'
   })

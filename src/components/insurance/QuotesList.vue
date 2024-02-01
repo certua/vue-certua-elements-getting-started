@@ -8,7 +8,7 @@ let showError = ref(false)
 let config = ref()
 let accessToken = ref()
 let loaded = ref(false)
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let clientId = ref('')
 let organisationId = ref('')
 // lifecycle hooks
@@ -61,6 +61,17 @@ let goToQuoteAndBuyJson = ref({
   <div class="row" v-if="!showError">
     <h2>Quotes List</h2>
     <p>This component displays Quotes for the logged in client/organisation</p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/quotes-list'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/quotes-list' }}</a
+      >
+    </p>
     <certua-insurance-quotes-list
       .clientId="clientId"
       .organisationId="organisationId"

@@ -9,7 +9,7 @@ let loginSuccess = ref(false)
 let loginUrl = ref('')
 let logoutUrl = ref('')
 let coversUrl = ref('')
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 onBeforeMount(() => {
   let configJson = localStorage.getItem('insuranceConfig')
 
@@ -47,6 +47,17 @@ function setLoginSuccess(value) {
       This component allows you to login to the Certua Insurance platform and then access the other
       components including View Policy. You will need to pass in what the component is to display
       for the login and logout buttons.
+    </p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/login'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/login' }}</a
+      >
     </p>
     <certua-insurance-login
       .referrerSiteCode="config?.referrerId"

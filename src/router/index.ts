@@ -120,6 +120,11 @@ const router = createRouter({
           component: () => import('../views/insurance/QuotesListView.vue')
         },
         {
+          path: 'documents',
+          name: 'documents',
+          component: () => import('../views/insurance/DocumentsView.vue')
+        },
+        {
           path: 'policies-list',
           name: 'policies-list',
           component: () => import('../views/insurance/PolicyListView.vue')

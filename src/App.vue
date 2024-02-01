@@ -398,6 +398,12 @@ function checkReferrer() {
               class="list-group-item pointer"
               >Quotes List</span
             >
+            <span
+              :class="{ active: selectedIndex == 8 }"
+              @click="selectItem(8, '/components/documents')"
+              class="list-group-item pointer"
+              >Documents</span
+            >
           </div>
         </div>
         <nav></nav>

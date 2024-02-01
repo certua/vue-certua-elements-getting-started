@@ -83,8 +83,8 @@ function goToQuoteAndBuy(value: any) {
   <div class="row" v-if="!showError">
     <h2>View Policy</h2>
     <p>
-      This component displays the active policy for the supplied client/organisation as well as the
-      ability to navigate to historic quotes/policies and via renewals
+      Please note that you will need to be logged in to view the policy. If the account has a quote
+      and not a policy you will need to go to the quotes list component.
     </p>
 
     <certua-insurance-view-policy

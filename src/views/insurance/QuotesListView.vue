@@ -5,6 +5,5 @@ import InsuranceElementsCommonInputs from '../../components/insurance/InsuranceE
 <template>
   <div>
     <QuotesList />
-    <InsuranceElementsCommonInputs />
   </div>
 </template>

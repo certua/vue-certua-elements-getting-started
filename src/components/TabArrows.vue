@@ -49,6 +49,7 @@ function calculateArrows() {
   })
 }
 function hideAndShowArrows(navigation: HTMLElement) {
+  if (!navigation) return
   if (navigation.clientWidth == 0) {
     navigation = navElement()
     setTimeout((_) => hideAndShowArrows(navigation), 100)

@@ -26,14 +26,14 @@ const router = createRouter({
       ]
     },
     {
-      path: '/components',
+      path: '/open-banking/components',
       children: [
-        {
-          path: '',
-          redirect: (to) => {
-            return '/components/introduction'
-          }
-        },
+        // {
+        //   path: '',
+        //   redirect: (to) => {
+        //     return '/components/introduction'
+        //   }
+        // },
         {
           path: 'connect',
           name: 'connect',
@@ -63,6 +63,17 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/open-banking/CashflowView.vue')
+        }
+      ]
+    },
+    {
+      path: '/insurance/components',
+      children: [
+        {
+          path: '',
+          redirect: (to) => {
+            return '/insurance/components/introduction'
+          }
         },
         {
           path: 'introduction',

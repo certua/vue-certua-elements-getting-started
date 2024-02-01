@@ -10,10 +10,6 @@ let accessToken = ref('')
 let loaded = ref(false)
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
-  }
-
   let configJson = localStorage.getItem('insuranceConfig')
 
   if (configJson) {

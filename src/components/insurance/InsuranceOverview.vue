@@ -79,7 +79,10 @@ function setOffset() {
 // lifecycle hooks
 onMounted(() => {
   let config = localStorage.getItem('insuranceConfig')
-  if (!!config) {
+
+  if (!!config && !localStorage.getItem('elementType')) {
+    setDefaultReferrer(true)
+  } else {
     referrerSet.value = true
     referrerName.value = localStorage.getItem('certua-referrerName') ?? ''
   }
@@ -131,7 +134,7 @@ function setReferrer(value?: string) {
     'insuranceConfig',
     JSON.stringify({
       referrerId: referrerCode.value,
-      basePath: 'vue/components/quote-and-buy'
+      basePath: 'vue/insurance/components/quote-and-buy'
     })
   )
 

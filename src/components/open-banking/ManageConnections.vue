@@ -19,9 +19,11 @@ let notificationSettings = {
 }
 let redirectionConfig = {
   successUrl:
-    window.location.origin + '/vue/components/manage-connections?accountConnection=success',
+    window.location.origin +
+    '/vue/open-banking/components/manage-connections?accountConnection=success',
   failureUrl:
-    window.location.origin + '/vue/components/manage-connections?accountConnection=failure',
+    window.location.origin +
+    '/vue/open-banking/components/manage-connections?accountConnection=failure',
   popup: false
 }
 let contentOverrides = {

@@ -38,7 +38,7 @@ let goToQuoteAndBuyJson = ref({
 onMounted(() => {
   const route = useRoute()
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -69,7 +69,7 @@ function goToMakeAClaim(value: any) {
 
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { value } })
+  router.replace({ name: '/insurance/components/quote-and-buy', state: { value } })
 }
 </script>
 

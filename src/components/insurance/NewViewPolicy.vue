@@ -12,7 +12,7 @@ let loaded = ref(false)
 
 let clientId = ref('')
 let organisationId = ref('')
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let makeAClaimJson = ref({
   address: {
     addressLine1: '9 Anchor House',
@@ -38,7 +38,7 @@ let goToQuoteAndBuyJson = ref({
 onMounted(() => {
   const route = useRoute()
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -69,7 +69,7 @@ function goToMakeAClaim(value: any) {
 
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { value } })
+  router.replace({ name: '/insurance/components/quote-and-buy', state: { value } })
 }
 </script>
 
@@ -83,10 +83,20 @@ function goToQuoteAndBuy(value: any) {
   <div class="row" v-if="!showError">
     <h2>View Policy</h2>
     <p>
-      This component displays the active policy for the supplied client/organisation as well as the
-      ability to navigate to historic quotes/policies and via renewals
+      Please note that you will need to be logged in to view the policy. If the account has a quote
+      and not a policy you will need to go to the quotes list component.
     </p>
-
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/view-policy'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/view-policy' }}</a
+      >
+    </p>
     <certua-insurance-view-policy
       v-if="loaded"
       .config="config"

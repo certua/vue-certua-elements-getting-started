@@ -9,7 +9,7 @@ let loginSuccess = ref(false)
 let loginUrl = ref('')
 let logoutUrl = ref('')
 let coversUrl = ref('')
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 onBeforeMount(() => {
   let configJson = localStorage.getItem('insuranceConfig')
 
@@ -20,13 +20,13 @@ onBeforeMount(() => {
 
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   loaded.value = true
-  loginUrl.value = window.location.origin + '/vue/components/login'
-  logoutUrl.value = window.location.origin + '/vue/components/login'
-  coversUrl.value = window.location.origin + '/vue/components/view-policy2'
+  loginUrl.value = window.location.origin + '/vue/insurance/components/login'
+  logoutUrl.value = window.location.origin + '/vue/insurance/components/login'
+  coversUrl.value = window.location.origin + '/vue/insurance/components/view-policy2'
 })
 
 function setLoginSuccess(value) {
@@ -48,6 +48,17 @@ function setLoginSuccess(value) {
       components including View Policy. You will need to pass in what the component is to display
       for the login and logout buttons.
     </p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/login'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/login' }}</a
+      >
+    </p>
     <certua-insurance-login
       .referrerSiteCode="config?.referrerId"
       .loginUrl="loginUrl"
@@ -67,9 +78,9 @@ function setLoginSuccess(value) {
     <pre>
     &lt;certua-insurance-login
     .referrerSiteCode="config.referrerId"
-    .coversUrl="window.location.origin + '/vue/components/view-policy2"
-    .loginUrl="window.location.origin + '/vue/components/login"
-    .logoutUrl="window.location.origin + '/vue/components/login"&gt;
+    .coversUrl="window.location.origin + '/vue/insurance/components/view-policy2"
+    .loginUrl="window.location.origin + '/vue/insurance/components/login"
+    .logoutUrl="window.location.origin + '/vue/insurance/components/login"&gt;
 
     &lt;button class="btn btn-primary" login&gt;Login&lt;/button&gt;
     &lt;button class="btn btn-secondary btn-circle" logout&gt;&lt;i class="fa fa-user"&gt;&lt;/button&gt;

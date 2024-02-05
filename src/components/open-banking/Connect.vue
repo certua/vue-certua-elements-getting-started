@@ -5,8 +5,10 @@ import router from '@/router'
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let redirectionConfig = {
-  successUrl: window.location.origin + '/vue/components/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/vue/components/connect?accountConnection=failure',
+  successUrl:
+    window.location.origin + '/vue/open-banking/components/connect?accountConnection=success',
+  failureUrl:
+    window.location.origin + '/vue/open-banking/components/connect?accountConnection=failure',
   popup: false
 }
 let notificationSettings = {
@@ -48,10 +50,6 @@ let contentOverrides = {
 
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') == 'insurance') {
-    router.replace('/components/quote-and-buy')
-  }
-
   window.opener?.postMessage('close-window-success', {
     targetOrigin: '*'
   })

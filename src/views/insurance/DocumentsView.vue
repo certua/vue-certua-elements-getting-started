@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import QuotesList from '../../components/insurance/QuotesList.vue'
+import Documents from '../../components/insurance/Documents.vue'
 import InsuranceElementsCommonInputs from '../../components/insurance/InsuranceElementsCommonInputs.vue'
 </script>
 <template>
   <div>
-    <QuotesList />
+    <Documents />
+    <InsuranceElementsCommonInputs />
   </div>
 </template>

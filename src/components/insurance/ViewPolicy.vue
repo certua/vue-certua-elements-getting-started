@@ -36,7 +36,7 @@ let policyId = ref('')
 onMounted(() => {
   const route = useRoute()
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -58,10 +58,10 @@ onMounted(() => {
 })
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { data: value.detail } })
+  router.replace({ name: '/insurance/components/quote-and-buy', state: { data: value.detail } })
 }
 function goToMyPolicies() {
-  router.replace('/components/policies-list')
+  router.replace('/insurance/components/policies-list')
 }
 
 function goToMakeAClaim(value: any) {

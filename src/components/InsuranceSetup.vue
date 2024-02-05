@@ -30,7 +30,7 @@ function back(chosenStep: Step) {
 }
 
 function goToComponents() {
-  router.replace('/components/claims')
+  router.replace('/insurance/components/claims')
 }
 
 function setReferrer(value?: string) {
@@ -62,7 +62,7 @@ function setReferrer(value?: string) {
     'insuranceConfig',
     JSON.stringify({
       referrerId: referrerCode.value,
-      basePath: 'vue/components/quote-and-buy'
+      basePath: 'vue/insurance/components/quote-and-buy'
     })
   )
 }

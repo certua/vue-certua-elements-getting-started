@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/financial/connection/success',
       redirect: (to) => {
-        return '/components/connect'
+        return '/open-banking/components/connect'
       }
     },
     {
@@ -26,14 +26,14 @@ const router = createRouter({
       ]
     },
     {
-      path: '/components',
+      path: '/open-banking/components',
       children: [
-        {
-          path: '',
-          redirect: (to) => {
-            return '/components/introduction'
-          }
-        },
+        // {
+        //   path: '',
+        //   redirect: (to) => {
+        //     return '/components/introduction'
+        //   }
+        // },
         {
           path: 'connect',
           name: 'connect',
@@ -63,6 +63,17 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/open-banking/CashflowView.vue')
+        }
+      ]
+    },
+    {
+      path: '/insurance/components',
+      children: [
+        {
+          path: '',
+          redirect: (to) => {
+            return '/insurance/components/introduction'
+          }
         },
         {
           path: 'introduction',
@@ -107,6 +118,11 @@ const router = createRouter({
           path: 'quotes-list',
           name: 'quotes-list',
           component: () => import('../views/insurance/QuotesListView.vue')
+        },
+        {
+          path: 'documents',
+          name: 'documents',
+          component: () => import('../views/insurance/DocumentsView.vue')
         },
         {
           path: 'policies-list',

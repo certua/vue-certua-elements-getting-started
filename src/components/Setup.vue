@@ -33,8 +33,6 @@ function setType(type: string) {
     loadScript(insuranceElementsUrl, null)
     loadScript(insuranceElementsPolyfillUrl, null)
 
-    loadScript(onboardingUrl, null)
-    loadScript(onboardingPolyfillUrl, null)
     router.replace('/overview-insurance')
   }
 }
@@ -51,15 +49,7 @@ function loadScript(url: string, onload: any) {
 }
 
 // lifecycle hooks
-onMounted(() => {
-  let type = localStorage.getItem('elementType')
-  if (type) {
-    elementType.value = type
-    if (type === 'insurance') {
-      router.replace('/overview-insurance')
-    }
-  }
-})
+onMounted(() => {})
 </script>
 
 <template>

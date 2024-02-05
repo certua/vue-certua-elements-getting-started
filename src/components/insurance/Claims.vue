@@ -8,6 +8,7 @@ let showError = ref(false)
 let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
+const docsUrl = import.meta.env.VITE_DOCS_URL
 // lifecycle hooks
 onMounted(() => {
   let configJson = localStorage.getItem('insuranceConfig')
@@ -32,6 +33,17 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Claims</h2>
     <p>This component displays Claims Information</p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/claims'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/claims' }}</a
+      >
+    </p>
     <certua-insurance-claims-information .referrerSiteCode="config?.referrerId" v-if="loaded">
     </certua-insurance-claims-information>
   </div>

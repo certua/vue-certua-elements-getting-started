@@ -9,7 +9,7 @@ let config = ref()
 let loaded = ref(false)
 
 let prefill = ref()
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let makeAClaimJson = ref({
   address: {
     addressLine1: '9 Anchor House',
@@ -53,6 +53,17 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>FNOL (First Notification of Loss)</h2>
     <p>This component displays an FNOL form</p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/fnol'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/fnol' }}</a
+      >
+    </p>
     <certua-insurance-fnol .referrerSiteCode="config?.referrerId" .prefill="prefill" v-if="loaded">
     </certua-insurance-fnol>
   </div>

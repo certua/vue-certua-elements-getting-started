@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import router from '@/router'
 let trigger = ref('BenefitSelection')
 let config = ref()
+const docsUrl = import.meta.env.VITE_DOCS_URL
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
@@ -23,6 +24,17 @@ onMounted(() => {
     <p>
       The documents component provides a way for you to link to all of your policy related documents
       which may need to be displayed on your website for compliance.
+    </p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/documents'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/documents' }}</a
+      >
     </p>
     <certua-insurance-documents
       .referrerSiteCode="config?.referrerId"

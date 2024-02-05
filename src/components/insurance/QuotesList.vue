@@ -14,7 +14,7 @@ let organisationId = ref('')
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -75,7 +75,7 @@ let goToQuoteAndBuyJson = ref({
     <certua-insurance-quotes-list
       .clientId="clientId"
       .organisationId="organisationId"
-      .basePath="'components/quotes-list'"
+      .basePath="'insurance/components/quotes-list'"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
     </certua-insurance-quotes-list>
@@ -87,7 +87,7 @@ let goToQuoteAndBuyJson = ref({
       &lt;certua-insurance-quotes-list 
       .clientId="clientId"
       .organisationId="organisationId"
-      .basePath="'components/quotes-list'"
+      .basePath="'insurance/components/quotes-list'"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
 
       &lt;/certua-insurance-quotes-list  &gt;

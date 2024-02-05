@@ -17,7 +17,8 @@
             <td>
               This contains information on the site you are integrating the quote and buy journey
               integration<br /><code
-                >{ referrerId: 'xxxx-xxxx-xxxx-xxxx', basePath: 'components/quote-and-buy' }</code
+                >{ referrerId: 'xxxx-xxxx-xxxx-xxxx', basePath: 'insurance/components/quote-and-buy'
+                }</code
               >
             </td>
           </tr>

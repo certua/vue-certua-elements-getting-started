@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/financial/connection/success',
       redirect: (to) => {
-        return '/components/connect'
+        return '/open-banking/components/connect'
       }
     },
     {

@@ -203,7 +203,8 @@ function setDefaultReferrer() {
       'insuranceConfig',
       JSON.stringify({
         referrerId: referrerCode.value,
-        basePath: 'vue/insurance/components/quote-and-buy'
+        basePath: 'vue/insurance/components/quote-and-buy',
+        displayQuickQuote: true
       })
     )
   }

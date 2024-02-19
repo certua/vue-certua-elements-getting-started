@@ -149,7 +149,12 @@ function loadScript(url: string, onload: any) {
           <div class="container-fluid">
             <a class="navbar-brand" href="/">
               <div class="d-flex justify-items-center">
-                <img @click="clearType()" src="./assets/certua.png" /></div
+                <img
+                  @click="clearType()"
+                  height="37.17"
+                  width="111"
+                  src="https://cdn.certua.io/ux-assets/certua-website/Certua_Logo_BW.svg"
+                /></div
             ></a>
             <button
               class="navbar-toggler"

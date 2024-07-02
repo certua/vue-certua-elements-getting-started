@@ -5,6 +5,7 @@ import axios from 'axios'
 export interface ReferrerCodeCheck {
   name: string
   isSidebar: boolean
+  url: string
 }
 
 let introductionElement = ref()
@@ -19,6 +20,7 @@ let isSidebar = ref(false)
 let referrerSet = ref(false)
 let referrerCode = ref('')
 let referrerName = ref('')
+let referrerUrl = ref('')
 let offset = ref(100)
 let introductionOffset = ref(0)
 let getStartedOffset = ref(0)
@@ -85,6 +87,7 @@ onMounted(() => {
   } else {
     referrerSet.value = true
     referrerName.value = localStorage.getItem('certua-referrerName') ?? ''
+    referrerUrl.value = localStorage.getItem('certua-referrerUrl') ?? ''
   }
 })
 
@@ -102,6 +105,7 @@ function checkReferrer(set = false) {
   axios.get<ReferrerCodeCheck>(uxAPIUrl + '/dfp/check-code/' + referrerCode.value).then((data) => {
     console.log('data', data)
     referrerName.value = data.data.name
+    referrerUrl.value = data.data.url
     isSidebar.value = data.data.isSidebar
 
     if (set) {
@@ -128,6 +132,7 @@ function setReferrer(value?: string) {
   sessionStorage.clear()
 
   localStorage.setItem('certua-referrerName', referrerName.value)
+  localStorage.setItem('certua-referrerUrl', referrerUrl.value)
   localStorage.setItem('elementType', 'insurance')
 
   localStorage.setItem(
@@ -142,6 +147,7 @@ function setReferrer(value?: string) {
 
   localStorage.setItem('certua-sidebar', isSidebar.value.toString())
   localStorage.setItem('certua-referrerName', referrerName.value)
+  localStorage.setItem('certua-referrerUrl', referrerUrl.value)
 
   referrerSet.value = true
 }
@@ -153,6 +159,7 @@ function reset() {
   window.dispatchEvent(new CustomEvent('show-navigation', { detail: { show: false } }))
   referrerSet.value = false
   referrerName.value = ''
+  referrerUrl.value = ''
   isSidebar.value = false
 }
 </script>
@@ -205,7 +212,7 @@ function reset() {
           multiple questions on one page, or one with questions displayed in a sidebar.
         </div>
         <div class="row w-100">
-          <div class="col-md-3 d-flex flex-column justify-content-end">
+          <!-- <div class="col-md-3 d-flex flex-column justify-content-end">
             <div class="card">
               <div class="card-body">
                 <video
@@ -227,7 +234,7 @@ function reset() {
                 Use demo site
               </button>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3 d-flex flex-column justify-content-end">
             <div class="card h-100">
               <div class="card-body">
@@ -279,7 +286,7 @@ function reset() {
       </div>
       <div v-if="referrerSet">
         <div
-          class="d-flex alert alert-success col-12 col-md-6 justify-content-between align-items-center"
+          class="d-flex alert alert-success col-12 col-md-6 justify-content-between align-items-center mt-2"
         >
           <span
             >You are currently using <strong>{{ referrerName }}</strong> site code</span

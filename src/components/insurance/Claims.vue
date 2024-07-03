@@ -21,6 +21,10 @@ onMounted(() => {
 
   loaded.value = true
 })
+
+function goToClaim() {
+  window.open(`https://${localStorage.getItem('certua-referrerUrl')}/claim`, '_blank')
+}
 </script>
 
 <template>
@@ -44,10 +48,15 @@ onMounted(() => {
         >{{ docsUrl + '/via-web-components/insurance-elements/claims' }}</a
       >
     </p>
-    <certua-insurance-claims-information .referrerSiteCode="config?.referrerId" v-if="loaded">
+    <certua-insurance-claims-information
+      .referrerSiteCode="config?.referrerId"
+      .showClaimButton="true"
+      @makeAClaim="() => goToClaim()"
+      v-if="loaded"
+    >
     </certua-insurance-claims-information>
   </div>
-  <div>
+  <div class="mt-3">
     <h4>Example code</h4>
     <code>
       <pre>

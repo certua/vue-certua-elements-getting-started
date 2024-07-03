@@ -64,7 +64,7 @@ onMounted(() => {
 
 function goToMakeAClaim(value: any) {
   console.log('makeAClaim event', value)
-  router.replace({ name: 'fnol', state: { data: value.detail } })
+  window.open(`https://${localStorage.getItem('certua-referrerUrl')}/claim`, '_blank')
 }
 
 function goToQuoteAndBuy(value: any) {
@@ -138,7 +138,7 @@ function goToQuoteAndBuy(value: any) {
           </td>
           <td>
             User has clicked make a claim button (if present- this is a product config setting),
-            this emits the prefill info which can be used to prepopulate the FNOL claim form
+            this emits and send you to claim information page
           </td>
         </tr>
         <tr>

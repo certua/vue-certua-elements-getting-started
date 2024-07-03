@@ -99,16 +99,16 @@ const router = createRouter({
           name: 'claims',
           component: () => import('../views/insurance/ClaimsView.vue')
         },
-        {
-          path: 'fnol',
-          name: 'fnol',
-          component: () => import('../views/insurance/FnolView.vue')
-        },
-        {
-          path: 'quick-quote',
-          name: 'quick-quote',
-          component: () => import('../views/insurance/QuickQuoteView.vue')
-        },
+        // {
+        //   path: 'fnol',
+        //   name: 'fnol',
+        //   component: () => import('../views/insurance/FnolView.vue')
+        // },
+        // {
+        //   path: 'quick-quote',
+        //   name: 'quick-quote',
+        //   component: () => import('../views/insurance/QuickQuoteView.vue')
+        // },
         {
           path: 'login',
           name: 'login',

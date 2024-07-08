@@ -81,7 +81,7 @@ function getAccessToken() {
     })
 }
 function goToComponents() {
-  router.push('/components/connect')
+  router.push('/open-banking/components/connect')
 }
 function getContextToken() {
   const tokenAUUrl = import.meta.env.VITE_OB_API_AU_URL //'https://apidev-au.certua.io/daas/app/token'

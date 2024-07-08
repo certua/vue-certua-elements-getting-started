@@ -8,15 +8,12 @@ let showError = ref(false)
 let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
+const docsUrl = import.meta.env.VITE_DOCS_URL
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
-  }
-
   let configJson = localStorage.getItem('insuranceConfig')
 
-  if (!!configJson) {
+  if (configJson) {
     config.value = JSON.parse(configJson)
   }
 
@@ -24,6 +21,10 @@ onMounted(() => {
 
   loaded.value = true
 })
+
+function goToClaim() {
+  window.open(`https://${localStorage.getItem('certua-referrerUrl')}/claim`, '_blank')
+}
 </script>
 
 <template>
@@ -36,18 +37,36 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Claims</h2>
     <p>This component displays Claims Information</p>
-    <certua-insurance-claims-information :referrerSiteCode="config?.referrerId">
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/claims'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/claims' }}</a
+      >
+    </p>
+    <certua-insurance-claims-information
+      .referrerSiteCode="config?.referrerId"
+      .showClaimButton="true"
+      @makeAClaim="() => goToClaim()"
+      v-if="loaded"
+    >
     </certua-insurance-claims-information>
   </div>
-  <div>
+  <div class="mt-3">
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-claims-information
-      :referrerSiteCode:="config.referrerId"
+      .referrerSiteCode:="config.referrerId"
 
       &lt;/certua-insurance-claims-information &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
+
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

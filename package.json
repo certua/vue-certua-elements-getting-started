@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "dev-local": "vite --mode dev",
     "stg": "vite --mode stg",
     "qa": "vite --mode qa",
     "build": "run-p build-only",

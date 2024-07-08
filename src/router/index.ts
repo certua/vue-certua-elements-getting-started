@@ -13,18 +13,27 @@ const router = createRouter({
     {
       path: '/financial/connection/success',
       redirect: (to) => {
-        return '/components/connect'
+        return '/open-banking/components/connect'
       }
     },
     {
-      path: '/components',
+      path: '/overview-insurance',
       children: [
         {
           path: '',
-          redirect: (to) => {
-            return '/components/connect'
-          }
-        },
+          component: () => import('../views/insurance/InsuranceOverviewView.vue')
+        }
+      ]
+    },
+    {
+      path: '/open-banking/components',
+      children: [
+        // {
+        //   path: '',
+        //   redirect: (to) => {
+        //     return '/components/introduction'
+        //   }
+        // },
         {
           path: 'connect',
           name: 'connect',
@@ -54,6 +63,22 @@ const router = createRouter({
           name: 'cashflow',
 
           component: () => import('../views/open-banking/CashflowView.vue')
+        }
+      ]
+    },
+    {
+      path: '/insurance/components',
+      children: [
+        {
+          path: '',
+          redirect: (to) => {
+            return '/insurance/components/introduction'
+          }
+        },
+        {
+          path: 'introduction',
+          name: 'introduction',
+          component: () => import('../views/insurance/ComponentsOverviewView.vue')
         },
         {
           path: 'quote-and-buy',
@@ -74,16 +99,16 @@ const router = createRouter({
           name: 'claims',
           component: () => import('../views/insurance/ClaimsView.vue')
         },
-        {
-          path: 'fnol',
-          name: 'fnol',
-          component: () => import('../views/insurance/FnolView.vue')
-        },
-        {
-          path: 'quick-quote',
-          name: 'quick-quote',
-          component: () => import('../views/insurance/QuickQuoteView.vue')
-        },
+        // {
+        //   path: 'fnol',
+        //   name: 'fnol',
+        //   component: () => import('../views/insurance/FnolView.vue')
+        // },
+        // {
+        //   path: 'quick-quote',
+        //   name: 'quick-quote',
+        //   component: () => import('../views/insurance/QuickQuoteView.vue')
+        // },
         {
           path: 'login',
           name: 'login',
@@ -93,6 +118,11 @@ const router = createRouter({
           path: 'quotes-list',
           name: 'quotes-list',
           component: () => import('../views/insurance/QuotesListView.vue')
+        },
+        {
+          path: 'documents',
+          name: 'documents',
+          component: () => import('../views/insurance/DocumentsView.vue')
         },
         {
           path: 'policies-list',
@@ -121,7 +151,16 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+        top: 75
+      }
+    }
+  }
 })
 
 export default router

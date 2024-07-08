@@ -36,11 +36,11 @@ onMounted(() => {
     <h2>Account Summary list</h2>
     <p>This component can be used to show an overview of all connected accounts</p>
     <certua-ob-account-summary-list
-      :contextData="contextTokenOptions"
-      :daasUrl="daasUrl"
-      :limitTo="limitTo"
-      :notificationSettings="notificationSettings"
-      :sortOptions="sortOptions"
+      .contextData="contextTokenOptions"
+      .daasUrl="daasUrl"
+      .limitTo="limitTo"
+      .notificationSettings="notificationSettings"
+      .sortOptions="sortOptions"
       v-if="loaded"
     >
     </certua-ob-account-summary-list>
@@ -48,16 +48,18 @@ onMounted(() => {
 
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;certua-ob-account-summary-list 
-        :contextData="contextData"&gt; 
-          :daasUrl="daasUrl" 
-            :limitTo="limitTo" 
-            :sortOptions="sortOptions" 
-            :notificationSettings="notificationSettings"
+    <code>
+      <pre>
+      &lt;certua-ob-account-summary-list
+          .contextData="contextData" 
+          .daasUrl="daasUrl" 
+          .limitTo="limitTo" 
+          .sortOptions="sortOptions" 
+          .notificationSettings="notificationSettings"&gt;
       &lt;/certua-ob-account-summary-list&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
 
     <h4>Event bus messages</h4>
     <p>

@@ -5,8 +5,10 @@ import router from '@/router'
 let showError = ref(false)
 let contextTokenOptions = ref('')
 let redirectionConfig = {
-  successUrl: window.location.origin + '/vue/components/connect?accountConnection=success',
-  failureUrl: window.location.origin + '/vue/components/connect?accountConnection=failure',
+  successUrl:
+    window.location.origin + '/vue/open-banking/components/connect?accountConnection=success',
+  failureUrl:
+    window.location.origin + '/vue/open-banking/components/connect?accountConnection=failure',
   popup: false
 }
 let notificationSettings = {
@@ -48,10 +50,6 @@ let contentOverrides = {
 
 // lifecycle hooks
 onMounted(() => {
-  if (localStorage.getItem('elementType') == 'insurance') {
-    router.replace('/components/quote-and-buy')
-  }
-
   window.opener?.postMessage('close-window-success', {
     targetOrigin: '*'
   })
@@ -75,28 +73,29 @@ onMounted(() => {
     </p>
     <certua-ob-connect
       v-if="loaded"
-      :contentOverrides="contentOverrides"
-      :contextData="contextTokenOptions"
-      :daasUrl="daasUrl"
-      :redirectionConfig="redirectionConfig"
-      :startingPhase="'InstitutionSelection'"
-      :notificationSettings="notificationSettings"
+      .contentOverrides="contentOverrides"
+      .contextData="contextTokenOptions"
+      .daasUrl="daasUrl"
+      .redirectionConfig="redirectionConfig"
+      .startingPhase="'InstitutionSelection'"
+      .notificationSettings="notificationSettings"
     >
     </certua-ob-connect>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-connect 
-        :contentOverrides="contentOverrides"
-        :redirectionConfig="redirectionConfig"
-        :contextData="contextData"
-        :daasUrl="daasUrl"
-        :startingPhase="'InstitutionSelection'"&gt;
-        :notificationSettings="notificationSettings"
-      &lt;/certua-ob-connect&gt;
-      </code>
-    </pre>
+        .contentOverrides="contentOverrides"
+        .redirectionConfig="redirectionConfig"
+        .contextData="contextData"
+        .daasUrl="daasUrl"
+        .startingPhase="'InstitutionSelection'"
+        .notificationSettings="notificationSettings"&gt;
+        &lt;/certua-ob-connect&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

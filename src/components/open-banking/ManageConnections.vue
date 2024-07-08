@@ -19,9 +19,11 @@ let notificationSettings = {
 }
 let redirectionConfig = {
   successUrl:
-    window.location.origin + '/vue/components/manage-connections?accountConnection=success',
+    window.location.origin +
+    '/vue/open-banking/components/manage-connections?accountConnection=success',
   failureUrl:
-    window.location.origin + '/vue/components/manage-connections?accountConnection=failure',
+    window.location.origin +
+    '/vue/open-banking/components/manage-connections?accountConnection=failure',
   popup: false
 }
 let contentOverrides = {
@@ -61,35 +63,35 @@ onMounted(() => {
     <h2>Manage connections</h2>
     <p>This component can be used to view connected accounts, refresh consent or disconnect</p>
     <certua-ob-manage-connections
-      :contentOverrides="contentOverrides"
-      :daasContextToken="contextTokenOptions"
-      :showTitle="false"
-      :showAddButton="false"
-      :daasUrl="daasUrl"
-      :redirectionConfig="redirectionConfig"
-      :viewMode="viewMode"
-      :editAccountName="true"
-      :notificationSettings="notificationSettings"
+      .contentOverrides="contentOverrides"
+      .contextData="contextTokenOptions"
+      .showAddButton="false"
+      .showTitle="false"
+      .redirectionConfig:="redirectionConfig"
+      .daasUrl="daasUrl"
+      .editAccountName="true"
     >
     </certua-ob-manage-connections>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-manage-connections 
-        :contentOverrides="contentOverrides"
-        :contextData="contextData"
-        :redirectionConfig="redirectionConfig"
-        :showTitle="false"
-        :daasUrl="daasUrl"
-        :notificationSettings="notificationSettings"
-       
-        :viewMode="viewMode"
-        :editAccountName="true"
-        :showAddButton="false"&gt;
+        .contentOverrides="contentOverrides"
+        .contextData="contextData"
+        .redirectionConfig="redirectionConfig"
+        .showTitle="false"
+        .daasUrl="daasUrl"
+        .notificationSettings="notificationSettings"
+        .manualViewMode="true"
+        .viewMode="viewMode"
+        .editAccountName="false"
+        .showAddButton="false"&gt;
       &lt;/certua-ob-manage-connections&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">
@@ -145,7 +147,6 @@ onMounted(() => {
             <td>All</td>
             <td>
               This controls if the Rename Account button is shown when managing connected accounts.
-              Defaults to true unless false specified
             </td>
           </tr>
           <tr>

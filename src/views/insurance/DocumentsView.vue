@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Login from '../../components/onboarding/Login.vue'
+import Documents from '../../components/insurance/Documents.vue'
 import InsuranceElementsCommonInputs from '../../components/insurance/InsuranceElementsCommonInputs.vue'
 </script>
 <template>
   <div>
-    <Login />
+    <Documents />
     <InsuranceElementsCommonInputs />
   </div>
 </template>

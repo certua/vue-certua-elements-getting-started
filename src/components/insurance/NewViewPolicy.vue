@@ -12,7 +12,7 @@ let loaded = ref(false)
 
 let clientId = ref('')
 let organisationId = ref('')
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let makeAClaimJson = ref({
   address: {
     addressLine1: '9 Anchor House',
@@ -38,7 +38,7 @@ let goToQuoteAndBuyJson = ref({
 onMounted(() => {
   const route = useRoute()
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -64,12 +64,12 @@ onMounted(() => {
 
 function goToMakeAClaim(value: any) {
   console.log('makeAClaim event', value)
-  router.replace({ name: 'fnol', state: { data: value.detail } })
+  window.open(`https://${localStorage.getItem('certua-referrerUrl')}/claim`, '_blank')
 }
 
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { value } })
+  router.replace({ name: '/insurance/components/quote-and-buy', state: { value } })
 }
 </script>
 
@@ -81,18 +81,25 @@ function goToQuoteAndBuy(value: any) {
     </div>
   </div>
   <div class="row" v-if="!showError">
-    <h2>View Policy (v2)</h2>
+    <h2>View Policy</h2>
     <p>
-      This component displays the active policy for the supplied client/organisation as well as the
-      ability to navigate to historic quotes/policies and via renewals
+      Please note that you will need to be logged in to view the policy. If the account has a quote
+      and not a policy you will need to go to the quotes list component.
     </p>
-
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/view-policy'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/view-policy' }}</a
+      >
+    </p>
     <certua-insurance-view-policy
       v-if="loaded"
-      :config="config"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .config="config"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
@@ -100,18 +107,16 @@ function goToQuoteAndBuy(value: any) {
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-view-policy
-      :config="config"
-      :accesstoken="accessToken"
-      :clientId="clientId"
-      :organisationId="organisationId"
+      .config="config"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
 
-      &lt;/certua-insurance-view-policy  &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-view-policy&gt;
+      </pre>
+    </code>
 
     <h4>Output events</h4>
     <table class="table">
@@ -133,7 +138,7 @@ function goToQuoteAndBuy(value: any) {
           </td>
           <td>
             User has clicked make a claim button (if present- this is a product config setting),
-            this emits the prefill info which can be used to prepopulate the FNOL claim form
+            this emits and send you to claim information page
           </td>
         </tr>
         <tr>
@@ -146,27 +151,6 @@ function goToQuoteAndBuy(value: any) {
       </tbody>
     </table>
     <h4>Component specific inputs</h4>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <th>Property Name</th>
-          <th>Mandatory</th>
-
-          <th>Description</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>clientId</td>
-            <td>If entity type is Individual</td>
-            <td>Pass clientId if entity type is Individual</td>
-          </tr>
-          <tr>
-            <td>organisationId</td>
-            <td>If entity type is Organisation</td>
-            <td>Pass organisationId if entity type is Organisation</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <code>None</code>
   </div>
 </template>

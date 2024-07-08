@@ -49,6 +49,7 @@ function calculateArrows() {
   })
 }
 function hideAndShowArrows(navigation: HTMLElement) {
+  if (!navigation) return
   if (navigation.clientWidth == 0) {
     navigation = navElement()
     setTimeout((_) => hideAndShowArrows(navigation), 100)
@@ -92,9 +93,10 @@ function moveNav(byX: number) {
   height: 44px;
 
   text-align: center;
-  i {
-    line-height: 44px;
-  }
+}
+
+.circle i {
+  line-height: 44px;
 }
 
 .fa-2x {

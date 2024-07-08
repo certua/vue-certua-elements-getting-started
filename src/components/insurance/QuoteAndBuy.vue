@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeMount } from 'vue'
 import { from, map, tap, catchError } from 'rxjs'
 import axios from 'axios'
 import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref('')
-let accessToken = ref('')
 let loaded = ref(false)
+const docsUrl = import.meta.env.VITE_DOCS_URL
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') == 'open-banking') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -20,11 +20,23 @@ onMounted(() => {
     config.value = configJson
   }
 
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
-
   loaded.value = true
 
   console.log('state', window.history.state)
+})
+addEventListener('saveQuote', (event: any) => {
+  console.log('save quote received')
+  window.location.href = '/vue/insurance/components/login'
+})
+window.addEventListener('signup', (event: any) => {
+  console.log('sign up event received')
+
+  if (!event.detail.autoSignUp) {
+    window.location.href = '/vue/insurance/components/login'
+  } else {
+    console.log('dispatch success')
+    window.location.href = '/vue/insurance/components/login'
+  }
 })
 </script>
 
@@ -38,21 +50,33 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>Quote and buy</h2>
     <p>This component displays a Quote and buy Journey</p>
-    <mf-insurance-journey
-      :config="config"
-      :accesstoken="accessToken"
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/quote-and-buy/overview'
+      "
+        >{{ docsUrl + '/via-web-components/quote-and-buy/overview' }}</a
+      >
+    </p>
+    <certua-insurance-quote-and-buy
+      .config="config"
+      .useCertuaAuth="true"
       v-if="!!loaded"
-    ></mf-insurance-journey>
+    ></certua-insurance-quote-and-buy>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;mf-insurance-journey 
-        :config="config"
-        :accesstoken="accessToken"
-      &lt;/mf-insurance-journey &gt;
-      </code>
-    </pre>
+    <code>
+      <pre>
+      &lt;certua-insurance-quote-and-buy 
+        .config="config"
+        .accesstoken="accessToken"
+      &lt;/certua-insurance-quote-and-buy&gt;
+      </pre>
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

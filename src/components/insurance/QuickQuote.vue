@@ -4,16 +4,17 @@ import { from, map, tap, catchError } from 'rxjs'
 import axios from 'axios'
 import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
+
 let showError = ref(false)
 let config = ref()
 let accessToken = ref('')
 let loaded = ref(false)
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let quickQuoteJson = ref('')
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -43,22 +44,35 @@ function updateQuote(quote: any) {
   <div class="row" v-if="!showError">
     <h2>Quick Quote</h2>
     <p>This component displays questions to generate a Quick Quote</p>
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/quick-quote'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/quick-quote' }}</a
+      >
+    </p>
     <certua-insurance-quick-quote
-      :referrerSiteCode="config?.referrerId"
+      v-if="loaded"
+      .referrerSiteCode="config?.referrerId"
       @quickQuote="(value: any) => updateQuote(value)"
     >
     </certua-insurance-quick-quote>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-quick-quote
-      :referrerSiteCode:="config.referrerId"
+      .referrerSiteCode:="config.referrerId"
       @quickQuote="(value: any) => updateQuote(value)"
 
       &lt;/certua-insurance-quick-quote &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
     <h4>Output event - Quick quote</h4>
     <pre> <code>{{ JSON.stringify(quickQuoteJson) }}</code></pre>
     <h4>Component specific inputs</h4>

@@ -36,23 +36,25 @@ onMounted(() => {
     <h2>Transactions</h2>
     <p>This component can be used to list and search a users transactions</p>
     <certua-ob-transactions
-      :daasContextToken="contextTokenOptions"
-      :daasUrl="daasUrl"
-      :notificationSettings="notificationSettings"
+      .daasContextToken="contextTokenOptions"
+      .daasUrl="daasUrl"
+      .notificationSettings="notificationSettings"
       v-if="loaded"
     >
     </certua-ob-transactions>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-ob-transactions 
-        :contextData="contextData"&gt;
-        :daasUrl="daasUrl"
-        :notificationSettings="notificationSettings"
+        .contextData="contextData"&gt;
+        .daasUrl="daasUrl"
+        .notificationSettings="notificationSettings"&gt;
       &lt;/certua-ob-transactions&gt;
-      </code>
-    </pre>
+    </pre
+      >
+    </code>
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

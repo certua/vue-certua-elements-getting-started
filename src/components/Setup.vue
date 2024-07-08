@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import router from '@/router'
 
 import Welcome from './Welcome.vue'
 
@@ -32,8 +33,7 @@ function setType(type: string) {
     loadScript(insuranceElementsUrl, null)
     loadScript(insuranceElementsPolyfillUrl, null)
 
-    loadScript(onboardingUrl, null)
-    loadScript(onboardingPolyfillUrl, null)
+    router.replace('/overview-insurance')
   }
 }
 
@@ -49,12 +49,7 @@ function loadScript(url: string, onload: any) {
 }
 
 // lifecycle hooks
-onMounted(() => {
-  let type = localStorage.getItem('elementType')
-  if (!!type) {
-    elementType.value = type
-  }
-})
+onMounted(() => {})
 </script>
 
 <template>
@@ -81,7 +76,6 @@ onMounted(() => {
               <p class="text-uppercase font-weight-bold mt-4">Open banking</p>
             </div>
             <div
-              v-if="false"
               class="col-md-3 pointer shadow p-3 ms-md-2 mt-2 mt-md-0 element-box"
               @click="setType('insurance')"
             >
@@ -93,7 +87,6 @@ onMounted(() => {
       </div>
     </div>
     <ObSetup v-if="elementType == 'open-banking'" />
-    <InsuranceSetup v-if="elementType == 'insurance'" />
   </div>
 </template>
 <style scoped>

@@ -6,11 +6,10 @@ import { parseISO, add, roundToNearestMinutes } from 'date-fns'
 import router from '@/router'
 let showError = ref(false)
 let config = ref()
-let accessToken = ref('')
 let loaded = ref(false)
 
 let prefill = ref()
-
+const docsUrl = import.meta.env.VITE_DOCS_URL
 let makeAClaimJson = ref({
   address: {
     addressLine1: '9 Anchor House',
@@ -28,7 +27,7 @@ let makeAClaimJson = ref({
 // lifecycle hooks
 onMounted(() => {
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -36,8 +35,6 @@ onMounted(() => {
   if (configJson) {
     config.value = JSON.parse(configJson)
   }
-
-  accessToken.value = localStorage.getItem('certua-accessToken') ?? ''
 
   loaded.value = true
 
@@ -56,18 +53,31 @@ onMounted(() => {
   <div class="row" v-if="!showError">
     <h2>FNOL (First Notification of Loss)</h2>
     <p>This component displays an FNOL form</p>
-    <certua-insurance-fnol :referrerSiteCode="config?.referrerId" :prefill="prefill">
+    <p>
+      The documentation for this component can be found at
+      <a
+        target="_blank"
+        .href="
+        docsUrl +
+        '/via-web-components/insurance-elements/fnol'
+      "
+        >{{ docsUrl + '/via-web-components/insurance-elements/fnol' }}</a
+      >
+    </p>
+    <certua-insurance-fnol .referrerSiteCode="config?.referrerId" .prefill="prefill" v-if="loaded">
     </certua-insurance-fnol>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
+    <code>
+      <pre>
       &lt;certua-insurance-fnol
-      :referrerSiteCode:="config.referrerId"
-        :prefill="prefill"
+      .referrerSiteCode:="config.referrerId"
+        .prefill="prefill"
       &lt;/certua-insurance-fnol &gt;
-      </code>
-    </pre>
+      </pre>
+    </code>
+
     <h4>Component specific inputs</h4>
     <div class="table-responsive">
       <table class="table">

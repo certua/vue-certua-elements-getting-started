@@ -36,7 +36,7 @@ let policyId = ref('')
 onMounted(() => {
   const route = useRoute()
   if (localStorage.getItem('elementType') !== 'insurance') {
-    router.replace('/components/connect')
+    router.replace('/open-banking/components/connect')
   }
 
   let configJson = localStorage.getItem('insuranceConfig')
@@ -58,10 +58,10 @@ onMounted(() => {
 })
 function goToQuoteAndBuy(value: any) {
   console.log('goToQuoteAndBuy event', value)
-  router.replace({ name: '/components/quote-and-buy', state: { value } })
+  router.replace({ name: '/insurance/components/quote-and-buy', state: { data: value.detail } })
 }
 function goToMyPolicies() {
-  router.replace('/components/policies-list')
+  router.replace('/insurance/components/policies-list')
 }
 
 function goToMakeAClaim(value: any) {
@@ -88,32 +88,33 @@ function goToMakeAClaim(value: any) {
       <div class="btn btn-primary mb-4" @click="goToMyPolicies()">Go to policies list</div>
     </div>
 
-    <ae-insurance-confirmation
+    <certua-insurance-policy-confirmation
       v-if="loaded && !!policyId"
-      :config="config"
-      :accesstoken="accessToken"
-      :policyId="policyId"
-      :standalone="true"
+      .config="config"
+      .accesstoken="accessToken"
+      .policyId="policyId"
+      .standalone="true"
       @backToCovers="(value: any) => goToMyPolicies()"
       @makeAClaim="(value: any) => goToMakeAClaim(value)"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
     >
-    </ae-insurance-confirmation>
+    </certua-insurance-policy-confirmation>
   </div>
   <div>
     <h4>Example code</h4>
-    <pre><code>
-      &lt;ae-insurance-confirmation
-      :config="config"
-      :accesstoken="accessToken"
-      :policyId="policyId"
-      :standalone="true"
+    <code>
+      <pre>
+      &lt;certua-insurance-policy-confirmation
+      .config="config"
+      .accesstoken="accessToken"
+      .policyId="policyId"
+      .standalone="true"
       @backToCovers="(value: any) => goToMyPolicies()"
       @makeAClaim="(value: any) => goToMyPolicies()"
       @goToQuoteAndBuy="(value: any) => goToQuoteAndBuy(value)"
-      &lt;/ae-insurance-confirmation  &gt;
-      </code>
-    </pre>
+      &lt;/certua-insurance-policy-confirmation  &gt;
+      </pre>
+    </code>
 
     <h4>Output events</h4>
     <table class="table">

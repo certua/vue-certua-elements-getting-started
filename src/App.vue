@@ -5,6 +5,7 @@ import ProdWarning from './components/ProdWarning.vue'
 import { onMounted, ref, watch } from 'vue'
 import TabArrows from './components/TabArrows.vue'
 import axios from 'axios'
+import type { ReferrerCodeCheck } from './components/insurance/InsuranceOverview.vue'
 
 enum SiteSection {
   Home,
@@ -18,6 +19,7 @@ let section = ref(SiteSection.Home)
 const route = useRoute()
 let referrerCode = ref()
 let referrerName = ref()
+let referrerUrl = ref()
 
 let fullScreen = ref(false)
 let tabArrows = ref()
@@ -89,28 +91,30 @@ watch(
         selectedIndex.value = 2
         break
       }
-      case 'transactions':
-      case 'fnol': {
+      // case 'fnol':
+      case 'login':
+      case 'transactions': {
         selectedIndex.value = 3
         break
       }
-      case 'cashflow':
-      case 'quick-quote': {
+      // case 'quick-quote':
+      case 'manage-policy':
+      case 'cashflow': {
         selectedIndex.value = 4
         break
       }
-      case 'login': {
+      case 'quotes-list': {
         selectedIndex.value = 5
         break
       }
 
-      case 'manage-policy': {
+      case 'documents': {
         selectedIndex.value = 6
         break
       }
     }
     if (page.includes('view-policy')) {
-      selectedIndex.value = 6
+      selectedIndex.value = 4
     }
 
     if (page.includes('quote-and-buy') && localStorage.getItem('certua-sidebar') == 'true') {
@@ -218,7 +222,9 @@ function checkReferrer() {
     console.log('data', data)
 
     referrerName.value = data.data.name
+    referrerUrl.value = data.data.url
     localStorage.setItem('certua-referrerName', referrerName.value)
+    localStorage.setItem('certua-referrerUrl', referrerUrl.value)
   })
 }
 </script>
@@ -373,7 +379,7 @@ function checkReferrer() {
               class="list-group-item pointer"
               >Claims</span
             >
-            <span
+            <!-- <span
               :class="{ active: selectedIndex == 3 }"
               @click="selectItem(3, '/insurance/components/fnol')"
               class="list-group-item pointer"
@@ -384,29 +390,29 @@ function checkReferrer() {
               @click="selectItem(4, '/insurance/components/quick-quote')"
               class="list-group-item pointer"
               >Quick Quote</span
-            >
+            > -->
 
             <span
-              :class="{ active: selectedIndex == 5 }"
-              @click="selectItem(5, '/insurance/components/login')"
+              :class="{ active: selectedIndex == 3 }"
+              @click="selectItem(3, '/insurance/components/login')"
               class="list-group-item pointer"
               >Login</span
             >
             <span
-              :class="{ active: selectedIndex == 6 }"
-              @click="selectItem(6, '/insurance/components/manage-policy')"
+              :class="{ active: selectedIndex == 4 }"
+              @click="selectItem(4, '/insurance/components/manage-policy')"
               class="list-group-item pointer"
               >View Policy</span
             >
             <span
-              :class="{ active: selectedIndex == 7 }"
-              @click="selectItem(7, '/insurance/components/quotes-list')"
+              :class="{ active: selectedIndex == 5 }"
+              @click="selectItem(5, '/insurance/components/quotes-list')"
               class="list-group-item pointer"
               >Quotes List</span
             >
             <span
-              :class="{ active: selectedIndex == 8 }"
-              @click="selectItem(8, '/insurance/components/documents')"
+              :class="{ active: selectedIndex == 6 }"
+              @click="selectItem(6, '/insurance/components/documents')"
               class="list-group-item pointer"
               >Documents</span
             >

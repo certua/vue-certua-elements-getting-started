@@ -24,8 +24,8 @@
               AU region, otherwise will default to UK. <br />
               <br /><code>
                 {"contextToken":"FF5D16AAE1ED74E4C8F0E8B6D9E2EB06","ownerId":"1","dateCreated":"2023-03-20T11:17:24.121Z",
-                "link_metadata": { "enabled": true, "token": "MaM2Mz1O72X5SV71dxHWUppgnHpV",
-                "countryCode": "AU", "link_config_id": "clientname_au_agg_prod",
+                "countryCode": "AU", "link_metadata": { "enabled": true, "token":
+                "MaM2Mz1O72X5SV71dxHWUppgnHpV", "link_config_id": "clientname_au_agg_prod",
                 "callback_template_url":
                 "https://apistg-au.certua.io/daas/ob/link-callback/c12f3e69-b559-40f6-b6b1-83b4d1e1f848/{providerId}/{linkFlowId}/{linkFlowResultId}"
                 }
